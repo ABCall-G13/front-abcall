@@ -1,18 +1,20 @@
 .navbar {
     display: flex;
-    justify-content: space-between;
+    justify-content: center; /* Centra los elementos horizontalmente */
     align-items: center;
     background-color: #003366; /* Color azul oscuro */
     padding: 1rem 2rem;
+    position: relative; /* Mantén la posición relativa para ajustes futuros */
   }
   
   .navbar-logo img {
     height: 50px;  /* Ajusta el tamaño del logo */
+    margin-right: 1.5rem; /* Añade espacio entre el logo y los enlaces */
   }
   
   .navbar-links {
     display: flex;
-    gap: 1.5rem;
+    gap: 1.5rem; /* Espacio entre los enlaces */
   }
   
   .navbar-link {
