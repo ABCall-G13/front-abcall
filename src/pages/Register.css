@@ -10,13 +10,12 @@
 
 .register-card {
   background-color: #fff;
-  justify-content: center;
-  padding: 40px;
+  padding: 5rem;
   border-radius: 10px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   width: 50%; /* Aumenta el ancho para acomodar dos columnas */
   max-width: 90%;
-  display: grid;
+  display:inline;
 }
 
 .register-card h2 {
