@@ -1,18 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;700&display=swap');
+
 body {
   margin: 0;
   font-family: 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: 
-    url('/src/assets/fondo.svg') no-repeat center,
-    linear-gradient(180deg, #2F54B2 0%, #7DA6ED 5%);
+    url('/src/assets/images/fondo.svg') no-repeat center,
+    linear-gradient(180deg, #2F54B2 0%, #7DA6ED 7%);
   background-size: cover;
   max-height: 100vh;
   overflow: hidden;
 }
 
-
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+h2 {
+  font-size: 18px;
+  color: #2D3748;
+  font-weight: bold; /* Negrita */
 }

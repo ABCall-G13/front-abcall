@@ -1,6 +1,8 @@
 import React from 'react';
 import './Navbar.css';
-import logo from '../../assets/logo-white.png';
+import logo from '../../assets/images/logo-white.png';
+import key from '../../assets/icons/key.svg';
+import search from '../../assets/icons/search.svg';
 
 const Navbar: React.FC = () => {
   return (
@@ -9,8 +11,10 @@ const Navbar: React.FC = () => {
         <img src={logo} alt="ABCall Logo" />
       </div>
       <div className="navbar-links">
-        <a href="/login" className="navbar-link">INICIAR SESIÓN</a>
-        <a href="/create-incident" className="navbar-link">CONSULTAR INCIDENTE</a>
+        <a href="/login" className="navbar-link">
+        <img src={key} alt='Iniciar Sesión'/> INICIAR SESIÓN</a>
+        <a href="/create-incident" className="navbar-link">
+        <img src={search} alt='Consultar Incidente'/> CONSULTAR INCIDENTE</a>
       </div>
     </nav>
   );

@@ -8,18 +8,18 @@
   
   .navbar-logo img {
     height: 70px;  /* Ajusta el tamaño del logo */
-    margin-right: 1.5rem; /* Añade espacio entre el logo y los enlaces */
+    margin-right: 2rem; /* Añade espacio entre el logo y los enlaces */
   }
   
   .navbar-links {
     display: flex;
-    gap: 1.5rem; /* Espacio entre los enlaces */
+    gap: 3rem; /* Espacio entre los enlaces */
   }
   
   .navbar-link {
     color: white;
     text-decoration: none;
-    font-size: 10pt;
+    font-size: 10px;
     font-weight: bold;
   }
   
