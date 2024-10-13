@@ -69,8 +69,8 @@ describe('Register Component', () => {
       address: 'Calle 123',
       phone: '1234567890',
       industry: 'technology',
-      password: 'password',
-      confirmPassword: 'password',
+      password: 'password',  // NOSONAR
+      confirmPassword: 'password',  // NOSONAR
       welcomeMessage: 'Bienvenido a nuestro servicio!',
     });
 
