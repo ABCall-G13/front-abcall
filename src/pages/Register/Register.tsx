@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import './Register.css'; // Mantén tu archivo de estilos
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom'; // Importa el hook para redirigir
 
 const Register: React.FC = () => {
+  const navigate = useNavigate(); // Hook de navegación
   const [formData, setFormData] = useState({
-    companyName: '',
+    nombre: '',
     email: '',
     nit: '',
-    address: '',
-    phone: '',
-    industry: '',
+    direccion: '',
+    telefono: '',
+    industria: '',
     password: '',
     confirmPassword: '',
     welcomeMessage: '',
@@ -25,6 +28,18 @@ const Register: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Form data submitted:', formData);
+    axios.post('http://0.0.0.0:8080/clientes', formData, {
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+    .then(response => {
+      console.log('Cliente creado:', response.data);
+      navigate('/plan-selection'); // Cambia la ruta según tu configuración
+    })
+    .catch(error => {
+      console.error('Error al crear cliente:', error);
+    });
   };
 
   return (
@@ -39,9 +54,9 @@ const Register: React.FC = () => {
                 <input
                   type="text"
                   id="companyName"
-                  name="companyName"
+                  name="nombre"
                   placeholder="Introduce el nombre de la empresa"
-                  value={formData.companyName}
+                  value={formData.nombre}
                   onChange={handleChange}
                   required
                 />
@@ -78,9 +93,9 @@ const Register: React.FC = () => {
                 <input
                   type="text"
                   id="address"
-                  name="address"
+                  name="direccion"
                   placeholder="Introduce la dirección de la empresa"
-                  value={formData.address}
+                  value={formData.direccion}
                   onChange={handleChange}
                   required
                 />
@@ -91,9 +106,9 @@ const Register: React.FC = () => {
                 <input
                   type="text"
                   id="phone"
-                  name="phone"
+                  name="telefono"
                   placeholder="Introduce el teléfono de la empresa"
-                  value={formData.phone}
+                  value={formData.telefono}
                   onChange={handleChange}
                   required
                 />
@@ -103,8 +118,8 @@ const Register: React.FC = () => {
                 <label htmlFor="industry">Industria</label>
                 <select
                   id="industry"
-                  name="industry"
-                  value={formData.industry}
+                  name="industria"
+                  value={formData.industria}
                   onChange={handleChange}
                   required
                 >
@@ -157,7 +172,7 @@ const Register: React.FC = () => {
             </div>
           </div>
 
-          <button type="submit" className="submit-btn">Siguiente</button>
+          <button type="submit" className="submit-btn" >Siguiente</button>
         </form>
       </div>
     </div>
