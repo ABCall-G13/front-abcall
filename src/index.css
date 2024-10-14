@@ -1,13 +1,29 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;700&display=swap');
+
+html, body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centra el contenido verticalmente */
+  align-items: center;     /* Centra el contenido horizontalmente */
+  background: 
+    url('/src/assets/images/fondo.svg') no-repeat center center,
+    linear-gradient(180deg, #2F54B2 0%, #7DA6ED 7%);
+  background-size: cover;
+  background-attachment: fixed; /* Para que el fondo se mantenga fijo en todas las pantallas */
+}
+
+
+#root {
+  flex-grow: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }

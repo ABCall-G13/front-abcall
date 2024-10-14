@@ -1,0 +1,195 @@
+.plan-selection {
+  text-align: center;
+}
+.plan-selection {
+  min-height: 100vh;
+  padding-bottom: 40px; /* Agrega espacio adicional debajo */
+}
+
+.plan-cards {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+
+.plan-card {
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.6);
+  width: 24%;
+  font-size: 16px;
+  transition: transform 0.3s ease;
+  justify-content: space-between;
+  display: flex;
+  padding-top: 25px;
+  flex-direction: column;
+}
+.plan-card ul li {
+  list-style-type: none;
+  margin-bottom: 15px;
+  position: relative;
+  padding-left: 50px;
+}
+
+.plan-card ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 31px;
+  background-image:url('/src/assets/icons/item.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.plan-card:hover {
+  transform: scale(1.10);
+}
+
+.plan-card.selected {
+  border: 2px solid #ff7a00;
+}
+
+.plan-card h3 {
+  color: #fff;
+  font-size: 30px;
+  padding: 15px;
+  border-radius: 2px;
+}
+
+.plan-card.empresario h3 {
+  background-color: #38B2AC; /* Color verde para Emprendedor */
+}
+
+.plan-card.empresario-plus h3 {
+  background-color: #ED8936; /* Color naranja para Empresario */
+}
+
+.plan-card.emprendedor h3 {
+  background-color: #0BC5EA; /* Color azul para Empresario Plus */
+}
+
+.plan-card .price {
+  font-size: 24px;
+  color: #007bff;
+  margin: 20px 0;
+}
+
+/* Estilo general del botón de selección */
+.select-button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  margin-top: 20px;
+  width: 40%;
+}
+
+/* Estilo para el plan básico */
+.select-button.emprendedor {
+  background-color: #0BC5EA;}
+
+/* Estilo para el plan intermedio */
+.select-button.empresario {
+  background-color: #38B2AC;}
+
+.select-button.empresario-plus {
+  background-color: #ED8936; 
+}
+
+/* Añade un efecto hover para todos los botones */
+.select-button:hover {
+  opacity: 0.9;
+}
+
+
+.continue-button {
+  margin-top: 30px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+h2 {
+  font-size: 24px;
+  color: white;
+  font-weight: 400;
+  margin-bottom: 3%;
+}
+
+.plan-card ul {
+  text-align: left;
+  font-size: 14px;
+  padding-left: 0;
+}
+
+.plan-card p {
+  text-align: left;
+}
+
+.plan-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  display: flex; /* Para habilitar el comportamiento flex */
+  align-items: center; /* Alinea verticalmente el contenido */
+  margin-left: 5%;
+}
+.plan-price {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #007bff;
+}
+
+.plan-card-content {
+  line-height: 28px;
+  padding-top: 0px;
+  padding-inline: 25px;
+}
+
+.price-container {
+  display: flex; /* Para habilitar el comportamiento flex */
+  align-items: center; /* Alinea verticalmente el contenido */
+  justify-content: center; /* Alinea horizontalmente el contenido */
+  text-align: right;
+  font-size: 48px;
+  font-weight: bold;
+  color: white;
+  width: 50%; /* Asegúrate de que ocupe el ancho disponible */
+  height: 130px; /* Ajusta la altura según tus necesidades */
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+
+.price-container.empresario-plus {
+  background-image: url('/src/assets/images/price_orange.svg');
+}
+.price-container.emprendedor {
+  background-image: url('/src/assets/images/price.svg');
+}
+.price-container.empresario {
+  background-image: url('/src/assets/images/price_green.svg');
+}
+
+
+.price-container {
+  position: relative;
+  text-align: center;
+  font-size: 48px;
+  font-weight: bold;
+  color: white;
+}
+
