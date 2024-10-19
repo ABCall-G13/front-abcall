@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="508mm"
+   height="288.13123mm"
+   viewBox="0 0 508 288.13123"
+   version="1.1"
+   id="svg1"
+   inkscape:export-filename="fondo.svg"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm" />
+  <defs
+     id="defs1">
+    <linearGradient
+       id="paint0_linear_0_1"
+       x1="719.99902"
+       y1="0.00380136"
+       x2="719.99902"
+       y2="816.75403"
+       gradientUnits="userSpaceOnUse">
+      <stop
+         stop-color="white"
+         stop-opacity="0"
+         id="stop23" />
+      <stop
+         offset="0.386953"
+         stop-color="white"
+         stop-opacity="0"
+         id="stop24" />
+      <stop
+         offset="0.876831"
+         stop-color="white"
+         stop-opacity="0"
+         id="stop25" />
+      <stop
+         offset="1"
+         stop-color="white"
+         id="stop26" />
+    </linearGradient>
+    <linearGradient
+       id="paint1_linear_0_1"
+       x1="960"
+       y1="1089"
+       x2="960"
+       y2="0.00012207"
+       gradientUnits="userSpaceOnUse">
+      <stop
+         stop-color="#2B5FD6"
+         id="stop27" />
+      <stop
+         offset="0.386953"
+         stop-color="#2B5FD6"
+         id="stop28" />
+      <stop
+         offset="0.876831"
+         stop-color="#2B5FD6"
+         id="stop29" />
+      <stop
+         offset="1"
+         stop-color="#2A51A3"
+         id="stop30" />
+    </linearGradient>
+    <linearGradient
+       id="paint2_linear_0_1"
+       x1="719.99902"
+       y1="816.75403"
+       x2="719.99902"
+       y2="0.00380136"
+       gradientUnits="userSpaceOnUse">
+      <stop
+         stop-color="white"
+         stop-opacity="0"
+         id="stop31" />
+      <stop
+         offset="0.386953"
+         stop-color="white"
+         stop-opacity="0"
+         id="stop32" />
+      <stop
+         offset="0.876831"
+         stop-color="white"
+         stop-opacity="0"
+         id="stop33" />
+      <stop
+         offset="1"
+         stop-color="white"
+         id="stop34" />
+    </linearGradient>
+  </defs>
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(108.47917,-23.018782)">
+    <mask
+       id="mask0_0_1"
+       maskUnits="userSpaceOnUse"
+       x="-62915"
+       y="-53527"
+       width="125828"
+       height="107052">
+      <path
+         d="M -62914.6,53524.9 H 62912.6 V -53526.5 H -62914.6 Z"
+         fill="url(#paint0_linear_0_1)"
+         id="path1" />
+    </mask>
+    <g
+       mask="url(#mask0_0_1)"
+       id="g4"
+       transform="matrix(0.26458333,0,0,0.26458333,-108.47917,23.01875)">
+      <mask
+         id="mask1_0_1"
+         maskUnits="userSpaceOnUse"
+         x="0"
+         y="0"
+         width="1920"
+         height="1090">
+        <path
+           d="M 0,1089 H 1920 V 1.2207e-4 H 0 Z"
+           fill="#ffffff"
+           id="path2" />
+      </mask>
+      <g
+         mask="url(#mask1_0_1)"
+         id="g3">
+        <path
+           d="M 0,1089 H 1920 V 1.2207e-4 H 0 Z"
+           fill="url(#paint1_linear_0_1)"
+           id="path3"
+           style="fill:url(#paint1_linear_0_1)" />
+      </g>
+    </g>
+    <mask
+       id="mask2_0_1"
+       maskUnits="userSpaceOnUse"
+       x="0"
+       y="0"
+       width="1920"
+       height="1090">
+      <path
+         d="M 0,1.2207e-4 H 1920 V 1089 H 0 Z"
+         fill="#ffffff"
+         id="path4" />
+    </mask>
+    <g
+       mask="url(#mask2_0_1)"
+       id="g8"
+       transform="matrix(0.26458333,0,0,0.26458333,-108.47917,23.01875)">
+      <g
+         opacity="0.100006"
+         id="g7">
+        <mask
+           id="mask3_0_1"
+           maskUnits="userSpaceOnUse"
+           x="908"
+           y="570"
+           width="1012"
+           height="520">
+          <path
+             d="M 908.779,570.022 H 1920 V 1089 H 908.779 Z"
+             fill="#ffffff"
+             id="path5" />
+        </mask>
+        <g
+           mask="url(#mask3_0_1)"
+           id="g6">
+          <path
+             d="m 908.778,1087.95 c 0,0 13.529,-103.59 84.551,-106.467 71.021,-2.878 101.461,-20.143 114.991,-54.668 13.52,-34.53 64.26,-106.463 175.86,-94.955 111.61,11.511 162.34,-2.874 202.92,-43.161 40.59,-40.282 64.26,-106.461 148.81,-100.706 84.55,5.756 131.9,23.019 169.1,-11.509 37.2,-34.53 54.11,-106.463 114.99,-106.463 V 1089 Z"
+             fill="#ffffff"
+             id="path6" />
+        </g>
+      </g>
+    </g>
+    <mask
+       id="mask4_0_1"
+       maskUnits="userSpaceOnUse"
+       x="0"
+       y="0"
+       width="1920"
+       height="1090">
+      <path
+         d="M 0,1.2207e-4 H 1920 V 1089 H 0 Z"
+         fill="#ffffff"
+         id="path8" />
+    </mask>
+    <g
+       mask="url(#mask4_0_1)"
+       id="g12"
+       transform="matrix(0.26458333,0,0,0.26458333,-108.47917,23.01875)">
+      <g
+         opacity="0.399994"
+         id="g11">
+        <mask
+           id="mask5_0_1"
+           maskUnits="userSpaceOnUse"
+           x="965"
+           y="680"
+           width="955"
+           height="410">
+          <path
+             d="M 965.217,680.423 H 1920 V 1089 H 965.217 Z"
+             fill="#ffffff"
+             id="path9" />
+        </mask>
+        <g
+           mask="url(#mask5_0_1)"
+           id="g10">
+          <path
+             d="m 1836.23,751.202 c -51.37,66.061 -83.34,45.857 -164.53,45.857 -81.18,0 -156.61,2.516 -226.2,58.43 -69.58,55.915 -105.19,92.628 -199.19,95.596 C 1053.47,957.177 979.757,1085.08 965.218,1089 H 1920 V 680.421 c -28.8,14.691 -57.86,37.451 -83.77,70.781 z"
+             fill="#142b75"
+             id="path10" />
+        </g>
+      </g>
+    </g>
+    <mask
+       id="mask6_0_1"
+       maskUnits="userSpaceOnUse"
+       x="-62915"
+       y="-53527"
+       width="125828"
+       height="107052">
+      <path
+         d="M -62914.6,53524.9 H 62912.6 V -53526.5 H -62914.6 Z"
+         fill="url(#paint2_linear_0_1)"
+         id="path12" />
+    </mask>
+    <mask
+       id="mask8_0_1"
+       maskUnits="userSpaceOnUse"
+       x="0"
+       y="0"
+       width="1920"
+       height="1090">
+      <path
+         d="M 0,1.2207e-4 H 1920 V 1089 H 0 Z"
+         fill="#ffffff"
+         id="path15" />
+    </mask>
+    <g
+       mask="url(#mask8_0_1)"
+       id="g19"
+       transform="matrix(0.26458333,0,0,0.26458333,-108.47917,23.01875)">
+      <g
+         opacity="0.130005"
+         id="g18">
+        <mask
+           id="mask9_0_1"
+           maskUnits="userSpaceOnUse"
+           x="0"
+           y="588"
+           width="1410"
+           height="502">
+          <path
+             d="M 0,588.6 H 1409.17 V 1089 H 0 Z"
+             fill="#ffffff"
+             id="path16" />
+        </mask>
+        <g
+           mask="url(#mask9_0_1)"
+           id="g17">
+          <path
+             d="M 1339.58,973.683 C 1308.66,963.2 1215.87,999.889 1146.28,942.233 1076.7,884.575 1076.7,879.332 925.93,905.542 775.159,931.75 744.231,784.981 581.866,784.981 419.501,784.981 446.56,805.947 346.044,706.357 245.533,606.766 198.091,689.289 120.772,673.566 43.4545,657.843 13.5793,596.279 13.5793,596.279 L 1.97988,591.037 C 1.3194,590.205 0.658897,589.401 9.76562e-4,588.6 V 1089 H 1409.17 c 0,0 -38.66,-104.834 -69.59,-115.317 z"
+             fill="#142b75"
+             id="path17" />
+        </g>
+      </g>
+    </g>
+    <mask
+       id="mask10_0_1"
+       maskUnits="userSpaceOnUse"
+       x="0"
+       y="0"
+       width="1920"
+       height="1090">
+      <path
+         d="M 0,1.2207e-4 H 1920 V 1089 H 0 Z"
+         fill="#ffffff"
+         id="path19" />
+    </mask>
+    <g
+       mask="url(#mask10_0_1)"
+       id="g23"
+       transform="matrix(0.26458333,0,0,0.26458333,-108.47917,23.01875)">
+      <g
+         opacity="0.399994"
+         id="g22">
+        <mask
+           id="mask11_0_1"
+           maskUnits="userSpaceOnUse"
+           x="0"
+           y="775"
+           width="1341"
+           height="315">
+          <path
+             d="M 0,775.048 H 1340.82 V 1089 H 0 Z"
+             fill="#ffffff"
+             id="path20" />
+        </mask>
+        <g
+           mask="url(#mask11_0_1)"
+           id="g21">
+          <path
+             d="m 1284.08,1015.34 c -31.67,-3.11 -68.21,17.75 -137.79,-18.433 C 1076.7,960.728 1076.7,957.44 925.931,973.886 775.16,990.332 744.233,898.237 581.865,898.237 419.5,898.237 446.561,911.392 346.045,848.901 245.532,786.412 232.379,828.942 137.682,840.451 60.2855,849.86 13.5783,779.83 13.5783,779.83 L 1.98148,776.542 C 1.31588,776.017 0.66304,775.551 0,775.05 V 1089 h 1340.26 c 0,0 10.21,-67.14 -56.18,-73.66 z"
+             fill="#142b75"
+             id="path21" />
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
