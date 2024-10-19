@@ -1,87 +1,80 @@
-.overlay {
-    background-color: rgba(0, 0, 0, 0.75);
-  }
-  
-  .modal {
-    background: white;
-    width: 600px;
-    margin: auto;
-    padding: 20px;
-    border-radius: 8px;
-  }
-  
-  .modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .close-btn {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-  }
-  
-  .incident-form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .form-group {
-    margin-bottom: 15px;
-  }
-  
-  .form-group label {
-    display: block;
-    margin-bottom: 5px;
-  }
-  
-  .form-group input,
-  .form-group select {
-      width: 100%;
-      padding: 8px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      box-sizing: border-box;
-  }
-  
-  /* Estilos específicos para textarea */
-  .form-group textarea {
-      resize: none;          /* Desactiva la capacidad de cambiar el tamaño */
-      overflow: auto;        /* Habilita el scroll cuando el contenido sea mayor que el área visible */
-      max-height: 150px;     /* Define una altura máxima para el campo */
-      height: 100px;         /* Altura predeterminada */
-      width: 100%;           /* Mantén el campo ancho al 100% */
-      padding: 8px;          /* Espaciado interno */
-      border: 1px solid #ccc; /* Borde */
-      border-radius: 4px;    /* Bordes redondeados */
-      box-sizing: border-box; /* Asegura que el padding y el borde estén incluidos en el tamaño total */
-  }
-  
-  .submit-btn {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .submit-btn:hover {
-    background-color: #45a049;
-  }
-  
-  .open-modal-btn {
-    background-color: #007BFF;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .open-modal-btn:hover {
-    background-color: #0069D9;
-  }
-  
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  width: 60%;
+  max-width: 800px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow-y: auto; /* Asegura que el contenido sea desplazable */
+  max-height: 90vh; /* Limita la altura máxima del contenido */
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.modal-title {
+  font-size: 1.5rem;
+  color: black;
+  margin-bottom: 20px;
+}
+
+.incident-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.submit-btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  background-color: #45a049;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 10px;
+  border: 1px solid #c3e6cb;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.alert-success span {
+  margin-right: 10px;
+  font-size: 1.5rem;
+}

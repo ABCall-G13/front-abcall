@@ -1,26 +1,20 @@
 import React, { useState } from 'react';
-import Modal from 'react-modal'; // Importando react-modal
 import './CreateIncident.css'; // Archivo de estilos
 
-Modal.setAppElement('#root'); // Necesario para accesibilidad
+interface CreateIncidentProps {
+  onClose: () => void;
+}
 
-const CreateIncident: React.FC = () => {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+const CreateIncident: React.FC<CreateIncidentProps> = ({ onClose }) => {
   const [formData, setFormData] = useState({
     descripcion: '',
     categoria: '',
     prioridad: '',
     cliente: '',
-    canal: ''
+    canal: '',
   });
 
-  const openModal = () => {
-    setModalIsOpen(true);
-  };
-
-  const closeModal = () => {
-    setModalIsOpen(false);
-  };
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -30,110 +24,104 @@ const CreateIncident: React.FC = () => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('Incidente registrado:', formData);
-    // Aquí harías la solicitud con axios
-    closeModal(); // Cierra el modal al enviar
+    // Lógica para manejar el envío del formulario
+    console.log('Form data submitted:', formData);
+    setIsSubmitted(true);
+    setTimeout(() => {
+      setIsSubmitted(false);
+      onClose();
+    }, 3000); // Oculta la alerta después de 3 segundos y cierra el modal
   };
 
   return (
-    <div>
-      <button onClick={openModal} className="open-modal-btn">Agregar Incidente</button>
-
-      <Modal 
-        isOpen={modalIsOpen} 
-        onRequestClose={closeModal}
-        contentLabel="Registro de Incidente"
-        className="modal"
-        overlayClassName="overlay"
-      >
-        <div className="modal-header">
-          <h2>Nuevo Incidente</h2>
-          <button onClick={closeModal} className="close-btn">X</button>
+    <div className="modal-content">
+      <button className="close-button" onClick={onClose}>
+        &times;
+      </button>
+      <h2 className="modal-title">Registrar Incidente</h2> {/* Asegurar que este título sea visible */}
+      {isSubmitted && (
+        <div className="alert-success">
+          <span>&#10003;</span> Incidente creado satisfactoriamente
         </div>
-
-        <form onSubmit={handleSubmit} className="incident-form">
-          <div className="form-group">
-            <label htmlFor="descripcion">Descripción del soporte</label>
-            <textarea
-              id="descripcion"
-              name="descripcion"
-              placeholder="Introduce la descripción del soporte"
-              value={formData.descripcion}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="categoria">Categoría</label>
-            <select 
-              id="categoria"
-              name="categoria"
-              value={formData.categoria}
-              onChange={handleChange}
-              required
-            >
-              <option value="">Selecciona una categoría</option>
-              <option value="Acceso">Acceso</option>
-              <option value="Soporte técnico">Soporte técnico</option>
-              <option value="Consulta">Consulta</option>
-            </select>
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="prioridad">Prioridad</label>
-            <select 
-              id="prioridad"
-              name="prioridad"
-              value={formData.prioridad}
-              onChange={handleChange}
-              required
-            >
-              <option value="">Selecciona la prioridad</option>
-              <option value="Alta">Alta</option>
-              <option value="Media">Media</option>
-              <option value="Baja">Baja</option>
-            </select>
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="cliente">Cliente</label>
-            <select
-              id="cliente"
-              name="cliente"
-              value={formData.cliente}
-              onChange={handleChange}
-              required
-            >
-              <option value="">Selecciona un cliente</option>
-              <option value="Empresa A">Empresa A</option>
-              <option value="Empresa B">Empresa B</option>
-              <option value="Empresa C">Empresa C</option>
-            </select>
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="canal">Canal</label>
-            <select 
-              id="canal"
-              name="canal"
-              value={formData.canal}
-              onChange={handleChange}
-              required
-            >
-              <option value="">Selecciona un canal</option>
-              <option value="Teléfono">Teléfono</option>
-              <option value="Correo">Correo</option>
-              <option value="Chat">Chat</option>
-              <option value="Llamada">Llamada</option>
-            </select>
-          </div>
-
-          <button type="submit" className="submit-btn">Registrar Incidente</button>
-        </form>
-      </Modal>
+      )}
+      <form onSubmit={handleSubmit} className="incident-form">
+        <div className="form-group">
+          <label htmlFor="descripcion">Descripción</label>
+          <textarea
+            id="descripcion"
+            name="descripcion"
+            value={formData.descripcion}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="categoria">Categoría</label>
+          <select
+            id="categoria"
+            name="categoria"
+            value={formData.categoria}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Selecciona una categoría</option>
+            <option value="Acceso">Acceso</option>
+            <option value="Red">Red</option>
+            <option value="Hardware">Hardware</option>
+            <option value="Software">Software</option>
+          </select>
+        </div>
+        <div className="form-group">
+          <label htmlFor="prioridad">Prioridad</label>
+          <select
+            id="prioridad"
+            name="prioridad"
+            value={formData.prioridad}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Selecciona una prioridad</option>
+            <option value="Alta">Alta</option>
+            <option value="Media">Media</option>
+            <option value="Baja">Baja</option>
+          </select>
+        </div>
+        <div className="form-group">
+          <label htmlFor="cliente">Cliente</label>
+          <select
+            id="cliente"
+            name="cliente"
+            value={formData.cliente}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Selecciona un cliente</option>
+            <option value="Cliente1">Cliente1</option>
+            <option value="Cliente2">Cliente2</option>
+            <option value="Cliente3">Cliente3</option>
+            <option value="Cliente4">Cliente4</option>
+          </select>
+        </div>
+        <div className="form-group">
+          <label htmlFor="canal">Canal</label>
+          <select
+            id="canal"
+            name="canal"
+            value={formData.canal}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Selecciona un canal</option>
+            <option value="Teléfono">Teléfono</option>
+            <option value="Correo">Correo</option>
+            <option value="Chat">Chat</option>
+            <option value="Llamada">Llamada</option>
+          </select>
+        </div>
+        <button type="submit" className="submit-btn">Registrar Incidente</button>
+      </form>
     </div>
   );
 };
