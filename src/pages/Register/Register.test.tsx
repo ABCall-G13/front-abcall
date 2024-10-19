@@ -1,11 +1,16 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import { MemoryRouter } from 'react-router-dom'; // Importa MemoryRouter
 import Register from './Register';
 
 describe('Register Component', () => {
   test('renders the form with all fields', () => {
-    render(<Register />);
+    render(
+      <MemoryRouter>
+        <Register />
+      </MemoryRouter>
+    );
 
     // Selección específica usando IDs
     expect(screen.getByLabelText(/Nombre empresa/i)).toBeInTheDocument();
@@ -20,7 +25,11 @@ describe('Register Component', () => {
   });
 
   test('allows the user to fill in the form', () => {
-    render(<Register />);
+    render(
+      <MemoryRouter>
+        <Register />
+      </MemoryRouter>
+    );
 
     // Cambia a usar IDs o getAllByLabelText con índice
     fireEvent.change(screen.getByLabelText(/Nombre empresa/i), { target: { value: 'Mi Empresa' } });
@@ -47,7 +56,11 @@ describe('Register Component', () => {
 
   test('submits the form with correct data', () => {
     const consoleSpy = jest.spyOn(console, 'log');
-    render(<Register />);
+    render(
+      <MemoryRouter>
+        <Register />
+      </MemoryRouter>
+    );
 
     fireEvent.change(screen.getByLabelText(/Nombre empresa/i), { target: { value: 'Mi Empresa' } });
     fireEvent.change(screen.getByLabelText(/Correo electrónico/i), { target: { value: 'test@correo.com' } });
@@ -63,12 +76,12 @@ describe('Register Component', () => {
 
     // Verifica que los datos correctos se envíen
     expect(consoleSpy).toHaveBeenCalledWith('Form data submitted:', {
-      companyName: 'Mi Empresa',
+      nombre: 'Mi Empresa',
       email: 'test@correo.com',
       nit: '123456789',
-      address: 'Calle 123',
-      phone: '1234567890',
-      industry: 'technology',
+      direccion: 'Calle 123',
+      telefono: '1234567890',
+      industria: 'technology',
       password: 'password',  // NOSONAR
       confirmPassword: 'password',  // NOSONAR
       welcomeMessage: 'Bienvenido a nuestro servicio!',
