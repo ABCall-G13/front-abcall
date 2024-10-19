@@ -3,18 +3,20 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { MemoryRouter } from 'react-router-dom';
 import Register from './Register';
-import axios from 'axios';
+import axiosInstance from '../../utils/axiosInstance';
 
-// Mockear axios
-jest.mock('axios');
-const mockAxios = axios as jest.Mocked<typeof axios>;
+jest.mock('../../utils/axiosInstance');
+const mockAxiosInstance = axiosInstance as jest.Mocked<typeof axiosInstance>;
 
 describe('Register Component', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   test('submits the form with correct data', async () => {
     const consoleSpy = jest.spyOn(console, 'log');
-    
-    // Simular la respuesta exitosa de axios
-    mockAxios.post.mockResolvedValue({ data: {} });
+
+    mockAxiosInstance.post.mockResolvedValue({ data: {} });
 
     render(
       <MemoryRouter>
@@ -22,7 +24,6 @@ describe('Register Component', () => {
       </MemoryRouter>
     );
 
-    // Simular el llenado del formulario
     fireEvent.change(screen.getByLabelText(/Nombre empresa/i), { target: { value: 'Mi Empresa' } });
     fireEvent.change(screen.getByLabelText(/Correo electrónico/i), { target: { value: 'test@correo.com' } });
     fireEvent.change(screen.getByLabelText(/NIT/i), { target: { value: '123456789' } });
@@ -33,10 +34,8 @@ describe('Register Component', () => {
     fireEvent.change(screen.getByLabelText(/Confirmar contraseña/i, { selector: 'input#confirmPassword' }), { target: { value: 'password' } });
     fireEvent.change(screen.getByLabelText(/Bienvenida para los Usuarios/i), { target: { value: 'Bienvenido a nuestro servicio!' } });
 
-    // Enviar el formulario
     fireEvent.submit(screen.getByRole('button', { name: /Siguiente/i }));
 
-    // Esperar a que se resuelva la promesa
     await waitFor(() => {
       expect(consoleSpy).toHaveBeenCalledWith('Form data submitted:', {
         nombre: 'Mi Empresa',
@@ -56,9 +55,8 @@ describe('Register Component', () => {
 
   test('displays error message on failed submission', async () => {
     const consoleErrorSpy = jest.spyOn(console, 'error');
-    
-    // Simular la respuesta fallida de axios
-    mockAxios.post.mockRejectedValue(new Error('Error al crear cliente'));
+
+    mockAxiosInstance.post.mockRejectedValue(new Error('Error al crear cliente'));
 
     render(
       <MemoryRouter>
@@ -66,7 +64,6 @@ describe('Register Component', () => {
       </MemoryRouter>
     );
 
-    // Simular el llenado del formulario
     fireEvent.change(screen.getByLabelText(/Nombre empresa/i), { target: { value: 'Mi Empresa' } });
     fireEvent.change(screen.getByLabelText(/Correo electrónico/i), { target: { value: 'test@correo.com' } });
     fireEvent.change(screen.getByLabelText(/NIT/i), { target: { value: '123456789' } });
@@ -77,10 +74,8 @@ describe('Register Component', () => {
     fireEvent.change(screen.getByLabelText(/Confirmar contraseña/i, { selector: 'input#confirmPassword' }), { target: { value: 'password' } });
     fireEvent.change(screen.getByLabelText(/Bienvenida para los Usuarios/i), { target: { value: 'Bienvenido a nuestro servicio!' } });
 
-    // Enviar el formulario
     fireEvent.submit(screen.getByRole('button', { name: /Siguiente/i }));
 
-    // Esperar a que ocurra el error
     await waitFor(() => {
       expect(consoleErrorSpy).toHaveBeenCalledWith('Error al crear cliente:', expect.any(Error));
     });
