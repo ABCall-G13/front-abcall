@@ -49,7 +49,17 @@ const PlanSelection: React.FC = () => {
             <div className="price-container emprendedor">$10</div>
           </div>
         </div>
-        <div className={`plan-card empresario-plus ${selectedPlan === 'empresarioPlus' ? 'selected' : ''}`} onClick={() => handlePlanSelect('empresarioPlus')}>
+        <div 
+            className={`plan-card empresario-plus ${selectedPlan === 'empresarioPlus' ? 'selected' : ''}`} 
+            onClick={() => handlePlanSelect('empresarioPlus')}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                handlePlanSelect('empresarioPlus');
+              }
+            }}
+            role="button"
+            tabIndex={0}
+          >
           <h3>Empresario Plus</h3>
           <div className="plan-card-content">
             <p>¡Impulsa tu negocio con la última tecnología en inteligencia artificial y analítica predictiva!
@@ -68,7 +78,16 @@ const PlanSelection: React.FC = () => {
             <div className="price-container empresario-plus">$50</div>
           </div>
         </div>
-        <div className={`plan-card empresario ${selectedPlan === 'empresario' ? 'selected' : ''}`} onClick={() => handlePlanSelect('empresario')}>
+        <div className={`plan-card empresario ${selectedPlan === 'empresario' ? 'selected' : ''}`} 
+              onClick={() => handlePlanSelect('empresario')}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  handlePlanSelect('empresario');
+                }
+              }}
+              role="button"
+              tabIndex={0}
+            >
           <h3>Empresario</h3>
           <div className="plan-card-content">
             <p> Lleva tu atención al cliente al siguiente nivel con soporte multicanal. Más formas de contacto, más oportunidades de vender y mejorar la experiencia de tus usuarios.

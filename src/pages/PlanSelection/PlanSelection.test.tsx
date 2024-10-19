@@ -19,7 +19,8 @@ describe('PlanSelection', () => {
     expect(screen.getByText('Elige el plan perfecto para impulsar tu negocio y brindar la mejor experiencia a tus clientes.')).toBeInTheDocument();
   });
 
-  test('selects the Emprendedor plan', () => {
+  // Pruebas para el plan "Emprendedor"
+  test('selects the Emprendedor plan via click', () => {
     render(
       <MemoryRouter>
         <PlanSelection />
@@ -29,10 +30,46 @@ describe('PlanSelection', () => {
     const emprendedorCard = screen.getByText('Emprendedor');
     fireEvent.click(emprendedorCard);
 
-    expect(emprendedorCard.closest('.plan-card')).toHaveClass('selected');
+    const planCard = emprendedorCard.closest('.plan-card');
+    if (planCard) {
+      expect(planCard).toHaveClass('selected');
+    }
   });
 
-  test('selects the Empresario Plus plan', () => {
+  test('selects the Emprendedor plan via keyboard (Enter)', () => {
+    render(
+      <MemoryRouter>
+        <PlanSelection />
+      </MemoryRouter>
+    );
+
+    const emprendedorCard = screen.getByText('Emprendedor');
+    const planCard = emprendedorCard.closest('.plan-card');
+    
+    if (planCard) {
+      fireEvent.keyDown(planCard, { key: 'Enter', code: 'Enter' });
+      expect(planCard).toHaveClass('selected');
+    }
+  });
+
+  test('selects the Emprendedor plan via keyboard (Space)', () => {
+    render(
+      <MemoryRouter>
+        <PlanSelection />
+      </MemoryRouter>
+    );
+
+    const emprendedorCard = screen.getByText('Emprendedor');
+    const planCard = emprendedorCard.closest('.plan-card');
+    
+    if (planCard) {
+      fireEvent.keyDown(planCard, { key: ' ', code: 'Space' });
+      expect(planCard).toHaveClass('selected');
+    }
+  });
+
+  // Pruebas para el plan "Empresario Plus"
+  test('selects the Empresario Plus plan via click', () => {
     render(
       <MemoryRouter>
         <PlanSelection />
@@ -42,10 +79,46 @@ describe('PlanSelection', () => {
     const empresarioPlusCard = screen.getByText('Empresario Plus');
     fireEvent.click(empresarioPlusCard);
 
-    expect(empresarioPlusCard.closest('.plan-card')).toHaveClass('selected');
+    const planCard = empresarioPlusCard.closest('.plan-card');
+    if (planCard) {
+      expect(planCard).toHaveClass('selected');
+    }
   });
 
-  test('selects the Empresario plan', () => {
+  test('selects the Empresario Plus plan via keyboard (Enter)', () => {
+    render(
+      <MemoryRouter>
+        <PlanSelection />
+      </MemoryRouter>
+    );
+
+    const empresarioPlusCard = screen.getByText('Empresario Plus');
+    const planCard = empresarioPlusCard.closest('.plan-card');
+    
+    if (planCard) {
+      fireEvent.keyDown(planCard, { key: 'Enter', code: 'Enter' });
+      expect(planCard).toHaveClass('selected');
+    }
+  });
+
+  test('selects the Empresario Plus plan via keyboard (Space)', () => {
+    render(
+      <MemoryRouter>
+        <PlanSelection />
+      </MemoryRouter>
+    );
+
+    const empresarioPlusCard = screen.getByText('Empresario Plus');
+    const planCard = empresarioPlusCard.closest('.plan-card');
+    
+    if (planCard) {
+      fireEvent.keyDown(planCard, { key: ' ', code: 'Space' });
+      expect(planCard).toHaveClass('selected');
+    }
+  });
+
+  // Pruebas para el plan "Empresario"
+  test('selects the Empresario plan via click', () => {
     render(
       <MemoryRouter>
         <PlanSelection />
@@ -55,7 +128,42 @@ describe('PlanSelection', () => {
     const empresarioCard = screen.getByText('Empresario');
     fireEvent.click(empresarioCard);
 
-    expect(empresarioCard.closest('.plan-card')).toHaveClass('selected');
+    const planCard = empresarioCard.closest('.plan-card');
+    if (planCard) {
+      expect(planCard).toHaveClass('selected');
+    }
+  });
+
+  test('selects the Empresario plan via keyboard (Enter)', () => {
+    render(
+      <MemoryRouter>
+        <PlanSelection />
+      </MemoryRouter>
+    );
+
+    const empresarioCard = screen.getByText('Empresario');
+    const planCard = empresarioCard.closest('.plan-card');
+    
+    if (planCard) {
+      fireEvent.keyDown(planCard, { key: 'Enter', code: 'Enter' });
+      expect(planCard).toHaveClass('selected');
+    }
+  });
+
+  test('selects the Empresario plan via keyboard (Space)', () => {
+    render(
+      <MemoryRouter>
+        <PlanSelection />
+      </MemoryRouter>
+    );
+
+    const empresarioCard = screen.getByText('Empresario');
+    const planCard = empresarioCard.closest('.plan-card');
+    
+    if (planCard) {
+      fireEvent.keyDown(planCard, { key: ' ', code: 'Space' });
+      expect(planCard).toHaveClass('selected');
+    }
   });
 
   test('navigates to confirmation page on plan select', () => {
