@@ -4,7 +4,6 @@ import CreateIncident from '../CreateIncident/CreateIncident';
 import './IncidentList.css';
 import axiosInstance from '../../utils/axiosInstance';
 
-// Define la interfaz para Incident
 interface Incident {
   id: number;
   cliente_id: number;
@@ -14,28 +13,26 @@ interface Incident {
   canal: string;
   prioridad: string;
   fecha_creacion: string;
-  fecha_cierre?: string | null; // Opcional porque puede ser null
+  fecha_cierre?: string | null;
   solucion?: string | null;
 }
 
 const IncidentList: React.FC = () => {
-  const [incidents, setIncidents] = useState<Incident[]>([]); // Estado tipado con Incident[]
+  const [incidents, setIncidents] = useState<Incident[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedIncident, setSelectedIncident] = useState<Incident | null>(null);
   const [isCreateIncidentVisible, setIsCreateIncidentVisible] = useState(false);
 
-  // Función para obtener los incidentes desde el backend
   const fetchIncidents = () => {
     axiosInstance.get('/incidentes')
       .then(response => {
-        setIncidents(response.data); // Establece los incidentes en el estado
+        setIncidents(response.data);
       })
       .catch(error => {
         console.error('Error al obtener incidentes:', error);
       });
   };
 
-  // Efecto para obtener los incidentes cuando el componente se monta
   useEffect(() => {
     fetchIncidents();
   }, []);
@@ -68,7 +65,7 @@ const IncidentList: React.FC = () => {
           <CreateIncident onClose={toggleCreateIncident} onIncidentCreated={fetchIncidents} />
         </div>
       )}
-    
+
       <div className="table-container">
         <table className="incident-table">
           <thead>
@@ -117,12 +114,13 @@ const IncidentList: React.FC = () => {
           </tbody>
         </table>
       </div>
-      
+
       {selectedIncident && (
         <DetailIncidentModal
           isOpen={isModalOpen}
           onClose={closeModal}
           incidentDetail={selectedIncident}
+          onIncidentUpdated={fetchIncidents} // Llama a la función para actualizar la lista
         />
       )}
     </div>
