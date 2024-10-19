@@ -1,20 +1,46 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './CreateIncident.css'; // Archivo de estilos
+import axiosInstance from '../../utils/axiosInstance'; // Asegúrate de tener configurado axiosInstance para manejar la API
 
 interface CreateIncidentProps {
   onClose: () => void;
+  onIncidentCreated: () => void; // Nueva prop para actualizar la lista de incidentes
 }
 
-const CreateIncident: React.FC<CreateIncidentProps> = ({ onClose }) => {
+const CreateIncident: React.FC<CreateIncidentProps> = ({ onClose, onIncidentCreated }) => {
   const [formData, setFormData] = useState({
+    id: 0,
     descripcion: '',
     categoria: '',
     prioridad: '',
-    cliente: '',
     canal: '',
+    cliente: '',
+    estado: 'abierto',
+    fecha_creacion: new Date().toISOString().slice(0, 10), // Fecha actual
+    fecha_cierre: '',
+    solucion: '',
+  });
+
+  const [enums, setEnums] = useState({
+    categoria: [],
+    prioridad: [],
+    canal: [],
+    estado: [],
   });
 
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null); // Manejo de errores
+
+  // Obtener los valores de los enums desde el backend
+  useEffect(() => {
+    axiosInstance.get('/incidentes/fields')
+      .then(response => {
+        setEnums(response.data); // Establece los valores de los enums
+      })
+      .catch(error => {
+        console.error('Error al obtener los valores permitidos:', error);
+      });
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -24,15 +50,39 @@ const CreateIncident: React.FC<CreateIncidentProps> = ({ onClose }) => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Lógica para manejar el envío del formulario
-    console.log('Form data submitted:', formData);
-    setIsSubmitted(true);
-    setTimeout(() => {
-      setIsSubmitted(false);
-      onClose();
-    }, 3000); // Oculta la alerta después de 3 segundos y cierra el modal
+
+    try {
+      const response = await axiosInstance.post('/incidente', {
+        id: formData.id,
+        description: formData.descripcion,
+        categoria: formData.categoria,
+        prioridad: formData.prioridad,
+        canal: formData.canal,
+        cliente_id: parseInt(formData.cliente), // Convertimos a número si es necesario
+        estado: formData.estado,
+        fecha_creacion: formData.fecha_creacion,
+        fecha_cierre: formData.fecha_cierre || null,
+        solucion: formData.solucion || null,
+      });
+
+      console.log('Incidente creado:', response.data);
+
+      setIsSubmitted(true);
+      setTimeout(() => {
+        setIsSubmitted(false);
+        onClose(); // Cierra el modal
+        onIncidentCreated(); // Notifica al componente padre que se ha creado un nuevo incidente
+      }, 3000);
+
+    } catch (error) {
+      console.error('Error al crear incidente:', error);
+      setErrorMessage('Hubo un error al crear el incidente. Intenta de nuevo.');
+      setTimeout(() => {
+        setErrorMessage(null);
+      }, 3000);
+    }
   };
 
   return (
@@ -40,12 +90,20 @@ const CreateIncident: React.FC<CreateIncidentProps> = ({ onClose }) => {
       <button className="close-button" onClick={onClose}>
         &times;
       </button>
-      <h2 className="modal-title">Registrar Incidente</h2> {/* Asegurar que este título sea visible */}
+      <h2 className="modal-title">Registrar Incidente</h2>
+
       {isSubmitted && (
         <div className="alert-success">
           <span>&#10003;</span> Incidente creado satisfactoriamente
         </div>
       )}
+
+      {errorMessage && (
+        <div className="alert-error">
+          <span>&#10060;</span> {errorMessage}
+        </div>
+      )}
+
       <form onSubmit={handleSubmit} className="incident-form">
         <div className="form-group">
           <label htmlFor="descripcion">Descripción</label>
@@ -67,10 +125,9 @@ const CreateIncident: React.FC<CreateIncidentProps> = ({ onClose }) => {
             required
           >
             <option value="">Selecciona una categoría</option>
-            <option value="Acceso">Acceso</option>
-            <option value="Red">Red</option>
-            <option value="Hardware">Hardware</option>
-            <option value="Software">Software</option>
+            {enums.categoria.map((option, index) => (
+              <option key={index} value={option}>{option}</option>
+            ))}
           </select>
         </div>
         <div className="form-group">
@@ -83,9 +140,9 @@ const CreateIncident: React.FC<CreateIncidentProps> = ({ onClose }) => {
             required
           >
             <option value="">Selecciona una prioridad</option>
-            <option value="Alta">Alta</option>
-            <option value="Media">Media</option>
-            <option value="Baja">Baja</option>
+            {enums.prioridad.map((option, index) => (
+              <option key={index} value={option}>{option}</option>
+            ))}
           </select>
         </div>
         <div className="form-group">
@@ -98,10 +155,10 @@ const CreateIncident: React.FC<CreateIncidentProps> = ({ onClose }) => {
             required
           >
             <option value="">Selecciona un cliente</option>
-            <option value="Cliente1">Cliente1</option>
-            <option value="Cliente2">Cliente2</option>
-            <option value="Cliente3">Cliente3</option>
-            <option value="Cliente4">Cliente4</option>
+            <option value="1">Cliente1</option>
+            <option value="2">Cliente2</option>
+            <option value="3">Cliente3</option>
+            <option value="4">Cliente4</option>
           </select>
         </div>
         <div className="form-group">
@@ -114,10 +171,9 @@ const CreateIncident: React.FC<CreateIncidentProps> = ({ onClose }) => {
             required
           >
             <option value="">Selecciona un canal</option>
-            <option value="Teléfono">Teléfono</option>
-            <option value="Correo">Correo</option>
-            <option value="Chat">Chat</option>
-            <option value="Llamada">Llamada</option>
+            {enums.canal.map((option, index) => (
+              <option key={index} value={option}>{option}</option>
+            ))}
           </select>
         </div>
         <button type="submit" className="submit-btn">Registrar Incidente</button>

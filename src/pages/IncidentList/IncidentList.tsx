@@ -1,24 +1,46 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import DetailIncidentModal from '../DetailIncident/DetailIncident';
+import CreateIncident from '../CreateIncident/CreateIncident';
+import './IncidentList.css';
+import axiosInstance from '../../utils/axiosInstance';
+
+// Define la interfaz para Incident
+interface Incident {
+  id: number;
+  cliente_id: number;
+  description: string;
+  estado: string;
+  categoria: string;
+  canal: string;
+  prioridad: string;
+  fecha_creacion: string;
+  fecha_cierre?: string | null; // Opcional porque puede ser null
+  solucion?: string | null;
+}
 
 const IncidentList: React.FC = () => {
+  const [incidents, setIncidents] = useState<Incident[]>([]); // Estado tipado con Incident[]
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedIncident, setSelectedIncident] = useState(null);
+  const [selectedIncident, setSelectedIncident] = useState<Incident | null>(null);
+  const [isCreateIncidentVisible, setIsCreateIncidentVisible] = useState(false);
 
-  const incidents = [
-    {
-      descripcion: "El usuario reporta que no puede iniciar sesión en el sistema.",
-      categoria: "Acceso",
-      usuario: "Movistar Colombia",
-      fechaApertura: "2024-09-12 8:30 AM",
-      fechaCierre: "2024-09-12 10:30 AM",
-      prioridad: "Alta",
-      solucion: "Verificar credenciales del usuario... | Restablecer contraseña...",
-    },
-    // Otros incidentes
-  ];
+  // Función para obtener los incidentes desde el backend
+  const fetchIncidents = () => {
+    axiosInstance.get('/incidentes')
+      .then(response => {
+        setIncidents(response.data); // Establece los incidentes en el estado
+      })
+      .catch(error => {
+        console.error('Error al obtener incidentes:', error);
+      });
+  };
 
-  const openModal = (incident: any) => {
+  // Efecto para obtener los incidentes cuando el componente se monta
+  useEffect(() => {
+    fetchIncidents();
+  }, []);
+
+  const openModal = (incident: Incident) => {
     setSelectedIncident(incident);
     setIsModalOpen(true);
   };
@@ -28,19 +50,74 @@ const IncidentList: React.FC = () => {
     setSelectedIncident(null);
   };
 
-  return (
-    <div>
-      <h1>Lista de Incidentes</h1>
-      <ul>
-        {incidents.map((incident, index) => (
-          <li key={index}>
-            <button onClick={() => openModal(incident)}>
-              Ver detalle del incidente
-            </button>
-          </li>
-        ))}
-      </ul>
+  const toggleCreateIncident = () => {
+    setIsCreateIncidentVisible(!isCreateIncidentVisible);
+  };
 
+  return (
+    <div className="incident-list-container">
+      <div className="header">
+        <h1>Incidentes</h1>
+        <button onClick={toggleCreateIncident} className="btn-create-incident">
+          Agregar Incidente
+        </button>
+      </div>
+
+      {isCreateIncidentVisible && (
+        <div className="create-incident-modal">
+          <CreateIncident onClose={toggleCreateIncident} onIncidentCreated={fetchIncidents} />
+        </div>
+      )}
+    
+      <div className="table-container">
+        <table className="incident-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Cliente</th>
+              <th>Descripción</th>
+              <th>Estado</th>
+              <th>Categoría</th>
+              <th>Canal</th>
+              <th>Prioridad</th>
+              <th>Fecha de Apertura</th>
+              <th>Fecha de Cierre</th>
+              <th>Detalle</th>
+            </tr>
+          </thead>
+          <tbody>
+            {incidents.length > 0 ? (
+              incidents.map((incident) => (
+                <tr key={incident.id}>
+                  <td>{incident.id}</td>
+                  <td>{incident.cliente_id}</td>
+                  <td className="truncate">{incident.description}</td>
+                  <td className={`status ${incident.estado.toLowerCase()}`}>
+                    {incident.estado}
+                  </td>
+                  <td>{incident.categoria}</td>
+                  <td>{incident.canal}</td>
+                  <td className={`priority ${incident.prioridad.toLowerCase()}`}>
+                    {incident.prioridad}
+                  </td>
+                  <td>{new Date(incident.fecha_creacion).toLocaleDateString()}</td>
+                  <td>{incident.fecha_cierre ? new Date(incident.fecha_cierre).toLocaleDateString() : '-'}</td>
+                  <td>
+                    <button onClick={() => openModal(incident)} className="btn-view-detail">
+                      <span className="icon-detail"></span>
+                    </button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={10}>No se encontraron incidentes</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+      
       {selectedIncident && (
         <DetailIncidentModal
           isOpen={isModalOpen}
