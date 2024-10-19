@@ -34,8 +34,7 @@ const Register: React.FC = () => {
       }
     })
     .then(response => {
-      console.log('Cliente creado:', response.data);
-      navigate('/plan-selection'); // Cambia la ruta según tu configuración
+      navigate('/plan-selection');
     })
     .catch(error => {
       console.error('Error al crear cliente:', error);
