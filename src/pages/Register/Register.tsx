@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Register.css'; // Mantén tu archivo de estilos
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; // Importa el hook para redirigir
+import axiosInstance from '../../utils/axiosInstance';
+import { useNavigate } from 'react-router-dom';
 
 const Register: React.FC = () => {
   const navigate = useNavigate(); // Hook de navegación
@@ -28,14 +28,9 @@ const Register: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Form data submitted:', formData);
-    axios.post('http://0.0.0.0:8080/clientes', formData, {
-      headers: {
-        'Content-Type': 'application/json',
-      }
-    })
+    axiosInstance.post('/clientes', formData)
     .then(response => {
-      console.log('Cliente creado:', response.data);
-      navigate('/plan-selection'); // Cambia la ruta según tu configuración
+      navigate('/plan-selection');
     })
     .catch(error => {
       console.error('Error al crear cliente:', error);

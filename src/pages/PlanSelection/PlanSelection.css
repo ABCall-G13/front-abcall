@@ -72,6 +72,27 @@
   background-color: #0BC5EA; /* Color azul para Empresario Plus */
 }
 
+.plan-card.emprendedor {
+  background-image: url('/src/assets/images/emprendedor.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: bottom center;
+}
+
+.plan-card.empresario-plus {
+  background-image: url('/src/assets/images/empresario-plus.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: bottom center;
+}
+
+.plan-card.empresario {
+  background-image: url('/src/assets/images/empresario.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: bottom center;
+}
+
 .plan-card .price {
   font-size: 24px;
   color: #007bff;
@@ -142,8 +163,6 @@ h2 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  display: flex; /* Para habilitar el comportamiento flex */
-  align-items: center; /* Alinea verticalmente el contenido */
   margin-left: 5%;
 }
 .plan-price {
