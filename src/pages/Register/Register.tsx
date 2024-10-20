@@ -25,7 +25,7 @@ const Register: React.FC = () => {
     const { name, value } = e.target;
     
     if (name === 'telefono') {
-      const isNumeric = /^[0-9]+$/.test(value);
+      const isNumeric = /^\d+$/.test(value);
       if (!isNumeric) {
         setPhoneError('El teléfono solo puede contener números.');
       } else {
@@ -42,7 +42,7 @@ const Register: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!/^[0-9]+$/.test(formData.telefono)) {
+    if (!/^\d+$/.test(formData.telefono)) {
       setPhoneError('El teléfono solo puede contener números.');
       return;
     }
@@ -54,7 +54,7 @@ const Register: React.FC = () => {
       })
       .catch(error => {
         console.error('Error al crear cliente:', error);  // Asegúrate de registrar el error
-        if (error.response && error.response.data.detail) {
+        if (error.response?.data?.detail) {
           setErrorMessage(error.response.data.detail);
         } else {
           setErrorMessage('Ocurrió un error al crear el cliente.');
