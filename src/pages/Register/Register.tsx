@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import './Register.css'; // Mantén tu archivo de estilos
 import axiosInstance from '../../utils/axiosInstance';
 import { useNavigate } from 'react-router-dom';
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
 
 const Register: React.FC = () => {
-  const navigate = useNavigate(); // Hook de navegación
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     nombre: '',
     email: '',
@@ -16,9 +18,21 @@ const Register: React.FC = () => {
     confirmPassword: '',
     welcomeMessage: '',
   });
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [phoneError, setPhoneError] = useState<string | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
+    
+    if (name === 'telefono') {
+      const isNumeric = /^[0-9]+$/.test(value);
+      if (!isNumeric) {
+        setPhoneError('El teléfono solo puede contener números.');
+      } else {
+        setPhoneError(null);
+      }
+    }
+
     setFormData({
       ...formData,
       [name]: value,
@@ -27,20 +41,38 @@ const Register: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!/^[0-9]+$/.test(formData.telefono)) {
+      setPhoneError('El teléfono solo puede contener números.');
+      return;
+    }
+
     console.log('Form data submitted:', formData);
     axiosInstance.post('/clientes', formData)
-    .then(response => {
-      navigate('/plan-selection');
-    })
-    .catch(error => {
-      console.error('Error al crear cliente:', error);
-    });
+      .then(response => {
+        navigate('/plan-selection');
+      })
+      .catch(error => {
+        console.error('Error al crear cliente:', error);  // Asegúrate de registrar el error
+        if (error.response && error.response.data.detail) {
+          setErrorMessage(error.response.data.detail);
+        } else {
+          setErrorMessage('Ocurrió un error al crear el cliente.');
+        }
+      });
   };
 
   return (
     <div className="register-container">
       <div className="register-card">
         <h2>Registrarse</h2>
+
+        {errorMessage && (
+          <Stack sx={{ width: '100%', marginBottom: 2 }} spacing={2}>
+            <Alert severity="error">{errorMessage}</Alert>
+          </Stack>
+        )}
+
         <form onSubmit={handleSubmit}>
           <div className="form-row">
             <div className="form-column">
@@ -99,7 +131,7 @@ const Register: React.FC = () => {
               <div className="form-group">
                 <label htmlFor="phone">Teléfono</label>
                 <input
-                  type="text"
+                  type="tel"
                   id="phone"
                   name="telefono"
                   placeholder="Introduce el teléfono de la empresa"
@@ -107,6 +139,9 @@ const Register: React.FC = () => {
                   onChange={handleChange}
                   required
                 />
+                {phoneError && (
+                  <span className="error-message">{phoneError}</span>
+                )}
               </div>
 
               <div className="form-group">
@@ -166,8 +201,7 @@ const Register: React.FC = () => {
               </div>
             </div>
           </div>
-
-          <button type="submit" className="submit-btn" >Siguiente</button>
+          <button type="submit" className="submit-btn">Siguiente</button>
         </form>
       </div>
     </div>

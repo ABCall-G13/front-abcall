@@ -100,3 +100,9 @@ label:after {
   color: #A0AEC0;
   opacity: 1; /* Asegura que el color se aplique completamente */
 }
+
+.error-message {
+  color: #C53030;
+  font-size: 0.9em;
+  margin-top: 5px;
+}
