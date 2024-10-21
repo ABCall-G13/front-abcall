@@ -1,0 +1,27 @@
+services:
+    fornted:
+        build:
+            context: .
+            dockerfile: Dockerfile
+            target: production
+        container_name: ${DOCKER_SERVICE_NAME}
+        volumes:
+            - ./src:/app/src
+            - ./node_modules:/app/node_modules
+            - ./package.json:/app/package.json
+            - ./package-lock.json:/app/package-lock.json
+            - ./tsconfig.json:/app/tsconfig.json
+            - ./nodemon.json:/app/nodemon.json
+            # - ./service-account.json:/app/service-account.json
+        ports:
+            - '${DOCKER_PORT}:8080'
+            - '9229:9229'
+        networks:
+            - backend
+        env_file: .env
+        restart: unless-stopped
+
+networks:
+    backend:
+        external: true
+        name: prueba
