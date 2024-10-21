@@ -19,7 +19,7 @@ describe('DetailIncidentModal component', () => {
     };
 
     test('renders correctly when open', () => {
-        render(<DetailIncidentModal isOpen={true} onClose={mockOnClose} incidentDetail={incidentDetail} />);
+        render(<DetailIncidentModal isOpen={true} onClose={mockOnClose} incidentDetail={incidentDetail} onIncidentUpdated={jest.fn()} />);
 
         // Verificar que el modal se renderiza con el título correcto
         expect(screen.getByText('Detalle del Incidente')).toBeInTheDocument();
@@ -31,7 +31,7 @@ describe('DetailIncidentModal component', () => {
     });
 
     test('calls onClose when close button is clicked', () => {
-        render(<DetailIncidentModal isOpen={true} onClose={mockOnClose} incidentDetail={incidentDetail} />);
+        render(<DetailIncidentModal isOpen={true} onClose={mockOnClose} incidentDetail={incidentDetail} onIncidentUpdated={jest.fn()} />);
 
         // Simular clic en el botón de cierre
         fireEvent.click(screen.getByText('×'));
@@ -42,7 +42,7 @@ describe('DetailIncidentModal component', () => {
 
 
     test('renders with correct priority class', () => {
-        render(<DetailIncidentModal isOpen={true} onClose={mockOnClose} incidentDetail={incidentDetail} />);
+        render(<DetailIncidentModal isOpen={true} onClose={mockOnClose} incidentDetail={incidentDetail} onIncidentUpdated={jest.fn()} />);
 
         // Verificar que la prioridad tiene la clase correcta
         expect(screen.getByText('Alta').classList.contains('prioridad')).toBe(true);
@@ -60,7 +60,7 @@ describe('DetailIncidentModal component', () => {
             solucion: '',
         };
 
-        render(<DetailIncidentModal isOpen={true} onClose={mockOnClose} incidentDetail={incidentDetail} />);
+        render(<DetailIncidentModal isOpen={true} onClose={mockOnClose} incidentDetail={incidentDetail}  onIncidentUpdated={jest.fn()}/>);
 
         // Verificar que el modal se renderiza sin detalles
         expect(screen.getByText('Detalle del Incidente')).toBeInTheDocument();
