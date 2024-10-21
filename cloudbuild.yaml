@@ -54,7 +54,5 @@ steps:
           - '--env-vars-file=/workspace/.env'
           - '--project'
           - '$_PROJECT_ID'
-          - '--set-cloudsql-instances'
-          - '$_CLOUDSQL_INSTANCE'
 options:
     logging: CLOUD_LOGGING_ONLY
