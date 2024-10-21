@@ -1,9 +1,7 @@
 .plan-selection {
-  text-align: center;
-}
-.plan-selection {
   min-height: 100vh;
-  padding-bottom: 40px; /* Agrega espacio adicional debajo */
+  padding-bottom: 40px;
+  text-align: center;
 }
 
 .plan-cards {
@@ -178,18 +176,19 @@ h2 {
 }
 
 .price-container {
-  display: flex; /* Para habilitar el comportamiento flex */
-  align-items: center; /* Alinea verticalmente el contenido */
-  justify-content: center; /* Alinea horizontalmente el contenido */
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: right;
   font-size: 48px;
   font-weight: bold;
   color: white;
-  width: 50%; /* Asegúrate de que ocupe el ancho disponible */
-  height: 130px; /* Ajusta la altura según tus necesidades */
+  width: 50%;
+  height: 130px;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
+  position: relative;
 }
 
 
@@ -202,13 +201,3 @@ h2 {
 .price-container.empresario {
   background-image: url('/src/assets/images/price_green.svg');
 }
-
-
-.price-container {
-  position: relative;
-  text-align: center;
-  font-size: 48px;
-  font-weight: bold;
-  color: white;
-}
-

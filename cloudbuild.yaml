@@ -1,0 +1,61 @@
+steps:
+    - id: install-deps
+      name: 'node:18'
+      entrypoint: 'bash'
+      args:
+          - '-c'
+          - |
+              npm install
+
+    - id: build
+      name: 'node:18'
+      entrypoint: 'bash'
+      args:
+          - '-c'
+          - |
+              npm run build
+
+    - id: docker-build
+      name: 'gcr.io/cloud-builders/docker'
+      args:
+          - 'build'
+          - '--target'
+          - 'production'
+          - '-t'
+          - '$_AR_HOSTNAME/$_PROJECT_ID/$_AR_REPO/$_SERVICE_NAME:$COMMIT_SHA'
+          - './'
+
+    - id: push
+      name: 'gcr.io/cloud-builders/docker'
+      args:
+          - 'push'
+          - '$_AR_HOSTNAME/$_PROJECT_ID/$_AR_REPO/$_SERVICE_NAME:$COMMIT_SHA'
+
+    - id: get-secret
+      name: 'gcr.io/cloud-builders/gcloud'
+      entrypoint: 'bash'
+      args:
+          [
+              '-c',
+              "gcloud secrets versions access latest --secret=$_SECRET --format='get(payload.data)' | tr '_-' '/+' | base64 -d > /workspace/.env",
+          ]
+
+    - id: deploy
+      name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+      entrypoint: 'gcloud'
+      args:
+          - 'run'
+          - 'deploy'
+          - '$_SERVICE_NAME'
+          - '--image'
+          - '$_AR_HOSTNAME/$_PROJECT_ID/$_AR_REPO/$_SERVICE_NAME:$COMMIT_SHA'
+          - '--region'
+          - '$_DEPLOY_REGION'
+          - '--env-vars-file=/workspace/.env'
+          - '--project'
+          - '$_PROJECT_ID'
+          - '--set-cloudsql-instances'
+          - '$_CLOUDSQL_INSTANCE'
+          - '--vpc-connector=$_VPC_CONNECTOR'
+options:
+    logging: CLOUD_LOGGING_ONLY
