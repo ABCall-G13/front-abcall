@@ -6,6 +6,7 @@ import Register from './pages/Register/Register';
 import PlanSelection from './pages/PlanSelection/PlanSelection';
 import Navbar from './components/Navbar/Navbar';
 import Sidebar from './components/Sidebar/Sidebar';
+import IncidentList from './pages/IncidentList/IncidentList';
 
 const App: React.FC = () => {
   const location = useLocation();
@@ -18,6 +19,7 @@ const App: React.FC = () => {
           <Route path="/" element={<Register />} />
           <Route path="/plan-selection" element={<PlanSelection />} />
           <Route path="/dashboard" element={<LookerDashboard />} />
+          <Route path="/incident-list" element={<IncidentList />} />
         </Routes>
       </div>
     </div>
