@@ -1,26 +1,52 @@
+/* src/App.css (o donde estés definiendo los estilos globales) */
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+}
+
+.content-wrapper {
+  display: flex;
+  flex: 1; /* Ocupa el espacio restante en la altura */
+  overflow: hidden; /* Evita que se genere scroll */
+}
+
+.content-wrapper.with-sidebar {
+  display: flex;
+}
+
+.main-content {
+  flex: 1;
+}
+/* Estilos para el Sidebar */
+
 .sidebar-card {
   background-color: #fff;
-  padding: 1.5rem;
-  border-radius: 20px;
-  width: 200px;
+  padding: 1rem;  /* Reducido para evitar el exceso de espacio */
+  border-radius: 15px;  /* Un borde ligeramente más pequeño */
+  width: 220px;  /* Ajusta el ancho a una cantidad menor */
   max-width: 80%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  margin-top: 11vh;
-  margin-left: 20px;
+  height: calc(100vh - 20vh);
+  overflow-y: auto;  /* Añade scroll solo si es necesario */
+  margin: 1vw;
+  margin-top: 5vh;
   font-family: 'Fira Sans', sans-serif;
 }
 
 .sidebar-card .logo-container {
-  margin-bottom: 20px;
+  margin-bottom: 10px;  /* Reducir margen para ahorrar espacio */
   text-align: center;
 }
 
 .sidebar-card .logo-image {
-  width: 40%;
+  width: 35%;  /* Reducir tamaño del logo */
   height: auto;
 }
 
@@ -31,16 +57,16 @@
 }
 
 .sidebar-card nav ul li {
-  margin: 10px 0;
+  margin: 5px 0;  /* Reducido para minimizar espacio entre elementos */
 }
 
 .sidebar-card nav ul li a {
-  color: #2D3748; 
+  color: #2D3748;
   text-decoration: none;
-  font-size: 10px;
+  font-size: 12px;  /* Tamaño reducido para ahorrar espacio */
   font-weight: bold;
   display: block;
-  padding: 10px;
+  padding: 8px;
   border-radius: 8px;
   transition: background-color 0.3s ease;
   text-align: left;
@@ -54,14 +80,14 @@
   background-color: #2D3748;
   color: #fff;
   border: none;
-  padding: 10px;
+  padding: 8px;
   border-radius: 8px;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s ease;
   width: 80%;
-  margin-top: 20px;
+  margin-top: 10px;  /* Reducido para ahorrar espacio */
 }
 
 .sidebar-card .logout-button:hover {
