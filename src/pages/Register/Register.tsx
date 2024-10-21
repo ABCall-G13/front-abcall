@@ -16,7 +16,7 @@ const Register: React.FC = () => {
     industria: '',
     password: '',
     confirmPassword: '',
-    welcomeMessage: '',
+    WelcomeMessage: '',
   });
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [phoneError, setPhoneError] = useState<string | null>(null);
@@ -189,12 +189,12 @@ const Register: React.FC = () => {
               </div>
 
               <div className="form-group">
-                <label htmlFor="welcomeMessage">Bienvenida para los Usuarios</label>
+                <label htmlFor="WelcomeMessage">Bienvenida para los Usuarios</label>
                 <textarea
-                  id="welcomeMessage"
-                  name="welcomeMessage"
+                  id="WelcomeMessage"
+                  name="WelcomeMessage"
                   placeholder="Escribe el mensaje de bienvenida que tus clientes escucharán cuando se comuniquen con el servicio de soporte."
-                  value={formData.welcomeMessage}
+                  value={formData.WelcomeMessage}
                   onChange={handleChange}
                   required
                 ></textarea>

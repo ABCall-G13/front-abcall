@@ -46,7 +46,7 @@ describe('Register Component', () => {
         industria: 'technology',
         password: 'password',
         confirmPassword: 'password',
-        welcomeMessage: 'Bienvenido a nuestro servicio!',
+        WelcomeMessage: 'Bienvenido a nuestro servicio!',
       });
     });
 
