@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;700&display=swap');
+
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  height: calc(100vh - 80px); /* Ajuste de altura con el navbar */
+  padding-top: 8vh;
+}
+
+.register-card {
+  background-color: #fff;
+  padding: 2rem 4rem;
+  border-radius: 20px;
+  width: 40%; /* Aumenta el ancho para acomodar dos columnas */
+  max-width: 90%;
+  display: inline-block; /* Asegúrate de que no se mezcle con otros elementos */
+}
+
+.register-card h2 {
+  text-align: center;
+  margin-bottom: 33px;
+  grid-column: span 2; /* Título ocupa ambas columnas */
+  color: #2D3748;
+  font-weight: 600;
+}
+
+.form-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 14%;
+}
+
+.form-column {
+  flex: 1;
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 14px;
+  font-weight: normal;
+  color: #2D3748;
+}
+
+label:after {
+  content: ' *';
+  color: #C53030;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #E2E8F0; /* Borde color */
+  border-radius: 8px; /* Borde redondeado */
+  font-size: 14px;
+  color: #2D3748;
+  font-weight: lighter;
+  background-color: #ffffff; /* Fondo */
+  transition: border-color 0.3s ease; /* Transición suave */
+  font-family: Fira Sans, sans-serif;
+}
+.form-group textarea {
+  width: 90%;
+  padding: 8%;
+  height: 100px; /* Altura específica para el textarea */
+}
+.form-group select {
+  color: #A0AEC0;
+}
+
+.submit-btn {
+  width: 350px;
+  height: 38px;
+  padding: 12px;
+  background-color: #2D3748;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 10px;
+  cursor: pointer;
+  display: block;
+  margin: 0 auto;
+  grid-column: span 2;
+  margin-top: 40px;
+}
+
+
+.submit-btn:hover {
+  background-color: #4167b2;
+}
+
+::placeholder {
+  color: #A0AEC0;
+  opacity: 1; /* Asegura que el color se aplique completamente */
+}
+
+.error-message {
+  color: #C53030;
+  font-size: 0.9em;
+  margin-top: 5px;
+}
