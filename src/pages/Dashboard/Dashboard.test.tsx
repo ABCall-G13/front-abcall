@@ -13,7 +13,12 @@ describe('LookerDashboard', () => {
         render(<LookerDashboard />);
         const iframeElement = screen.getByTitle('Looker Studio Dashboard');
         expect(iframeElement).toBeInTheDocument();
-        expect(iframeElement).toHaveAttribute('src', expect.stringContaining('https://lookerstudio.google.com/embed/reporting/639d9b14-f68b-443c-8698-3be0916f0906/page/2TRFE'));
+        expect(iframeElement).toHaveAttribute(
+            'src',
+            expect.stringContaining(
+                'https://lookerstudio.google.com/embed/reporting/639d9b14-f68b-443c-8698-3be0916f0906/page/2TRFE'
+            )
+        );
     });
 
     it('renders the iframe with the correct styles', () => {
@@ -27,6 +32,7 @@ describe('LookerDashboard', () => {
     it('renders the container with the correct styles', () => {
         render(<LookerDashboard />);
         const titleElement = screen.getByText(/Tablero de control/i);
+        // eslint-disable-next-line testing-library/no-node-access
         const containerElement = titleElement.closest('div');
         expect(containerElement).toHaveStyle('width: 100%');
         expect(containerElement).toHaveStyle('height: 100%');

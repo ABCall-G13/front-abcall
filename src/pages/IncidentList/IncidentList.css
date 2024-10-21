@@ -1,140 +1,141 @@
 .incident-list-container {
-  padding: 20px;
-  background-color: #f9f9f9;
+    padding: 20px;
+    background-color: #f9f9f9;
 }
 
 .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
 .btn-create-incident {
-  background-color: #2D3748;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
+    background-color: #2d3748;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 .btn-create-incident:hover {
-  background-color: #2d3748c5;
+    background-color: #2d3748c5;
 }
 
 .incident-table {
-  width: 100%;
-  border-collapse: collapse;
+    width: 100%;
+    border-collapse: collapse;
 }
 
-.incident-table th, .incident-table td {
-  padding: 10px;
-  border: 1px solid #ddd;
+.incident-table th,
+.incident-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
 }
 
 .incident-table th {
-  background-color: #f1f1f1;
-  text-align: left;
+    background-color: #f1f1f1;
+    text-align: left;
 }
 
 .status {
-  padding: 5px 10px;
-  border-radius: 5px;
-  color: white;
-  text-align: center;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: white;
+    text-align: center;
 }
 
 .status.cerrado {
-  background-color: #28a745;
+    background-color: #28a745;
 }
 
 .status.abierto {
-  background-color: #dc3545;
+    background-color: #dc3545;
 }
 
 .status.revision {
-  background-color: #ffc107;
+    background-color: #ffc107;
 }
 
 .status.escalado {
-  background-color: #17a2b8;
+    background-color: #17a2b8;
 }
 
 .priority {
-  padding: 5px 10px;
-  border-radius: 5px;
-  color: white;
-  text-align: center;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: white;
+    text-align: center;
 }
 
 .priority.alta {
-  background-color: #dc3545; /* Rojo para Alta */
+    background-color: #dc3545; /* Rojo para Alta */
 }
 
 .priority.media {
-  background-color: #ffc107; /* Amarillo para Media */
+    background-color: #ffc107; /* Amarillo para Media */
 }
 
 .priority.baja {
-  background-color: #28a745; /* Verde para Baja */
+    background-color: #28a745; /* Verde para Baja */
 }
 
 .btn-view-detail {
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
 }
 
 .icon-detail {
-  background-image: url('../../assets/icons/detailIncident.svg');
-  background-size: contain;  /* Asegura que el ícono se ajuste al contenedor */
-  background-repeat: no-repeat;  /* Evita que el ícono se repita */
-  width: 20px; /* Asegura que el tamaño coincida con el diseño */
-  height: 20px;
-  display: inline-block;
+    background-image: url('../../assets/icons/detailIncident.svg');
+    background-size: contain; /* Asegura que el ícono se ajuste al contenedor */
+    background-repeat: no-repeat; /* Evita que el ícono se repita */
+    width: 20px; /* Asegura que el tamaño coincida con el diseño */
+    height: 20px;
+    display: inline-block;
 }
 
 .create-incident-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .modal-content {
-  background-color: white;
-  padding: 20px;
-  width: 60%;
-  max-width: 800px;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    padding: 20px;
+    width: 60%;
+    max-width: 800px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .close-button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
 }
 
 .table-container {
-  overflow-x: auto; /* Permite el desplazamiento horizontal */
-  max-height: 70vh; /* Limita la altura máxima del contenedor */
-  overflow-y: auto; /* Permite el desplazamiento vertical */
+    overflow-x: auto; /* Permite el desplazamiento horizontal */
+    max-height: 70vh; /* Limita la altura máxima del contenedor */
+    overflow-y: auto; /* Permite el desplazamiento vertical */
 }
 
 .truncate {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 200px; /* Ajusta el ancho máximo según sea necesario */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px; /* Ajusta el ancho máximo según sea necesario */
 }
