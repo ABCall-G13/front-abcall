@@ -5,6 +5,7 @@ import Register from './pages/Register/Register';
 import PlanSelection from './pages/PlanSelection/PlanSelection';
 import Navbar from './components/Navbar/Navbar';
 import Sidebar from './components/Sidebar/Sidebar';
+import IncidentList from './pages/IncidentList/IncidentList';
 
 const AppContent: React.FC = () => {
     const currentPath = window.location.pathname;
@@ -39,6 +40,10 @@ const AppContent: React.FC = () => {
                         <Route
                             path="/dashboard"
                             element={<LookerDashboard />}
+                        />
+                        <Route
+                            path="/incident-list"
+                            element={<IncidentList />}
                         />
                     </Routes>
                 </div>
