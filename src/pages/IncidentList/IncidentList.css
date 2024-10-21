@@ -11,12 +11,16 @@
 }
 
 .btn-create-incident {
-  background-color: #007bff;
+  background-color: #2D3748;
   color: white;
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.btn-create-incident:hover {
+  background-color: #2d3748c5;
 }
 
 .incident-table {
@@ -120,4 +124,17 @@
   border: none;
   font-size: 1.5rem;
   cursor: pointer;
+}
+
+.table-container {
+  overflow-x: auto; /* Permite el desplazamiento horizontal */
+  max-height: 70vh; /* Limita la altura máxima del contenedor */
+  overflow-y: auto; /* Permite el desplazamiento vertical */
+}
+
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px; /* Ajusta el ancho máximo según sea necesario */
 }

@@ -1,9 +1,7 @@
 .plan-selection {
-  text-align: center;
-}
-.plan-selection {
   min-height: 100vh;
-  padding-bottom: 40px; /* Agrega espacio adicional debajo */
+  padding-bottom: 40px;
+  text-align: center;
 }
 
 .plan-cards {
@@ -70,6 +68,27 @@
 
 .plan-card.emprendedor h3 {
   background-color: #0BC5EA; /* Color azul para Empresario Plus */
+}
+
+.plan-card.emprendedor {
+  background-image: url('/src/assets/images/emprendedor.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: bottom center;
+}
+
+.plan-card.empresario-plus {
+  background-image: url('/src/assets/images/empresario-plus.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: bottom center;
+}
+
+.plan-card.empresario {
+  background-image: url('/src/assets/images/empresario.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: bottom center;
 }
 
 .plan-card .price {
@@ -142,8 +161,6 @@ h2 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  display: flex; /* Para habilitar el comportamiento flex */
-  align-items: center; /* Alinea verticalmente el contenido */
   margin-left: 5%;
 }
 .plan-price {
@@ -159,18 +176,19 @@ h2 {
 }
 
 .price-container {
-  display: flex; /* Para habilitar el comportamiento flex */
-  align-items: center; /* Alinea verticalmente el contenido */
-  justify-content: center; /* Alinea horizontalmente el contenido */
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: right;
   font-size: 48px;
   font-weight: bold;
   color: white;
-  width: 50%; /* Asegúrate de que ocupe el ancho disponible */
-  height: 130px; /* Ajusta la altura según tus necesidades */
+  width: 50%;
+  height: 130px;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
+  position: relative;
 }
 
 
@@ -183,13 +201,3 @@ h2 {
 .price-container.empresario {
   background-image: url('/src/assets/images/price_green.svg');
 }
-
-
-.price-container {
-  position: relative;
-  text-align: center;
-  font-size: 48px;
-  font-weight: bold;
-  color: white;
-}
-

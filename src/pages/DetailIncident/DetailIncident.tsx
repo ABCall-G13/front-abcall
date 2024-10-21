@@ -5,13 +5,16 @@ interface DetailIncidentModalProps {
   isOpen: boolean;
   onClose: () => void;
   incidentDetail: {
-    descripcion: string;
+    id: number;
+    cliente_id: number;
+    description: string;
+    estado: string;
     categoria: string;
-    cliente: string;
-    fechaApertura: string;
-    fechaCierre: string;
+    canal: string;
     prioridad: string;
-    solucion: string;
+    fecha_creacion: string;
+    fecha_cierre?: string | null; // Opcional porque puede ser null
+    solucion?: string | null;
   };
 }
 
@@ -27,18 +30,18 @@ const DetailIncidentModal: React.FC<DetailIncidentModalProps> = ({ isOpen, onClo
         <div className="incident-details">
           <h3 className="section-title">Descripción del soporte:</h3>
           <div className="scroll-container">
-            <div>{incidentDetail.descripcion}</div>
+            <div>{incidentDetail.description}</div>
           </div>
 
           <div className="incident-info-grid">
             <div className="column">
               <p><strong>Categoría:</strong> {incidentDetail.categoria}</p>
-              <p><strong>Cliente:</strong> {incidentDetail.cliente}</p>
+              <p><strong>Cliente:</strong> {incidentDetail.cliente_id}</p>
             </div>
             <div className="column">
               <p><strong>Prioridad:</strong> <span className={`prioridad ${incidentDetail.prioridad.toLowerCase()}`}>{incidentDetail.prioridad}</span></p>
-              <p><strong>Fecha de apertura:</strong> {incidentDetail.fechaApertura}</p>
-              <p><strong>Fecha de cierre:</strong> {incidentDetail.fechaCierre}</p>
+              <p><strong>Fecha de apertura:</strong> {incidentDetail.fecha_creacion}</p>
+              <p><strong>Fecha de cierre:</strong> {incidentDetail.fecha_cierre}</p>
             </div>
           </div>
 

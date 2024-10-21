@@ -51,16 +51,18 @@
 }
 
 .submit-btn {
-  background-color: #4CAF50;
+  background-color: #2D3748;
   color: white;
-  padding: 10px;
+  padding: 10px 20px;
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
   cursor: pointer;
+  font-size: 0.9rem; 
 }
 
+
 .submit-btn:hover {
-  background-color: #45a049;
+  background-color: #2d3748c5;
 }
 
 .alert-success {

@@ -1,26 +1,37 @@
 // src/App.tsx
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
+import LookerDashboard from './pages/Dashboard/Dashboard';
 import Register from './pages/Register/Register';
-import PlanSelection from './pages/PlanSelection/PlanSelection'; // Asegúrate de importar esta página si la usarás
+import PlanSelection from './pages/PlanSelection/PlanSelection';
 import Navbar from './components/Navbar/Navbar';
-import IncidentList2 from './pages/IncidentList/IncidentList2';
-
-
-
+import Sidebar from './components/Sidebar/Sidebar';
+import IncidentList from './pages/IncidentList/IncidentList';
 
 const App: React.FC = () => {
+  const location = useLocation();
+
+  return (
+    <div className="app-container">
+      {location.pathname === '/' ? <Navbar /> : <Sidebar />}
+      <div className={`main-content ${location.pathname !== '/' ? 'content-with-sidebar' : ''}`}>
+        <Routes>
+          <Route path="/" element={<Register />} />
+          <Route path="/plan-selection" element={<PlanSelection />} />
+          <Route path="/dashboard" element={<LookerDashboard />} />
+          <Route path="/incident-list" element={<IncidentList />} />
+        </Routes>
+      </div>
+    </div>
+  );
+};
+
+const AppWrapper: React.FC = () => {
   return (
     <Router>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Register />} />
-        <Route path="/plan-selection" element={<PlanSelection />} /> {/* Página para la selección de planes */}
-        <Route path="/incident-list" element={<IncidentList2 />} />
-        <Route path="*" element={<h1>404: Página no encontrada</h1>} />
-      </Routes>
+      <App />
     </Router>
   );
 };
 
-export default App;
+export default AppWrapper;
