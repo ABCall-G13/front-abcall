@@ -10,15 +10,22 @@ import Sidebar from './components/Sidebar/Sidebar';
 const App: React.FC = () => {
   const location = useLocation();
 
+  const showSidebar = location.pathname !== '/' && location.pathname !== '/plan-selection';
+  const showNavbar = location.pathname === '/' || location.pathname === '/plan-selection';
+  const showSvgBackground = location.pathname !== '/' && location.pathname !== '/plan-selection';
+
   return (
-    <div className="app-container">
-      {location.pathname === '/' ? <Navbar /> : <Sidebar />}
-      <div className={`main-content ${location.pathname !== '/' ? 'content-with-sidebar' : ''}`}>
-        <Routes>
-          <Route path="/" element={<Register />} />
-          <Route path="/plan-selection" element={<PlanSelection />} />
-          <Route path="/dashboard" element={<LookerDashboard />} />
-        </Routes>
+    <div className={`app-container ${showSvgBackground ? 'svg-background' : ''}`}>
+      {showNavbar && <Navbar />}
+      <div className={`content-wrapper ${showSidebar ? 'with-sidebar' : ''}`}>
+        {showSidebar && <Sidebar />}
+        <div className="main-content">
+          <Routes>
+            <Route path="/" element={<Register />} />
+            <Route path="/plan-selection" element={<PlanSelection />} />
+            <Route path="/dashboard" element={<LookerDashboard />} />
+          </Routes>
+        </div>
       </div>
     </div>
   );

@@ -27,3 +27,10 @@ body {
   display: flex;
   flex-direction: column;
 }
+
+.app-container.svg-background {
+  background: 
+    url('/src/assets/images/background-top.svg') no-repeat top center,
+    linear-gradient(180deg, #2F54B2 0%, #7DA6ED 7%);
+  background-attachment: fixed;
+}

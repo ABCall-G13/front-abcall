@@ -5,7 +5,7 @@
   justify-content: center;
   align-items: flex-start;
   height: calc(100vh - 80px); /* Ajuste de altura con el navbar */
-  padding-top: 11vh;
+  padding-top: 8vh;
 }
 
 .register-card {
