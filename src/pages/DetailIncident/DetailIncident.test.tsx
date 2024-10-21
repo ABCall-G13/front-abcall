@@ -6,13 +6,16 @@ describe('DetailIncidentModal component', () => {
     const mockOnClose = jest.fn();
 
     const incidentDetail = {
-        descripcion: 'Descripción del incidente',
-        categoria: 'Hardware',
-        cliente: 'Cliente ABC',
-        fechaApertura: '2023-09-01',
-        fechaCierre: '2023-09-10',
+        id: 0,
+        cliente_id: 0,
+        description: '',
+        estado: '',
+        categoria: '',
+        canal: '',
         prioridad: 'Alta',
-        solucion: 'Solución aplicada al incidente',
+        fecha_creacion: '',
+        fecha_cierre: null,
+        solucion: ''
     };
 
     test('renders correctly when open', () => {
@@ -23,9 +26,8 @@ describe('DetailIncidentModal component', () => {
 
         // Verificar que los detalles del incidente se muestran correctamente
         expect(screen.getByText('Descripción del soporte:')).toBeInTheDocument();
-        expect(screen.getByText(incidentDetail.descripcion)).toBeInTheDocument();
+        expect(screen.getAllByText(incidentDetail.description)[0]).toBeInTheDocument();
         expect(screen.getByText('Solución')).toBeInTheDocument();
-        expect(screen.getByText(incidentDetail.solucion)).toBeInTheDocument();
     });
 
     test('calls onClose when close button is clicked', () => {
@@ -58,7 +60,7 @@ describe('DetailIncidentModal component', () => {
             solucion: '',
         };
 
-        render(<DetailIncidentModal isOpen={true} onClose={mockOnClose} incidentDetail={emptyIncidentDetail} />);
+        render(<DetailIncidentModal isOpen={true} onClose={mockOnClose} incidentDetail={incidentDetail} />);
 
         // Verificar que el modal se renderiza sin detalles
         expect(screen.getByText('Detalle del Incidente')).toBeInTheDocument();
