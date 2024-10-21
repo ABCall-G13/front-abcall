@@ -1,7 +1,6 @@
 import React from 'react';
 
 const LookerDashboard = () => {
-    // Crear un parámetro de consulta único para forzar la actualización agregando una marca de tiempo
     const refreshCache = `?t=${new Date().getTime()}`;
 
     return (
