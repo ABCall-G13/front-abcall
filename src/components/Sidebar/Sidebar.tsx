@@ -5,24 +5,30 @@ import './Sidebar.css';
 import logo from '../../assets/images/logo.png';
 
 const Sidebar: React.FC = () => {
-  return (
-    <div className="sidebar-card">
-      <div className="logo-container">
-        <img src={logo} alt="ABCall Logo" className="logo-image" />
-      </div>
-      <nav>
-        <ul>
-          <li><Link to="/">Inicio</Link></li>
-          <li><Link to="/dashboard">Tableros</Link></li>
-          <li><Link to="/billing">Facturación</Link></li>
-          <li><Link to="/sync-users">Sincronizar usuarios</Link></li>
-        </ul>
-      </nav>
-      <button className="logout-button">Cerrar Sesión</button>
-    </div>
-  );
+    return (
+        <div className="sidebar-card">
+            <div className="logo-container">
+                <img src={logo} alt="ABCall Logo" className="logo-image" />
+            </div>
+            <nav>
+                <ul>
+                    <li>
+                        <Link to="/">Inicio</Link>
+                    </li>
+                    <li>
+                        <Link to="/dashboard">Tableros</Link>
+                    </li>
+                    <li>
+                        <Link to="/billing">Facturación</Link>
+                    </li>
+                    <li>
+                        <Link to="/sync-users">Sincronizar usuarios</Link>
+                    </li>
+                </ul>
+            </nav>
+            <button className="logout-button">Cerrar Sesión</button>
+        </div>
+    );
 };
 
 export default Sidebar;
-
-
