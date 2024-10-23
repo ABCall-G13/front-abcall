@@ -4,6 +4,7 @@ WORKDIR /app
 
 # Copiar archivos de configuración
 COPY package*.json tsconfig.json ./
+COPY .env ./
 
 # Instalar dependencias
 RUN npm ci
