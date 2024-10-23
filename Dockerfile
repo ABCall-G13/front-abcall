@@ -2,6 +2,8 @@
 FROM node:20-alpine3.18 AS build
 WORKDIR /app
 
+ARG REACT_APP_BASE_URL
+
 # Copiar archivos de configuración
 COPY package*.json tsconfig.json ./
 
