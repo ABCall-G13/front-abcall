@@ -1,9 +1,11 @@
 services:
-    fornted:
+    frontend:
         build:
             context: .
             dockerfile: Dockerfile
             target: production
+            args:
+                - REACT_APP_API_URL=${REACT_APP_API_URL}
         container_name: ${DOCKER_SERVICE_NAME}
         volumes:
             - ./src:/app/src

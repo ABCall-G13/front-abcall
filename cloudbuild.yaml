@@ -1,10 +1,20 @@
 steps:
+    - id: get-secret
+      name: 'gcr.io/cloud-builders/gcloud'
+      entrypoint: 'bash'
+      args:
+          [
+              '-c',
+              "gcloud secrets versions access latest --secret=$_SECRET --format='get(payload.data)' | tr '_-' '/+' | base64 -d | sed 's/^/export /' > /workspace/secrets.env",
+          ]
+
     - id: install-deps
       name: 'node:18'
       entrypoint: 'bash'
       args:
           - '-c'
           - |
+              source /workspace/secrets.env
               npm install
 
     - id: build
@@ -13,6 +23,7 @@ steps:
       args:
           - '-c'
           - |
+              source /workspace/secrets.env
               npm run build
 
     - id: docker-build
@@ -23,6 +34,8 @@ steps:
           - 'production'
           - '-t'
           - '$_AR_HOSTNAME/$_PROJECT_ID/$_AR_REPO/$_SERVICE_NAME:$COMMIT_SHA'
+          - '--build-arg'
+          - 'REACT_APP_BASE_URL=$_REACT_APP_BASE_URL'
           - './'
 
     - id: push
@@ -30,15 +43,6 @@ steps:
       args:
           - 'push'
           - '$_AR_HOSTNAME/$_PROJECT_ID/$_AR_REPO/$_SERVICE_NAME:$COMMIT_SHA'
-
-    - id: get-secret
-      name: 'gcr.io/cloud-builders/gcloud'
-      entrypoint: 'bash'
-      args:
-          [
-              '-c',
-              "gcloud secrets versions access latest --secret=$_SECRET --format='get(payload.data)' | tr '_-' '/+' | base64 -d > /workspace/.env",
-          ]
 
     - id: deploy
       name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
@@ -51,7 +55,6 @@ steps:
           - '$_AR_HOSTNAME/$_PROJECT_ID/$_AR_REPO/$_SERVICE_NAME:$COMMIT_SHA'
           - '--region'
           - '$_DEPLOY_REGION'
-          - '--env-vars-file=/workspace/.env'
           - '--project'
           - '$_PROJECT_ID'
 options:
