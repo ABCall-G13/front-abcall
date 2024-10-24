@@ -3,6 +3,7 @@ import './Navbar.css';
 import logo from '../../assets/images/logo-white.png';
 import key from '../../assets/icons/key.svg';
 import search from '../../assets/icons/search.svg';
+import { Link } from 'react-router-dom';
 
 const Navbar: React.FC = () => {
     return (
@@ -14,10 +15,9 @@ const Navbar: React.FC = () => {
                 <a href="/login" className="navbar-link">
                     <img src={key} alt="Iniciar Sesión" /> INICIAR SESIÓN
                 </a>
-                <a href="/create-incident" className="navbar-link">
-                    <img src={search} alt="Consultar Incidente" /> CONSULTAR
-                    INCIDENTE
-                </a>
+                <Link to="/search-incident" className="navbar-link">
+                    <img src={search} alt="Consultar Incidente" /> CONSULTAR INCIDENTE
+                </Link>
             </div>
         </nav>
     );

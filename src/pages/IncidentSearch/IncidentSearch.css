@@ -1,0 +1,177 @@
+/* src/pages/IncidentSearchPage.css */
+
+.incident-search-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100vh;
+  background-color: #f5f5f5;
+}
+
+/* Encabezado azul con fondo */
+.header-background {
+  background-color: #0052cc;
+  width: 100%;
+  height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* Texto en el encabezado */
+.header-background h1 {
+  color: white;
+  font-size: 1.8rem;
+  font-weight: 500;
+  z-index: 1;
+}
+
+.header-background::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 250px;
+  top: 0;
+  left: 0;
+  background: url('/src/assets/images/background-search.svg') no-repeat center;
+  background-size: cover;
+  z-index: 0;
+}
+
+/* Contenedor de búsqueda */
+.search-container {
+  background-color: white;
+  padding: 30px;
+  margin-top: -60px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 80%;
+  max-width: 600px;
+  z-index: 0; /* Cambiado de 1 a 0 */
+  position: relative; /* Asegura que el z-index funcione correctamente */
+}
+
+/* Input de texto */
+.search-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.search-bar input[type="text"] {
+  width: 100%;
+  max-width: 400px;
+  padding: 15px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+/* Botón de consulta */
+.search-bar button {
+  padding: 15px 30px;
+  background-color: #2d3748;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.search-bar button:hover {
+  background-color: #2d3748c5;
+}
+
+/* Ajuste de fondo general */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+.error-message {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 10px;
+  border: 1px solid #f5c6cb;
+  border-radius: 4px;
+  margin-top: 10px;
+  text-align: center;
+  animation: fadeOut 3s forwards;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Modal de detalles del incidente */
+.incident-details-modal {
+  position: fixed; /* Posición fija para que se quede en el centro */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Centrado absoluto */
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 80%;
+  max-width: 600px;
+  z-index: 1000; /* El modal está en el nivel más alto */
+}
+
+.incident-details-overlay {
+  position: fixed; /* Cubre toda la pantalla */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro semi-transparente */
+  z-index: 999; /* Detrás del modal, pero delante del contenido principal */
+}
+
+.incident-details-modal h2 {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+}
+
+.incident-details-modal p {
+  margin: 10px 0;
+}
+
+.incident-details-modal textarea {
+  width: 100%;
+  height: 80px;
+  margin: 15px 0;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.incident-details-modal .buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.incident-details-modal .buttons button {
+  padding: 10px 20px;
+  background-color: #0052cc;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.incident-details-modal .buttons button:hover {
+  background-color: #003d99;
+}
