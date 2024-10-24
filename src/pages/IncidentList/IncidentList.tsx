@@ -15,6 +15,7 @@ interface Incident {
     fecha_creacion: string;
     fecha_cierre?: string | null;
     solucion?: string | null;
+    radicado: string;
 }
 
 const IncidentList: React.FC = () => {
