@@ -1,6 +1,7 @@
 .incident-list-container {
-    padding: 20px;
-    background-color: #f9f9f9;
+    padding: 2rem;
+    position: relative;
+    min-height: 100vh;
 }
 
 .header {
@@ -11,21 +12,20 @@
 }
 
 .btn-create-incident {
-    background-color: #2d3748;
+    background-color: #2D3748;
     color: white;
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
+    float: right;
+    font-weight: bold;
+    font-size: 0.6rem;
 }
+
 
 .btn-create-incident:hover {
     background-color: #2d3748c5;
-}
-
-.incident-table {
-    width: 100%;
-    border-collapse: collapse;
 }
 
 .incident-table th,
@@ -34,15 +34,13 @@
     border: 1px solid #ddd;
 }
 
-.incident-table th {
-    background-color: #f1f1f1;
-    text-align: left;
-}
 
 .status {
+    display: inline-block;
     padding: 5px 10px;
-    border-radius: 5px;
     color: white;
+    border-radius: 5px;
+    min-width: 80px;
     text-align: center;
 }
 
@@ -89,9 +87,9 @@
 
 .icon-detail {
     background-image: url('../../assets/icons/detailIncident.svg');
-    background-size: contain; /* Asegura que el ícono se ajuste al contenedor */
-    background-repeat: no-repeat; /* Evita que el ícono se repita */
-    width: 20px; /* Asegura que el tamaño coincida con el diseño */
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 20px;
     height: 20px;
     display: inline-block;
 }
@@ -106,6 +104,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 1000;
 }
 
 .modal-content {
@@ -128,14 +127,66 @@
 }
 
 .table-container {
-    overflow-x: auto; /* Permite el desplazamiento horizontal */
-    max-height: 70vh; /* Limita la altura máxima del contenedor */
-    overflow-y: auto; /* Permite el desplazamiento vertical */
+    overflow-x: auto;
+    min-height: 66vh;
+    overflow-y: auto;
+    background-color: white;
+    border-radius: 10px;
+    padding: 3%;
 }
 
+.incident-table {
+    width: 100%;
+    border-collapse: collapse;
+    color: #718096;
+}
+
+.incident-table td {
+    padding: 12px;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    font-size: 0.87rem;
+}
+
+.incident-table th {
+    padding: 12px;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    background-color: #ffffff;
+    text-align: left;
+    font-weight: bold;
+    color: #A0AEC0;
+    font-size: 0.63rem;
+    position: relative;
+    padding-right: 20px;
+    letter-spacing: 1px;
+}
+.incident-table th:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 12px;
+    height: 12px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-left: 10px;
+    background-image: url('../../assets/icons/filter.svg');
+}
 .truncate {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 200px; /* Ajusta el ancho máximo según sea necesario */
+}
+
+h3 {
+    font-size: 1.12rem;
+    color: #2D3748;
+}
+
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 0.6rem;
 }

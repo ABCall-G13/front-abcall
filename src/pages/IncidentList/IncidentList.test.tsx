@@ -2,6 +2,7 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import axiosInstance from '../../utils/axiosInstance';
 import IncidentList from './IncidentList';
+import { MemoryRouter } from 'react-router-dom'; // Importamos MemoryRouter
 
 // Mock de axiosInstance
 jest.mock('../../utils/axiosInstance');
@@ -44,7 +45,11 @@ describe('IncidentList component', () => {
     });
 
     test('renders incidents correctly after fetching', async () => {
-        render(<IncidentList />);
+        render(
+            <MemoryRouter> {/* Envuelve IncidentList en MemoryRouter */}
+                <IncidentList />
+            </MemoryRouter>
+        );
 
         // Espera a que los datos de los incidentes se carguen
         await waitFor(() => {
@@ -61,7 +66,11 @@ describe('IncidentList component', () => {
     test('displays message when there are no incidents', async () => {
         mockAxiosInstance.get.mockResolvedValueOnce({ data: [] });
 
-        render(<IncidentList />);
+        render(
+            <MemoryRouter> {/* Envuelve IncidentList en MemoryRouter */}
+                <IncidentList />
+            </MemoryRouter>
+        );
 
         // Espera a que la tabla de incidentes se actualice
         await waitFor(() => {
@@ -75,7 +84,11 @@ describe('IncidentList component', () => {
     });
 
     test('opens and closes the detail modal when clicking on "Detalle"', async () => {
-        render(<IncidentList />);
+        render(
+            <MemoryRouter> {/* Envuelve IncidentList en MemoryRouter */}
+                <IncidentList />
+            </MemoryRouter>
+        );
 
         // Espera a que los datos de los incidentes se carguen
         await waitFor(() => {
@@ -88,10 +101,6 @@ describe('IncidentList component', () => {
 
         // Haz clic en el botón "Detalle" del primer incidente
         fireEvent.click(detailButtons[0]);
-
-        // Usa screen.debug() para inspeccionar el estado del DOM después del clic
-        // eslint-disable-next-line testing-library/no-debugging-utils
-        screen.debug();
 
         // Verifica si el modal se ha abierto, y el texto que contiene
         await waitFor(() => {

@@ -12,12 +12,12 @@ body {
 body {
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Centra el contenido verticalmente */
-    align-items: center; /* Centra el contenido horizontalmente */
+    justify-content: center;
+    align-items: center;
     background: url('/src/assets/images/fondo.svg') no-repeat center center,
         linear-gradient(180deg, #2f54b2 0%, #7da6ed 7%);
     background-size: cover;
-    background-attachment: fixed; /* Para que el fondo se mantenga fijo en todas las pantallas */
+    background-attachment: fixed;
 }
 
 #root {
@@ -28,8 +28,7 @@ body {
 }
 
 .app-container.svg-background {
-    background: url('/src/assets/images/background-top.svg') no-repeat top
-            center,
-        linear-gradient(180deg, #2f54b2 0%, #7da6ed 7%);
+    background: url('/src/assets/images/background-top.svg') no-repeat top center;
     background-attachment: fixed;
+    background-size: 100%;
 }
