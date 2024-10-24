@@ -1,0 +1,11 @@
+
+
+.breadcrumb-container{
+    margin-top: 1.5rem;
+    color: white;
+}
+.breadcrumb a {
+    font-weight: normal; /* Hace que los enlaces no estén en negrita */
+    color: white; /* Asegura que el color del texto sea blanco si es necesario */
+    text-decoration: none; /* Elimina el subrayado por defecto */
+}
