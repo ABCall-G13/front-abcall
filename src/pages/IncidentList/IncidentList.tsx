@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import BreadCrumb from '../../components/BreadCrumb/BreadCrumb';
 import DetailIncidentModal from '../DetailIncident/DetailIncident';
 import CreateIncident from '../CreateIncident/CreateIncident';
 import './IncidentList.css';
 import axiosInstance from '../../utils/axiosInstance';
+
 
 interface Incident {
     id: number;
@@ -57,16 +59,15 @@ const IncidentList: React.FC = () => {
 
     return (
         <div className="incident-list-container">
-            <div className="header">
-                <h1>Incidentes</h1>
+            <BreadCrumb />
+            <div className="button-container">
                 <button
                     onClick={toggleCreateIncident}
                     className="btn-create-incident"
                 >
-                    Agregar Incidente
+                    AGREGAR INCIDENTE
                 </button>
             </div>
-
             {isCreateIncidentVisible && (
                 <div className="create-incident-modal">
                     <CreateIncident
@@ -77,19 +78,21 @@ const IncidentList: React.FC = () => {
             )}
 
             <div className="table-container">
+                <h3>Incidentes</h3>
+           
                 <table className="incident-table">
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Cliente</th>
-                            <th>Descripción</th>
-                            <th>Estado</th>
-                            <th>Categoría</th>
-                            <th>Canal</th>
-                            <th>Prioridad</th>
-                            <th>Fecha de Apertura</th>
-                            <th>Fecha de Cierre</th>
-                            <th>Detalle</th>
+                            <th>CLIENTE</th>
+                            <th>DESCRIPCIÓN</th>
+                            <th>ESTADO</th>
+                            <th>CATEGORÍA</th>
+                            <th>CANAL</th>
+                            <th>PRIORIDAD</th>
+                            <th>FECHA DE APERTURA</th>
+                            <th>FECHA DE CIERRE</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -101,17 +104,17 @@ const IncidentList: React.FC = () => {
                                     <td className="truncate">
                                         {incident.description}
                                     </td>
-                                    <td
-                                        className={`status ${incident.estado.toLowerCase()}`}
-                                    >
-                                        {incident.estado}
+                                    <td>
+                                        <div className={`status ${incident.estado.toLowerCase()}`}>
+                                            {incident.estado}
+                                        </div>
                                     </td>
                                     <td>{incident.categoria}</td>
                                     <td>{incident.canal}</td>
-                                    <td
-                                        className={`priority ${incident.prioridad.toLowerCase()}`}
-                                    >
-                                        {incident.prioridad}
+                                    <td>
+                                        <div className={`priority ${incident.prioridad.toLowerCase()}`}>
+                                            {incident.prioridad}
+                                        </div>
                                     </td>
                                     <td>
                                         {new Date(
@@ -151,7 +154,7 @@ const IncidentList: React.FC = () => {
                     isOpen={isModalOpen}
                     onClose={closeModal}
                     incidentDetail={selectedIncident}
-                    onIncidentUpdated={fetchIncidents} // Llama a la función para actualizar la lista
+                    onIncidentUpdated={fetchIncidents}
                 />
             )}
         </div>
