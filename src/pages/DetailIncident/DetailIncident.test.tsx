@@ -15,23 +15,41 @@ describe('DetailIncidentModal component', () => {
         prioridad: 'Alta',
         fecha_creacion: '',
         fecha_cierre: null,
-        solucion: ''
+        solucion: '',
     };
 
     test('renders correctly when open', () => {
-        render(<DetailIncidentModal isOpen={true} onClose={mockOnClose} incidentDetail={incidentDetail} onIncidentUpdated={jest.fn()} />);
+        render(
+            <DetailIncidentModal
+                isOpen={true}
+                onClose={mockOnClose}
+                incidentDetail={incidentDetail}
+                onIncidentUpdated={jest.fn()}
+            />
+        );
 
         // Verificar que el modal se renderiza con el título correcto
         expect(screen.getByText('Detalle del Incidente')).toBeInTheDocument();
 
         // Verificar que los detalles del incidente se muestran correctamente
-        expect(screen.getByText('Descripción del soporte:')).toBeInTheDocument();
-        expect(screen.getAllByText(incidentDetail.description)[0]).toBeInTheDocument();
+        expect(
+            screen.getByText('Descripción del soporte:')
+        ).toBeInTheDocument();
+        expect(
+            screen.getAllByText(incidentDetail.description)[0]
+        ).toBeInTheDocument();
         expect(screen.getByText('Solución')).toBeInTheDocument();
     });
 
     test('calls onClose when close button is clicked', () => {
-        render(<DetailIncidentModal isOpen={true} onClose={mockOnClose} incidentDetail={incidentDetail} onIncidentUpdated={jest.fn()} />);
+        render(
+            <DetailIncidentModal
+                isOpen={true}
+                onClose={mockOnClose}
+                incidentDetail={incidentDetail}
+                onIncidentUpdated={jest.fn()}
+            />
+        );
 
         // Simular clic en el botón de cierre
         fireEvent.click(screen.getByText('×'));
@@ -40,12 +58,20 @@ describe('DetailIncidentModal component', () => {
         expect(mockOnClose).toHaveBeenCalledTimes(1);
     });
 
-
     test('renders with correct priority class', () => {
-        render(<DetailIncidentModal isOpen={true} onClose={mockOnClose} incidentDetail={incidentDetail} onIncidentUpdated={jest.fn()} />);
+        render(
+            <DetailIncidentModal
+                isOpen={true}
+                onClose={mockOnClose}
+                incidentDetail={incidentDetail}
+                onIncidentUpdated={jest.fn()}
+            />
+        );
 
         // Verificar que la prioridad tiene la clase correcta
-        expect(screen.getByText('Alta').classList.contains('prioridad')).toBe(true);
+        expect(screen.getByText('Alta').classList.contains('prioridad')).toBe(
+            true
+        );
         expect(screen.getByText('Alta').classList.contains('alta')).toBe(true);
     });
 
@@ -60,7 +86,14 @@ describe('DetailIncidentModal component', () => {
             solucion: '',
         };
 
-        render(<DetailIncidentModal isOpen={true} onClose={mockOnClose} incidentDetail={incidentDetail}  onIncidentUpdated={jest.fn()}/>);
+        render(
+            <DetailIncidentModal
+                isOpen={true}
+                onClose={mockOnClose}
+                incidentDetail={incidentDetail}
+                onIncidentUpdated={jest.fn()}
+            />
+        );
 
         // Verificar que el modal se renderiza sin detalles
         expect(screen.getByText('Detalle del Incidente')).toBeInTheDocument();

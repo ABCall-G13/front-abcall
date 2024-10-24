@@ -4,26 +4,25 @@
     align-items: center;
     padding: 1rem 2rem;
     position: relative; /* Mantén la posición relativa para ajustes futuros */
-  }
-  
-  .navbar-logo img {
-    height: 70px;  /* Ajusta el tamaño del logo */
+}
+
+.navbar-logo img {
+    height: 70px; /* Ajusta el tamaño del logo */
     margin-right: 2rem; /* Añade espacio entre el logo y los enlaces */
-  }
-  
-  .navbar-links {
+}
+
+.navbar-links {
     display: flex;
     gap: 3rem; /* Espacio entre los enlaces */
-  }
-  
-  .navbar-link {
+}
+
+.navbar-link {
     color: white;
     text-decoration: none;
     font-size: 10px;
     font-weight: bold;
-  }
-  
-  .navbar-link:hover {
+}
+
+.navbar-link:hover {
     color: #f0a500; /* Cambia a color dorado al hacer hover */
-  }
-  
+}
