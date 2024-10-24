@@ -68,18 +68,28 @@ const IncidentSearch = () => {
 
       {/* Solo muestra el modal si incidentDetail tiene datos válidos */}
       {incidentDetail && isModalOpen && (
-        <>
-          <div className="modal-overlay" onClick={closeModal}></div>
-          <div className="modal-container">
-            <DetailIncidentModal
-              isOpen={isModalOpen}
-              onClose={closeModal}
-              incidentDetail={incidentDetail} // incidentDetail siempre tendrá un valor aquí
-              onIncidentUpdated={() => {}}
-            />
-          </div>
-        </>
-      )}
+      <>
+        <div
+          className="modal-overlay"
+          onClick={closeModal}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === 'Escape') {
+              closeModal();
+            }
+          }}
+          role="button"
+          tabIndex={0}
+        ></div>
+        <div className="modal-container">
+          <DetailIncidentModal
+            isOpen={isModalOpen}
+            onClose={closeModal}
+            incidentDetail={incidentDetail}
+            onIncidentUpdated={() => {}}
+          />
+        </div>
+      </>
+    )}
     </div>
   );
 };

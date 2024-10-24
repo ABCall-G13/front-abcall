@@ -81,7 +81,7 @@ const IncidentList: React.FC = () => {
                 <table className="incident-table">
                     <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>Radicado</th>
                             <th>Cliente</th>
                             <th>Descripción</th>
                             <th>Estado</th>
@@ -97,7 +97,7 @@ const IncidentList: React.FC = () => {
                         {incidents.length > 0 ? (
                             incidents.map((incident) => (
                                 <tr key={incident.id}>
-                                    <td>{incident.id}</td>
+                                    <td>{incident.radicado}</td>
                                     <td>{incident.cliente_id}</td>
                                     <td className="truncate">
                                         {incident.description}
