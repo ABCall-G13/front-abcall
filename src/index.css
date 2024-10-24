@@ -29,7 +29,6 @@ body {
 
 .app-container.svg-background {
     background: url('/src/assets/images/background-top.svg') no-repeat top center;
-    ;
     background-attachment: fixed;
     background-size: 100%;
 }
