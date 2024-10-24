@@ -53,7 +53,7 @@ const Register: React.FC = () => {
 
         console.log('Form data submitted:', formData);
         axiosInstance
-            .post('/clientes', formData)
+            .post('/clientes/', formData)
             .then((response) => {
                 navigate('/plan-selection');
             })
