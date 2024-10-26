@@ -24,6 +24,9 @@ const Sidebar: React.FC = () => {
                     <li>
                         <Link to="/sync-users">Sincronizar usuarios</Link>
                     </li>
+                    <li>
+                        <Link to="/incident-list">Incidentes</Link>
+                    </li>
                 </ul>
             </nav>
             <button className="logout-button">Cerrar Sesión</button>

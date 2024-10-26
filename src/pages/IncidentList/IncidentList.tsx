@@ -17,6 +17,7 @@ interface Incident {
     fecha_creacion: string;
     fecha_cierre?: string | null;
     solucion?: string | null;
+    radicado: string;
 }
 
 const IncidentList: React.FC = () => {
@@ -83,7 +84,7 @@ const IncidentList: React.FC = () => {
                 <table className="incident-table">
                     <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>RADICADO</th>
                             <th>CLIENTE</th>
                             <th>DESCRIPCIÓN</th>
                             <th>ESTADO</th>
@@ -99,7 +100,7 @@ const IncidentList: React.FC = () => {
                         {incidents.length > 0 ? (
                             incidents.map((incident) => (
                                 <tr key={incident.id}>
-                                    <td>{incident.id}</td>
+                                    <td>{incident.radicado}</td>
                                     <td>{incident.cliente_id}</td>
                                     <td className="truncate">
                                         {incident.description}
