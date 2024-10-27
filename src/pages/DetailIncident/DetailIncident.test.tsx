@@ -12,7 +12,7 @@ describe('DetailIncidentModal component', () => {
         estado: '',
         categoria: '',
         canal: '',
-        prioridad: 'alta', // Priority should render "prioridad alta" class
+        prioridad: 'alta',
         fecha_creacion: '',
         fecha_cierre: null,
         solucion: '',
@@ -40,7 +40,7 @@ describe('DetailIncidentModal component', () => {
         expect(screen.getByText('Solución')).toBeInTheDocument();
     });
 
-    test('calls onClose when close button is clicked', () => {
+    test('calls onClose when main close button is clicked', () => {
         render(
             <DetailIncidentModal
                 isOpen={true}
@@ -50,34 +50,31 @@ describe('DetailIncidentModal component', () => {
             />
         );
 
-        fireEvent.click(screen.getByText('×'));
+        const closeButtons = screen.getAllByText('×');
+        fireEvent.click(closeButtons[0]);
         expect(mockOnClose).toHaveBeenCalledTimes(1);
     });
 
-    test('renders without crashing when incidentDetail is empty', () => {
-        const emptyIncidentDetail = {
-            id: 0,
-            cliente_id: 0,
-            description: '',
-            estado: '',
-            categoria: '',
-            canal: '',
-            prioridad: '',
-            fecha_creacion: '',
-            fecha_cierre: null,
-            solucion: '',
-            radicado: '',
-        };
-
+    test('opens and closes ProblemaComunModal correctly', () => {
         render(
             <DetailIncidentModal
                 isOpen={true}
                 onClose={mockOnClose}
-                incidentDetail={emptyIncidentDetail}
+                incidentDetail={incidentDetail}
                 onIncidentUpdated={jest.fn()}
             />
         );
 
-        expect(screen.getByText('Detalle del Incidente')).toBeInTheDocument();
+        const openModalButton = screen.getByText('Buscar problemas comunes');
+        fireEvent.click(openModalButton);
+
+        expect(screen.getByText('Problemas Comunes')).toBeInTheDocument();
+
+        const closeModalButton = screen.getAllByText('×')[1];
+        fireEvent.click(closeModalButton);
+
+        expect(
+            screen.queryByText('Problemas Comunes')
+        ).not.toBeInTheDocument();
     });
 });
