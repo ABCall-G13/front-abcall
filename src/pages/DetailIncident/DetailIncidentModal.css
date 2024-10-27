@@ -116,8 +116,12 @@ ul li {
 }
 
 .btn-solucionar,
+.btn-solucion-ia,
+.btn-problema-comun,
+.btn-registrar-solucion,
 .btn-escalar {
     margin-right: 10px;
+    margin-bottom: 10px;
     padding: 8px 12px;
     background-color: #2d3748;
     color: white;
@@ -127,6 +131,9 @@ ul li {
 }
 
 .btn-solucionar:hover,
+.btn-solucion-ia:hover,
+.btn-problema-comun:hover,
+.btn-registrar-solucion:hover,
 .btn-escalar:hover {
     background-color: #2d3748c5;
 }
