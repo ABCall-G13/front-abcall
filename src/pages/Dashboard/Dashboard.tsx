@@ -6,7 +6,6 @@ const LookerDashboard = () => {
 
     return (
         <div style={{ width: '100%', height: '100%', paddingInline: '10px' }}>
-            <BreadCrumb />
             <h2>Tablero de control</h2>
             <div
                 style={{
