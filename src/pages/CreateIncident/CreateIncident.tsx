@@ -31,10 +31,22 @@ const CreateIncident: React.FC<CreateIncidentProps> = ({
         estado: [],
     });
 
+    interface Cliente {
+        id: number;
+        nombre: string;
+        email: string;
+        nit: string;
+        direccion: string;
+        telefono: string;
+        industria: string;
+        WelcomeMessage: string;
+    }
+
+    const [clientes, setClientes] = useState<Cliente[]>([]); // Estado para almacenar los clientes
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [errorMessage, setErrorMessage] = useState<string | null>(null); // Manejo de errores
 
-    // Obtener los valores de los enums desde el backend
+    // Obtener los valores de los enums y los clientes desde el backend
     useEffect(() => {
         axiosInstance
             .get('/incidentes/fields')
@@ -46,6 +58,15 @@ const CreateIncident: React.FC<CreateIncidentProps> = ({
                     'Error al obtener los valores permitidos:',
                     error
                 );
+            });
+
+        axiosInstance
+            .get('/clientes')
+            .then((response) => {
+                setClientes(response.data); // Establece los valores de los clientes
+            })
+            .catch((error) => {
+                console.error('Error al obtener los clientes:', error);
             });
     }, []);
 
@@ -170,11 +191,12 @@ const CreateIncident: React.FC<CreateIncidentProps> = ({
                         onChange={handleChange}
                         required
                     >
-                        <option value="">Selecciona un cliente</option>
-                        <option value="1">Cliente1</option>
-                        <option value="2">Cliente2</option>
-                        <option value="3">Cliente3</option>
-                        <option value="4">Cliente4</option>
+                        <option value="">Seleccione un cliente</option>
+                        {clientes.map((cliente) => (
+                            <option key={cliente.id} value={cliente.id}>
+                                {cliente.nombre}
+                            </option>
+                        ))}
                     </select>
                 </div>
                 <div className="form-group">

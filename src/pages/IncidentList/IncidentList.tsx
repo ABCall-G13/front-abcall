@@ -5,7 +5,6 @@ import CreateIncident from '../CreateIncident/CreateIncident';
 import './IncidentList.css';
 import axiosInstance from '../../utils/axiosInstance';
 
-
 interface Incident {
     id: number;
     cliente_id: number;
@@ -17,6 +16,7 @@ interface Incident {
     fecha_creacion: string;
     fecha_cierre?: string | null;
     solucion?: string | null;
+    radicado: string;
 }
 
 const IncidentList: React.FC = () => {
@@ -79,11 +79,11 @@ const IncidentList: React.FC = () => {
 
             <div className="table-container">
                 <h3>Incidentes</h3>
-           
+
                 <table className="incident-table">
                     <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>RADICADO</th>
                             <th>CLIENTE</th>
                             <th>DESCRIPCIÓN</th>
                             <th>ESTADO</th>
@@ -99,20 +99,24 @@ const IncidentList: React.FC = () => {
                         {incidents.length > 0 ? (
                             incidents.map((incident) => (
                                 <tr key={incident.id}>
-                                    <td>{incident.id}</td>
+                                    <td>{incident.radicado}</td>
                                     <td>{incident.cliente_id}</td>
                                     <td className="truncate">
                                         {incident.description}
                                     </td>
                                     <td>
-                                        <div className={`status ${incident.estado.toLowerCase()}`}>
+                                        <div
+                                            className={`status ${incident.estado.toLowerCase()}`}
+                                        >
                                             {incident.estado}
                                         </div>
                                     </td>
                                     <td>{incident.categoria}</td>
                                     <td>{incident.canal}</td>
                                     <td>
-                                        <div className={`priority ${incident.prioridad.toLowerCase()}`}>
+                                        <div
+                                            className={`priority ${incident.prioridad.toLowerCase()}`}
+                                        >
                                             {incident.prioridad}
                                         </div>
                                     </td>

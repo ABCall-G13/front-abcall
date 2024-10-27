@@ -6,14 +6,20 @@ import PlanSelection from './pages/PlanSelection/PlanSelection';
 import Navbar from './components/Navbar/Navbar';
 import Sidebar from './components/Sidebar/Sidebar';
 import IncidentList from './pages/IncidentList/IncidentList';
+import ClienteList from './pages/DirectoryList/DirectoryList';
+import IncidentSearch from './pages/IncidentSearch/IncidentSearch';
 
 const AppContent: React.FC = () => {
     const currentPath = window.location.pathname;
 
     const showSidebar =
-        currentPath !== '/' && currentPath !== '/plan-selection';
+        currentPath !== '/' &&
+        currentPath !== '/plan-selection' &&
+        currentPath !== '/search-incident';
     const showNavbar =
-        currentPath === '/' || currentPath === '/plan-selection';
+        currentPath === '/' ||
+        currentPath === '/plan-selection' ||
+        currentPath === '/search-incident';
     const showSvgBackground =
         currentPath !== '/' && currentPath !== '/plan-selection';
 
@@ -45,6 +51,15 @@ const AppContent: React.FC = () => {
                             path="/incident-list"
                             element={<IncidentList />}
                         />
+                        <Route
+                            path="/directory-list"
+                            element={<ClienteList />}
+                        />
+                        <Route
+                            path="/search-incident"
+                            element={<IncidentSearch />}
+                        />{' '}
+                        {/* Nueva ruta */}
                     </Routes>
                 </div>
             </div>

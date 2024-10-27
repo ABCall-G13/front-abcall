@@ -16,6 +16,7 @@ describe('DetailIncidentModal component', () => {
         fecha_creacion: '',
         fecha_cierre: null,
         solucion: '',
+        radicado: ''
     };
 
     test('renders correctly when open', () => {

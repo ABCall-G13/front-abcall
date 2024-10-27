@@ -1,10 +1,15 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import LookerDashboard from './Dashboard';
+import { MemoryRouter } from 'react-router-dom';
 
 describe('LookerDashboard', () => {
     it('renders the dashboard title', () => {
-        render(<LookerDashboard />);
+        render(
+            <MemoryRouter>
+                <LookerDashboard />
+            </MemoryRouter>
+        );
         const titleElement = screen.getByText(/Tablero de control/i);
         expect(titleElement).toBeInTheDocument();
     });

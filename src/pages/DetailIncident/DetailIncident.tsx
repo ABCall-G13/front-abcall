@@ -16,6 +16,7 @@ interface DetailIncidentModalProps {
         fecha_creacion: string;
         fecha_cierre?: string | null; // Opcional porque puede ser null
         solucion?: string | null;
+        radicado: string;
     };
     onIncidentUpdated: () => void; // Callback para actualizar la lista de incidentes
 }
@@ -81,6 +82,10 @@ const DetailIncidentModal: React.FC<DetailIncidentModalProps> = ({
                             <p>
                                 <strong>Cliente:</strong>{' '}
                                 {incidentDetail.cliente_id}
+                            </p>
+                            <p>
+                                <strong>Radicado:</strong>{' '}
+                                {incidentDetail.radicado}
                             </p>
                         </div>
                         <div className="column">

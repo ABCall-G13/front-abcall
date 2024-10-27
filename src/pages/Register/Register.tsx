@@ -20,6 +20,7 @@ const Register: React.FC = () => {
     });
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const [phoneError, setPhoneError] = useState<string | null>(null);
+    const [disabledButton, setDisabledButton ] = useState<boolean>(false);
 
     const handleChange = (
         e: React.ChangeEvent<
@@ -45,17 +46,28 @@ const Register: React.FC = () => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+        setDisabledButton(true);
 
         if (!/^\d+$/.test(formData.telefono)) {
             setPhoneError('El teléfono solo puede contener números.');
+            setDisabledButton(false); 
             return;
         }
+
+        if (formData.password !== formData.confirmPassword) {
+            setErrorMessage('Las contraseñas no coinciden.');
+            setDisabledButton(false); 
+            return;
+        }
+
+        setErrorMessage(null);
 
         console.log('Form data submitted:', formData);
         axiosInstance
             .post('/clientes/', formData)
             .then((response) => {
                 navigate('/plan-selection');
+                setDisabledButton(false);
             })
             .catch((error) => {
                 console.error('Error al crear cliente:', error); // Asegúrate de registrar el error
@@ -64,6 +76,7 @@ const Register: React.FC = () => {
                 } else {
                     setErrorMessage('Ocurrió un error al crear el cliente.');
                 }
+                setDisabledButton(false); 
             });
     };
 
@@ -220,7 +233,7 @@ const Register: React.FC = () => {
                             </div>
                         </div>
                     </div>
-                    <button type="submit" className="submit-btn">
+                    <button type="submit" className="submit-btn" disabled={disabledButton} >
                         Siguiente
                     </button>
                 </form>
