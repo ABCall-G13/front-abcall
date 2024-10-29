@@ -7,6 +7,7 @@ const routeNameMap: { [key: string]: string } = {
     'incident-list': 'Incidentes',
     dashboard: 'Tableros',
     'directory-list': 'Directorio',
+    'common-issue-list': 'Problemas comunes',
 };
 
 const CustomBreadcrumb = () => {

@@ -8,6 +8,7 @@ import Sidebar from './components/Sidebar/Sidebar';
 import IncidentList from './pages/IncidentList/IncidentList';
 import ClienteList from './pages/DirectoryList/DirectoryList';
 import IncidentSearch from './pages/IncidentSearch/IncidentSearch';
+import ProblemaComunList from './pages/CommonIssueList/CommonIssueList';
 
 const AppContent: React.FC = () => {
     const currentPath = window.location.pathname;
@@ -54,6 +55,10 @@ const AppContent: React.FC = () => {
                         <Route
                             path="/directory-list"
                             element={<ClienteList />}
+                        />
+                        <Route
+                            path="/common-issue-list"
+                            element={<ProblemaComunList />}
                         />
                         <Route
                             path="/search-incident"

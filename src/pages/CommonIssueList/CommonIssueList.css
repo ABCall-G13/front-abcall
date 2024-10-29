@@ -1,0 +1,132 @@
+.problema-comun-list-container {
+    padding: 2rem;
+    position: relative;
+    min-height: 100vh;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.btn-create-problema-comun {
+    background-color: #2d3748;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.6rem;
+}
+
+.btn-create-problema-comun:hover {
+    background-color: #2d3748c5;
+}
+
+.problema-comun-table th,
+.problema-comun-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.table-container {
+    overflow-x: auto;
+    min-height: 66vh;
+    overflow-y: auto;
+    background-color: white;
+    border-radius: 10px;
+    padding: 3%;
+}
+
+.problema-comun-table {
+    width: 100%;
+    border-collapse: collapse;
+    color: #718096;
+}
+
+.problema-comun-table td {
+    padding: 12px;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    font-size: 0.87rem;
+}
+
+.problema-comun-table th {
+    padding: 12px;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    background-color: #ffffff;
+    text-align: left;
+    font-weight: bold;
+    color: #a0aec0;
+    font-size: 0.63rem;
+    position: relative;
+    padding-right: 20px;
+    letter-spacing: 1px;
+}
+
+.problema-comun-table th:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 12px;
+    height: 12px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-left: 10px;
+    background-image: url('../../assets/icons/filter.svg');
+}
+
+.truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px; /* Adjust as needed */
+}
+
+h3 {
+    font-size: 1.12rem;
+    color: #2d3748;
+}
+
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 0.6rem;
+}
+
+.create-problema-comun-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    width: 60%;
+    max-width: 800px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
