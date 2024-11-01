@@ -39,13 +39,20 @@ describe('CreateIncident component', () => {
             <CreateIncident
                 onClose={mockOnClose}
                 onIncidentCreated={mockOnIncidentCreated}
-            />
+                initialUserInfo={{}} // Provide a mock initialUserInfo
+        />
         );
 
         // Esperar a que los elementos sean renderizados
         await waitFor(() => {
             expect(screen.getByLabelText(/Descripción/i)).toBeInTheDocument();
+        });
+
+        await waitFor(() => {
             expect(screen.getByLabelText(/Categoría/i)).toBeInTheDocument();
+        });
+
+        await waitFor(() => {
             expect(screen.getByLabelText(/Prioridad/i)).toBeInTheDocument();
         });
     });
@@ -73,6 +80,7 @@ describe('CreateIncident component', () => {
             <CreateIncident
                 onClose={mockOnClose}
                 onIncidentCreated={mockOnIncidentCreated}
+                initialUserInfo={{}} // Provide a mock initialUserInfo
             />
         );
 
@@ -131,6 +139,8 @@ describe('CreateIncident component', () => {
             <CreateIncident
                 onClose={mockOnClose}
                 onIncidentCreated={mockOnIncidentCreated}
+                initialUserInfo={{}} // Provide a mock initialUserInfo
+
             />
         );
 

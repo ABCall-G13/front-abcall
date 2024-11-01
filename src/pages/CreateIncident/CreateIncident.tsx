@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import './CreateIncident.css'; // Archivo de estilos
-import axiosInstance from '../../utils/axiosInstance'; // Asegúrate de tener configurado axiosInstance para manejar la API
+import './CreateIncident.css';
+import axiosInstance from '../../utils/axiosInstance';
+import { Dialog, DialogContent } from '@mui/material';
 
 interface CreateIncidentProps {
     onClose: () => void;
-    onIncidentCreated: () => void; // Nueva prop para actualizar la lista de incidentes
+    onIncidentCreated: () => void;
+    initialUserInfo: any; // Añadido para recibir la información del usuario validado
 }
 
 const CreateIncident: React.FC<CreateIncidentProps> = ({
     onClose,
     onIncidentCreated,
+    initialUserInfo,
 }) => {
     const [formData, setFormData] = useState({
         id: 0,
@@ -17,9 +20,9 @@ const CreateIncident: React.FC<CreateIncidentProps> = ({
         categoria: '',
         prioridad: '',
         canal: '',
-        cliente: '',
+        cliente: initialUserInfo ? initialUserInfo.id : '', // Inicializar con el cliente validado si existe
         estado: 'abierto',
-        fecha_creacion: new Date().toISOString().slice(0, 10), // Fecha actual
+        fecha_creacion: new Date().toISOString().slice(0, 10),
         fecha_cierre: '',
         solucion: '',
     });
@@ -44,21 +47,13 @@ const CreateIncident: React.FC<CreateIncidentProps> = ({
 
     const [clientes, setClientes] = useState<Cliente[]>([]); // Estado para almacenar los clientes
     const [isSubmitted, setIsSubmitted] = useState(false);
-    const [errorMessage, setErrorMessage] = useState<string | null>(null); // Manejo de errores
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-    // Obtener los valores de los enums y los clientes desde el backend
     useEffect(() => {
         axiosInstance
             .get('/incidentes/fields')
-            .then((response) => {
-                setEnums(response.data); // Establece los valores de los enums
-            })
-            .catch((error) => {
-                console.error(
-                    'Error al obtener los valores permitidos:',
-                    error
-                );
-            });
+            .then((response) => setEnums(response.data))
+            .catch((error) => console.error('Error al obtener los valores permitidos:', error));
 
         axiosInstance
             .get('/clientes')
@@ -70,11 +65,7 @@ const CreateIncident: React.FC<CreateIncidentProps> = ({
             });
     }, []);
 
-    const handleChange = (
-        e: React.ChangeEvent<
-            HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-        >
-    ) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         setFormData({
             ...formData,
@@ -92,7 +83,7 @@ const CreateIncident: React.FC<CreateIncidentProps> = ({
                 categoria: formData.categoria,
                 prioridad: formData.prioridad,
                 canal: formData.canal,
-                cliente_id: parseInt(formData.cliente), // Convertimos a número si es necesario
+                cliente_id: parseInt(formData.cliente),
                 estado: formData.estado,
                 fecha_creacion: formData.fecha_creacion,
                 fecha_cierre: formData.fecha_cierre || null,
@@ -100,26 +91,22 @@ const CreateIncident: React.FC<CreateIncidentProps> = ({
             });
 
             console.log('Incidente creado:', response.data);
-
             setIsSubmitted(true);
             setTimeout(() => {
                 setIsSubmitted(false);
-                onClose(); // Cierra el modal
-                onIncidentCreated(); // Notifica al componente padre que se ha creado un nuevo incidente
+                onClose();
+                onIncidentCreated();
             }, 3000);
         } catch (error) {
             console.error('Error al crear incidente:', error);
-            setErrorMessage(
-                'Hubo un error al crear el incidente. Intenta de nuevo.'
-            );
-            setTimeout(() => {
-                setErrorMessage(null);
-            }, 3000);
+            setErrorMessage('Hubo un error al crear el incidente. Intenta de nuevo.');
+            setTimeout(() => setErrorMessage(null), 3000);
         }
     };
 
     return (
-        <div className="modal-content">
+        <Dialog open onClose={onClose} fullWidth maxWidth="sm">
+            <DialogContent>
             <button className="close-button" onClick={onClose}>
                 &times;
             </button>
@@ -219,8 +206,8 @@ const CreateIncident: React.FC<CreateIncidentProps> = ({
                 <button type="submit" className="submit-btn">
                     Registrar Incidente
                 </button>
-            </form>
-        </div>
+            </form></DialogContent>
+        </Dialog>
     );
 };
 
