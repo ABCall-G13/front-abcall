@@ -10,6 +10,7 @@ import ClienteList from './pages/DirectoryList/DirectoryList';
 import IncidentSearch from './pages/IncidentSearch/IncidentSearch';
 import ProblemaComunList from './pages/CommonIssueList/CommonIssueList';
 import UserSync from './pages/UserSync/UserSync';
+import LoginClient from './pages/LoginClient/LoginClient';
 
 const AppContent: React.FC = () => {
     const currentPath = window.location.pathname;
@@ -41,6 +42,10 @@ const AppContent: React.FC = () => {
                 <div className="main-content">
                     <Routes>
                         <Route path="/" element={<Register />} />
+                        <Route
+                            path="/login-client" // Nueva ruta para LoginClient
+                            element={<LoginClient />}
+                        />
                         <Route
                             path="/plan-selection"
                             element={<PlanSelection />}
