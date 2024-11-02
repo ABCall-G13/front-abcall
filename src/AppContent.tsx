@@ -18,11 +18,14 @@ const AppContent: React.FC = () => {
     const showSidebar =
         currentPath !== '/' &&
         currentPath !== '/plan-selection' &&
-        currentPath !== '/search-incident';
+        currentPath !== '/search-incident' &&
+        currentPath !== '/login-client';
+
     const showNavbar =
         currentPath === '/' ||
         currentPath === '/plan-selection' ||
-        currentPath === '/search-incident';
+        currentPath === '/search-incident' ||
+        currentPath === '/login-client';
     const showSvgBackground =
         currentPath !== '/' && currentPath !== '/plan-selection';
 
@@ -43,7 +46,7 @@ const AppContent: React.FC = () => {
                     <Routes>
                         <Route path="/" element={<Register />} />
                         <Route
-                            path="/login-client" // Nueva ruta para LoginClient
+                            path="/login-client"
                             element={<LoginClient />}
                         />
                         <Route
