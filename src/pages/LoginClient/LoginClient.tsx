@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import './LoginClient.css';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../../utils/axiosInstance';
+import LanguageSelector from '../../components/Select/LanguageSelector';
+import CurrencySelector from '../../components/Select/CurrencySelector';
 
 const LoginClient: React.FC = () => {
     const navigate = useNavigate();
@@ -26,6 +28,10 @@ const LoginClient: React.FC = () => {
 
     return (
         <div className="login-client-container">
+            <div className="selectors-bar">
+                <LanguageSelector />
+                <CurrencySelector />
+            </div>
             <div className="login-client-card">
                 <h2 id="title-login">Iniciar sesión</h2>
                 {errorMessage && (
