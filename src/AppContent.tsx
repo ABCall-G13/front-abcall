@@ -9,6 +9,7 @@ import IncidentList from './pages/IncidentList/IncidentList';
 import ClienteList from './pages/DirectoryList/DirectoryList';
 import IncidentSearch from './pages/IncidentSearch/IncidentSearch';
 import ProblemaComunList from './pages/CommonIssueList/CommonIssueList';
+import UserSync from './pages/UserSync/UserSync';
 
 const AppContent: React.FC = () => {
     const currentPath = window.location.pathname;
@@ -63,7 +64,8 @@ const AppContent: React.FC = () => {
                         <Route
                             path="/search-incident"
                             element={<IncidentSearch />}
-                        />{' '}
+                        />
+                        <Route path="/user-sync" element={<UserSync />} />{' '}
                         {/* Nueva ruta */}
                     </Routes>
                 </div>
