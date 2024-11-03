@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import ValidateUserModal from './UserValidation';
 import axiosInstance from '../../utils/axiosInstance';
+import '@testing-library/jest-dom';
 
 jest.mock('../../utils/axiosInstance');
 
@@ -19,6 +20,19 @@ describe('ValidateUserModal', () => {
         jest.clearAllMocks();
         (axiosInstance.get as jest.Mock).mockResolvedValue({ data: mockClientes });
     });
+    const onUserValidated = jest.fn();
+    const onClose = jest.fn();
+    const onOpenCreateIncident = jest.fn();
+    const setupComponent = (isOpen = true) => {
+        render(
+            <ValidateUserModal
+                isOpen={isOpen}
+                onUserValidated={onUserValidated}
+                onClose={onClose}
+                onOpenCreateIncident={onOpenCreateIncident}
+            />
+        );
+    };
 
     test('renders correctly when open', () => {
         render(
@@ -217,5 +231,94 @@ describe('ValidateUserModal', () => {
         });
     
         expect(mockOnUserValidated).not.toHaveBeenCalled();
+    });
+    test('shows "complete all fields" alert when fields are empty', async () => {
+        setupComponent();
+
+        fireEvent.click(screen.getByText(/Validar usuario/i));
+
+        expect(await screen.findByText(/Por favor, completa todos los campos/i)).toBeInTheDocument();
+        expect(screen.queryByText(/Usuario no encontrado/i)).not.toBeInTheDocument();
+    });
+    
+    
+});
+
+
+describe('ValidateUserModal Component', () => {
+    const mockClient = { nit: '12345', nombre: 'Cliente Prueba' };
+    const onUserValidatedMock = jest.fn();
+    const onCloseMock = jest.fn();
+    const onOpenCreateIncidentMock = jest.fn();
+
+    beforeEach(() => {
+        jest.clearAllMocks();
+    });
+
+    test('shows user not found alert when no user data is returned', async () => {
+        // Mock de la respuesta de cliente existente
+        jest.spyOn(axiosInstance, 'get').mockResolvedValueOnce({ data: [mockClient] });
+    
+        // Mock de la respuesta de usuario no encontrado
+        jest.spyOn(axiosInstance, 'get').mockResolvedValueOnce({ data: {} });
+    
+        // Renderizamos el modal
+        await act(async () => {
+            render(
+                <ValidateUserModal
+                    isOpen={true}
+                    onUserValidated={onUserValidatedMock}
+                    onClose={onCloseMock}
+                    onOpenCreateIncident={onOpenCreateIncidentMock}
+                />
+            );
+        });
+    
+        // Llenamos todos los campos requeridos
+        await act(async () => {
+            fireEvent.change(screen.getByLabelText('Tipo de documento'), { target: { value: 'CC' } });
+            fireEvent.change(screen.getByLabelText('Número de identificación'), { target: { value: '12345678' } });
+            fireEvent.change(screen.getByLabelText('Cliente'), { target: { value: JSON.stringify(mockClient) } });
+        });
+    
+        // Validamos los valores con los que se llenaron los campos
+        expect(screen.getByLabelText('Tipo de documento')).toHaveValue('CC');
+        expect(screen.getByLabelText('Número de identificación')).toHaveValue('12345678');
+        expect(screen.getByLabelText('Cliente')).toHaveValue(JSON.stringify(mockClient));
+    
+        // Simulamos el clic en el botón "Validar usuario"
+        await act(async () => {
+            fireEvent.click(screen.getByText('Validar usuario'));
+        });
+    
+        // Esperamos que aparezca la alerta de "Usuario no encontrado"
+        await waitFor(() => {
+            const alertElement = screen.getByRole('alert');
+            expect(alertElement).toHaveTextContent(/Usuario no encontrado/i);
+        });
+    })
+
+    test('shows empty fields alert when required fields are not filled', async () => {
+        await act(async () => {
+            render(
+                <ValidateUserModal
+                    isOpen={true}
+                    onUserValidated={onUserValidatedMock}
+                    onClose={onCloseMock}
+                    onOpenCreateIncident={onOpenCreateIncidentMock}
+                />
+            );
+        });
+
+        // Simulamos el clic en el botón "Validar usuario" sin llenar los campos
+        await act(async () => {
+            fireEvent.click(screen.getByText('Validar usuario'));
+        });
+
+        // Esperamos que aparezca la alerta de "Por favor, completa todos los campos"
+        await waitFor(() => {
+            const alertElement = screen.getByRole('alert');
+            expect(alertElement).toHaveTextContent(/Por favor, completa todos los campos/i);
+        });
     });
 });

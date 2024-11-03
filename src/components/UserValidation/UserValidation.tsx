@@ -164,7 +164,7 @@ const ValidateUserModal: React.FC<ValidateUserModalProps> = ({
                     </Stack>
                 )}
                 <div className="custom-field">
-                    <label className="custom-label">Tipo de documento</label>
+                    <label className="custom-label" htmlFor='docType'>Tipo de documento</label>
                     <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
                         <select
                             ref={selectRef}
@@ -174,6 +174,7 @@ const ValidateUserModal: React.FC<ValidateUserModalProps> = ({
                             className="custom-select"
                             style={{ width: '100%', appearance: 'none', paddingRight: '2.5rem' }}
                             aria-label="Tipo de documento"  // Añadido para accesibilidad
+                            id="docType"
                         >
                             <option value="">Seleccione un tipo de documento</option>
                             <option value="CC">Cédula de ciudadanía</option>
@@ -230,8 +231,8 @@ const ValidateUserModal: React.FC<ValidateUserModalProps> = ({
                 </div>
 
                 <div className="custom-field">
-                    <label className="custom-label">Cliente</label>
                     <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+                        <label className="custom-label" htmlFor='client'>Cliente</label>
                         <select
                             ref={selectRef}
                             value={client ? JSON.stringify(client) : ''}
@@ -242,6 +243,7 @@ const ValidateUserModal: React.FC<ValidateUserModalProps> = ({
                             }}                            className="custom-select"
                             style={{ width: '100%', appearance: 'none', paddingRight: '2.5rem' }}
                             aria-label="Cliente"  // Añadido para accesibilidad
+                            id='client'
                         >
                             <option value="" key="default">Seleccione un cliente</option>
                             {Array.isArray(clientes) && clientes.map((cliente, index) => (
