@@ -13,7 +13,7 @@ const PlanSelection: React.FC = () => {
         console.log('Plan seleccionado:', plan);
 
         // Redirigir o realizar la acción que necesites después de la selección
-        navigate('/confirmacion'); // Redirige a la página de confirmación o la que desees
+        navigate('/incident-list'); // Redirige a la página de confirmación o la que desees
     };
 
     return (

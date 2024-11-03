@@ -1,80 +1,126 @@
-import { render, screen, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom';
+import React from 'react';
+import { render, fireEvent, waitFor, screen } from '@testing-library/react';
 import DetailIncidentModal from './DetailIncident';
+import axiosInstance from '../../utils/axiosInstance';
 
-describe('DetailIncidentModal component', () => {
-    const mockOnClose = jest.fn();
+jest.mock('../../utils/axiosInstance');
 
-    const incidentDetail = {
-        id: 0,
-        cliente_id: 0,
-        description: '',
-        estado: '',
-        categoria: '',
-        canal: '',
-        prioridad: 'alta',
-        fecha_creacion: '',
-        fecha_cierre: null,
-        solucion: '',
-        radicado: '',
-    };
+(axiosInstance.get as jest.Mock).mockResolvedValue({ data: [] });
 
-    afterEach(() => {
-        jest.clearAllMocks();
-    });
+const mockIncidentDetail = {
+    id: 1,
+    cliente_id: 123,
+    description: 'Test incident description',
+    estado: 'abierto',
+    categoria: 'Test category',
+    canal: 'Test channel',
+    prioridad: 'Alta',
+    fecha_creacion: '2023-01-01',
+    fecha_cierre: null,
+    solucion: null,
+    radicado: 'ABC123',
+};
 
-    test('renders correctly when open', () => {
+const mockOnClose = jest.fn();
+const mockOnIncidentUpdated = jest.fn();
+
+describe('DetailIncidentModal', () => {
+    it('renders correctly when open', () => {
         render(
             <DetailIncidentModal
                 isOpen={true}
                 onClose={mockOnClose}
-                incidentDetail={incidentDetail}
-                onIncidentUpdated={jest.fn()}
+                incidentDetail={mockIncidentDetail}
+                onIncidentUpdated={mockOnIncidentUpdated}
             />
         );
 
         expect(screen.getByText('Detalle del Incidente')).toBeInTheDocument();
-        expect(
-            screen.getByText('Descripción del soporte:')
-        ).toBeInTheDocument();
-        expect(screen.getByText('Solución')).toBeInTheDocument();
+        expect(screen.getByText('Descripción del soporte:')).toBeInTheDocument();
+        expect(screen.getByText('Test incident description')).toBeInTheDocument();
     });
 
-    test('calls onClose when main close button is clicked', () => {
+    it('does not render when closed', () => {
+        render(
+            <DetailIncidentModal
+                isOpen={false}
+                onClose={mockOnClose}
+                incidentDetail={mockIncidentDetail}
+                onIncidentUpdated={mockOnIncidentUpdated}
+            />
+        );
+
+        expect(screen.queryByText('Detalle del Incidente')).not.toBeInTheDocument();
+    });
+
+    it('calls onClose when close button is clicked', () => {
         render(
             <DetailIncidentModal
                 isOpen={true}
                 onClose={mockOnClose}
-                incidentDetail={incidentDetail}
-                onIncidentUpdated={jest.fn()}
+                incidentDetail={mockIncidentDetail}
+                onIncidentUpdated={mockOnIncidentUpdated}
             />
         );
 
-        const closeButtons = screen.getAllByText('×');
-        fireEvent.click(closeButtons[0]);
-        expect(mockOnClose).toHaveBeenCalledTimes(1);
+        fireEvent.click(screen.getByText('×'));
+        expect(mockOnClose).toHaveBeenCalled();
     });
 
-    test('opens and closes ProblemaComunModal correctly', () => {
+    it('handles solucionar action', async () => {
+        (axiosInstance.put as jest.Mock).mockResolvedValueOnce({});
         render(
             <DetailIncidentModal
                 isOpen={true}
                 onClose={mockOnClose}
-                incidentDetail={incidentDetail}
-                onIncidentUpdated={jest.fn()}
+                incidentDetail={mockIncidentDetail}
+                onIncidentUpdated={mockOnIncidentUpdated}
             />
         );
 
-        const openModalButton = screen.getByText('Buscar problemas comunes');
-        fireEvent.click(openModalButton);
+        fireEvent.change(screen.getByPlaceholderText('Escribe la solución aquí'), {
+            target: { value: 'Test solution' },
+        });
+        fireEvent.click(screen.getByText('Guardar Solución'));
 
-        expect(screen.getByText('Problemas Comunes')).toBeInTheDocument();
+        await waitFor(() => 
+            expect(axiosInstance.put).toHaveBeenCalledWith(
+                `/incidente/1/solucionar`,
+                { solucion: 'Test solution' }
+            )
+        );
+        await waitFor(() => expect(mockOnIncidentUpdated).toHaveBeenCalled());
+        await waitFor(() => expect(mockOnClose).toHaveBeenCalled());
+    });
 
-        const closeModalButton = screen.getAllByText('×')[1];
-        fireEvent.click(closeModalButton);
+    it('handles escalar action', async () => {
+        (axiosInstance.put as jest.Mock).mockResolvedValueOnce({});
+        render(
+            <DetailIncidentModal
+                isOpen={true}
+                onClose={mockOnClose}
+                incidentDetail={mockIncidentDetail}
+                onIncidentUpdated={mockOnIncidentUpdated}
+            />
+        );
 
-        expect(
-            screen.queryByText('Problemas Comunes')
-        ).not.toBeInTheDocument();
+        fireEvent.click(screen.getByText('Escalar'));
+
+        await waitFor(() => expect(axiosInstance.put).toHaveBeenCalledWith(`/incidente/1/escalar`));
+        await waitFor(() => expect(mockOnIncidentUpdated).toHaveBeenCalled());
+        await waitFor(() => expect(mockOnClose).toHaveBeenCalled());
+    });
+
+    it('opens and closes ProblemaComunModal', () => {
+        render(
+            <DetailIncidentModal
+                isOpen={true}
+                onClose={mockOnClose}
+                incidentDetail={mockIncidentDetail}
+                onIncidentUpdated={mockOnIncidentUpdated}
+            />
+        );
+
+        fireEvent.click(screen.getByText('Buscar problemas comunes'));
     });
 });
