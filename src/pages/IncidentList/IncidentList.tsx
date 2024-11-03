@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import BreadCrumb from '../../components/BreadCrumb/BreadCrumb';
 import DetailIncidentModal from '../DetailIncident/DetailIncident';
 import CreateIncident from '../CreateIncident/CreateIncident';
+import ValidateUserModal from '../../components/UserValidation/UserValidation';
+import { Dialog } from '@mui/material';
 import './IncidentList.css';
 import axiosInstance from '../../utils/axiosInstance';
 
@@ -22,11 +24,10 @@ interface Incident {
 const IncidentList: React.FC = () => {
     const [incidents, setIncidents] = useState<Incident[]>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [selectedIncident, setSelectedIncident] = useState<Incident | null>(
-        null
-    );
-    const [isCreateIncidentVisible, setIsCreateIncidentVisible] =
-        useState(false);
+    const [selectedIncident, setSelectedIncident] = useState<Incident | null>(null);
+    const [isValidationModalOpen, setIsValidationModalOpen] = useState(false);
+    const [isCreateIncidentVisible, setIsCreateIncidentVisible] = useState(false);
+    const [validatedUserInfo, setValidatedUserInfo] = useState<any>(null);
 
     const fetchIncidents = () => {
         axiosInstance
@@ -53,35 +54,60 @@ const IncidentList: React.FC = () => {
         setSelectedIncident(null);
     };
 
-    const toggleCreateIncident = () => {
-        setIsCreateIncidentVisible(!isCreateIncidentVisible);
+    const openValidationModal = () => {
+        setIsValidationModalOpen(true);
+    };
+
+    const handleUserValidated = (userInfo: any) => {
+        setValidatedUserInfo(userInfo);
+    };
+
+    const handleOpenCreateIncident = (userInfo: any) => {
+        setValidatedUserInfo(userInfo);
+        setIsValidationModalOpen(false);
+        setIsCreateIncidentVisible(true);
+    };
+
+    const closeCreateIncidentModal = () => {
+        setIsCreateIncidentVisible(false);
+        setValidatedUserInfo(null);
     };
 
     return (
         <div className="incident-list-container">
             <BreadCrumb />
             <div className="button-container">
-                <button
-                    onClick={toggleCreateIncident}
-                    className="btn-create-incident"
-                >
+                <button onClick={openValidationModal} className="btn-create-incident">
                     AGREGAR INCIDENTE
                 </button>
             </div>
-            {isCreateIncidentVisible && (
-                <div className="create-incident-modal">
-                    <CreateIncident
-                        onClose={toggleCreateIncident}
-                        onIncidentCreated={fetchIncidents}
-                    />
-                </div>
-            )}
+            
+            <ValidateUserModal 
+                isOpen={isValidationModalOpen} 
+                onUserValidated={handleUserValidated} 
+                onClose={() => setIsValidationModalOpen(false)} 
+                onOpenCreateIncident={handleOpenCreateIncident}
+            />
+
+            <Dialog
+                open={isCreateIncidentVisible}
+                onClose={closeCreateIncidentModal}
+                fullWidth
+                maxWidth="md"
+            >
+                <CreateIncident
+                    onClose={closeCreateIncidentModal}
+                    onIncidentCreated={fetchIncidents}
+                    initialUserInfo={validatedUserInfo}
+                />
+            </Dialog>
 
             <div className="table-container">
                 <h3>Incidentes</h3>
 
+
                 <table className="incident-table">
-                    <thead>
+                <thead>
                         <tr>
                             <th>RADICADO</th>
                             <th>CLIENTE</th>
@@ -101,9 +127,7 @@ const IncidentList: React.FC = () => {
                                 <tr key={incident.id}>
                                     <td>{incident.radicado}</td>
                                     <td>{incident.cliente_id}</td>
-                                    <td className="truncate">
-                                        {incident.description}
-                                    </td>
+                                    <td className="truncate">{incident.description}</td>
                                     <td>
                                         <div
                                             className={`status ${incident.estado.toLowerCase()}`}
@@ -120,16 +144,10 @@ const IncidentList: React.FC = () => {
                                             {incident.prioridad}
                                         </div>
                                     </td>
-                                    <td>
-                                        {new Date(
-                                            incident.fecha_creacion
-                                        ).toLocaleDateString()}
-                                    </td>
+                                    <td>{new Date(incident.fecha_creacion).toLocaleDateString()}</td>
                                     <td>
                                         {incident.fecha_cierre
-                                            ? new Date(
-                                                  incident.fecha_cierre
-                                              ).toLocaleDateString()
+                                            ? new Date(incident.fecha_cierre).toLocaleDateString()
                                             : '-'}
                                     </td>
                                     <td>
@@ -144,9 +162,7 @@ const IncidentList: React.FC = () => {
                             ))
                         ) : (
                             <tr>
-                                <td colSpan={10}>
-                                    No se encontraron incidentes
-                                </td>
+                                <td colSpan={10}>No se encontraron incidentes</td>
                             </tr>
                         )}
                     </tbody>
