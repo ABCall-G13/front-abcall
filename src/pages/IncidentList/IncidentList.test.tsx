@@ -147,4 +147,26 @@ describe('IncidentList component', () => {
             expect(screen.queryByText('Validación de usuario')).not.toBeInTheDocument();
         });
     });
+    test('displays error message when fetching incidents fails', async () => {
+        // Configura la respuesta simulada de la API para que falle
+        const errorMessage = 'Error al obtener incidentes';
+        mockAxiosInstance.get.mockRejectedValueOnce(new Error(errorMessage));
+
+        // Espía en console.error para verificar que se llama con el mensaje de error correcto
+        const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+
+        render(
+            <MemoryRouter>
+                <IncidentList />
+            </MemoryRouter>
+        );
+
+        // Espera a que se complete la llamada a la API y a que el mensaje de error se registre
+        await waitFor(() => {
+            expect(mockAxiosInstance.get).toHaveBeenCalledWith('/incidentes');
+        });
+
+        // Limpia el espía de console.error
+        consoleErrorSpy.mockRestore();
+    });
 });

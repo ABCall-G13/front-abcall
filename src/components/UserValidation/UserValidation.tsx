@@ -73,7 +73,6 @@ const ValidateUserModal: React.FC<ValidateUserModalProps> = ({
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
-        console.log('Clientes:', clientes);
     }, []);
 
     const handleValidateUser = async () => {
@@ -114,7 +113,6 @@ const ValidateUserModal: React.FC<ValidateUserModalProps> = ({
                 setShowUserNotFoundAlert(true);
             }
         } catch (error) {
-            console.error('Error al validar el usuario:', error);
             setShowEmptyFieldsAlert(false);
             setShowUserNotFoundAlert(true);
         }
@@ -267,6 +265,7 @@ const ValidateUserModal: React.FC<ValidateUserModalProps> = ({
                         )}
                         {isSelectOpen ? (
                             <ArrowDropUpIcon
+                                data-testid="ArrowDropUpIcon"
                                 sx={{
                                     position: 'absolute',
                                     right: '8px',
@@ -276,6 +275,7 @@ const ValidateUserModal: React.FC<ValidateUserModalProps> = ({
                             />
                         ) : (
                             <ArrowDropDownIcon
+                                data-testid="ArrowDropDownIcon"
                                 sx={{
                                     position: 'absolute',
                                     right: '8px',
@@ -288,7 +288,7 @@ const ValidateUserModal: React.FC<ValidateUserModalProps> = ({
                 </div>
                 {!isUserFound && (
                     <div style={{ display: 'flex', justifyContent: 'center', marginTop: '3rem' }}>
-                        <button className="custom-button" onClick={handleValidateUser}>
+                        <button className="custom-button" onClick={handleValidateUser} id='validar-btn'>
                             Validar usuario
                         </button>
                     </div>

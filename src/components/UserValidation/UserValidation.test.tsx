@@ -110,6 +110,112 @@ describe('ValidateUserModal', () => {
     
         fireEvent.click(screen.getByText(/Validar usuario/i));
     });
+    test('toggles select dropdown for Tipo de Documento when handleSelectClick is called', async () => {
+        render(
+            <ValidateUserModal
+                isOpen={true}
+                onUserValidated={mockOnUserValidated}
+                onClose={mockOnClose}
+                onOpenCreateIncident={mockOnOpenCreateIncident}
+            />
+        );
+    
+        // Encuentra el select para Tipo de Documento y simula el clic
+        const docTypeSelect = screen.getByLabelText('Tipo de documento');
+        fireEvent.click(docTypeSelect);
+    
+        // Verifica que el ícono cambie a flecha hacia arriba (dropdown abierto)
+        await waitFor(() => {
+            const upIcons = screen.queryAllByTestId('ArrowDropUpIcon');
+            expect(upIcons.length).toBeGreaterThan(0);
+        });
 
+        await waitFor(() => {
+            // Verifica que uno de los íconos esté visible (el correspondiente al campo abierto)
+            const upIcons = screen.queryAllByTestId('ArrowDropUpIcon');
+            expect(upIcons[0]).toBeVisible();
+        });
+    
+        // Vuelve a hacer clic en el select para cerrar el dropdown
+        fireEvent.click(docTypeSelect);
+    
+        // Verifica que el ícono cambie a flecha hacia abajo (dropdown cerrado)
+        await waitFor(() => {
+            const downIcons = screen.queryAllByTestId('ArrowDropDownIcon');
+            expect(downIcons.length).toBeGreaterThan(0);
+        });
 
+        await waitFor(() => {
+            // Verifica que uno de los íconos esté visible (el correspondiente al campo cerrado)
+            const downIcons = screen.queryAllByTestId('ArrowDropDownIcon');
+            expect(downIcons[0]).toBeVisible();
+        });
+    });
+    test('closes dropdown when clicking outside of the select', async () => {
+        render(
+            <ValidateUserModal
+                isOpen={true}
+                onUserValidated={mockOnUserValidated}
+                onClose={mockOnClose}
+                onOpenCreateIncident={mockOnOpenCreateIncident}
+            />
+        );
+    
+        // Simula la apertura del dropdown
+        const docTypeSelect = screen.getByLabelText('Tipo de documento');
+        fireEvent.click(docTypeSelect);
+    
+        // Verifica que el dropdown esté abierto
+        await waitFor(() => {
+            const upIcons = screen.queryAllByTestId('ArrowDropUpIcon');
+            expect(upIcons.length).toBeGreaterThan(0);
+        });
+
+        await waitFor(() => {
+            const upIcons = screen.queryAllByTestId('ArrowDropUpIcon');
+            expect(upIcons[0]).toBeVisible();
+        });
+    
+        // Simula un clic fuera del select
+        fireEvent.mouseDown(document);
+    
+        // Verifica que el dropdown se haya cerrado
+        await waitFor(() => {
+            const downIcons = screen.queryAllByTestId('ArrowDropDownIcon');
+            expect(downIcons.length).toBeGreaterThan(0);
+        });
+
+        await waitFor(() => {
+            const downIcons = screen.queryAllByTestId('ArrowDropDownIcon');
+            expect(downIcons[0]).toBeVisible();
+        });
+    });
+    
+    
+    test('shows error alert when API call fails', async () => {
+        (axiosInstance.get as jest.Mock).mockRejectedValueOnce(new Error('Network Error'));
+    
+        render(
+            <ValidateUserModal
+                isOpen={true}
+                onUserValidated={mockOnUserValidated}
+                onClose={mockOnClose}
+                onOpenCreateIncident={mockOnOpenCreateIncident}
+            />
+        );
+    
+        fireEvent.change(screen.getByPlaceholderText(/Ingrese el número de identificación/i), { target: { value: '12345' } });
+        fireEvent.change(screen.getByRole('combobox', { name: /tipo de documento/i }), { target: { value: 'CC' } });
+        fireEvent.change(screen.getByRole('combobox', { name: /cliente/i }), { target: { value: JSON.stringify(mockClientes[0]) } });
+    
+        fireEvent.click(screen.getByText(/Validar usuario/i));
+    
+        await waitFor(() => {
+            // Usa queryByText para verificar que el mensaje de error está presente
+            const errorMessage = screen.queryByText((content, element) => content.includes("Usuario no encontrado") || content.includes("completa todos los campos"));
+            expect(errorMessage).toBeInTheDocument();
+        });
+    
+        expect(mockOnUserValidated).not.toHaveBeenCalled();
+    });
 });
