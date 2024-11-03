@@ -21,8 +21,9 @@ const LoginClient: React.FC = () => {
         e.preventDefault();
         setErrorMessage(null);
         try {
-            await axiosInstance.post('/login-client', formData);
-            login();
+            const response = await axiosInstance.post('/login-client', formData);
+            const token = response.data.token;
+            login(token);
             navigate('/dashboard');
         } catch (error) {
             setErrorMessage('Correo o contraseña incorrectos');
