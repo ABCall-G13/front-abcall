@@ -5,12 +5,12 @@ import {
     DialogContent,
     IconButton,
     Alert,
+    Stack,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import './UserValidation.css';
-import Stack from '@mui/material/Stack';
 import axiosInstance from '../../utils/axiosInstance';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
@@ -18,7 +18,7 @@ interface ValidateUserModalProps {
     isOpen: boolean;
     onUserValidated: (userInfo: any) => void;
     onClose: () => void;
-    onOpenCreateIncident: () => void;
+    onOpenCreateIncident: (userInfo: any) => void; // Pasar datos del usuario al modal de creación de incidentes
 }
 
 const ValidateUserModal: React.FC<ValidateUserModalProps> = ({
@@ -29,12 +29,13 @@ const ValidateUserModal: React.FC<ValidateUserModalProps> = ({
 }) => {
     const [docType, setDocType] = useState('');
     const [docNumber, setDocNumber] = useState('');
-    const [client, setClient] = useState('');
+    const [client, setClient] = useState<any>(null);
     const [isSelectOpen, setIsSelectOpen] = useState(false);
     const [userInfo, setUserInfo] = useState<any>(null);
     const [isUserFound, setIsUserFound] = useState(false);
     const [showEmptyFieldsAlert, setShowEmptyFieldsAlert] = useState(false);
     const [showUserNotFoundAlert, setShowUserNotFoundAlert] = useState(false);
+    const [clientes, setClientes] = useState<any[]>([]);
 
     const selectRef = useRef<HTMLSelectElement | null>(null);
 
@@ -42,7 +43,6 @@ const ValidateUserModal: React.FC<ValidateUserModalProps> = ({
         setIsSelectOpen((prev) => !prev);
     };
 
-    // Función para limpiar el estado
     const resetFields = () => {
         setDocType('');
         setDocNumber('');
@@ -62,12 +62,8 @@ const ValidateUserModal: React.FC<ValidateUserModalProps> = ({
     useEffect(() => {
         axiosInstance
             .get('/clientes')
-            .then((response) => {
-                setClientes(response.data);
-            })
-            .catch((error) => {
-                console.error('Error al obtener los clientes:', error);
-            });
+            .then((response) => setClientes(response.data))
+            .catch((error) => console.error('Error al obtener los clientes:', error));
         const handleClickOutside = (event: MouseEvent) => {
             if (selectRef.current && !selectRef.current.contains(event.target as Node)) {
                 setIsSelectOpen(false);
@@ -77,23 +73,10 @@ const ValidateUserModal: React.FC<ValidateUserModalProps> = ({
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
+        console.log('Clientes:', clientes);
     }, []);
-    
-    interface Cliente {
-        id: number;
-        nombre: string;
-        email: string;
-        nit: string;
-        direccion: string;
-        telefono: string;
-        industria: string;
-        WelcomeMessage: string;
-    }
-
-    const [clientes, setClientes] = useState<Cliente[]>([]);
 
     const handleValidateUser = async () => {
-        // Validación de campos vacíos
         if (!docType || !docNumber || !client) {
             setShowEmptyFieldsAlert(true);
             setShowUserNotFoundAlert(false);
@@ -105,25 +88,27 @@ const ValidateUserModal: React.FC<ValidateUserModalProps> = ({
                 params: {
                     doc_type: docType,
                     doc_number: docNumber,
-                    client: client,
+                    client: client.nit,
                 },
             });
 
             if (response.data && Object.keys(response.data).length > 0) {
-                console.log('Usuario encontrado:', response.data);
                 const userData = response.data;
-                setUserInfo({
+                console.log('Datos del usuario:', userData);
+                const userFormattedData = {
                     name: userData.nombre,
                     document: `${userData.tipo_documento}. ${userData.documento}`,
                     phone: userData.telefono,
                     email: userData.email,
-                });
+                    cliente_id: client.id,
+                    identificacion_usuario: userData.id,
+                };
+                setUserInfo(userFormattedData);
                 setIsUserFound(true);
                 onUserValidated(userData);
                 setShowEmptyFieldsAlert(false);
                 setShowUserNotFoundAlert(false);
             } else {
-                // Usuario no encontrado
                 setIsUserFound(false);
                 setShowEmptyFieldsAlert(false);
                 setShowUserNotFoundAlert(true);
@@ -135,6 +120,14 @@ const ValidateUserModal: React.FC<ValidateUserModalProps> = ({
         }
     };
 
+    const handleCreateIncident = () => {
+        if (userInfo) {
+            console.log('Información del usuario:', userInfo);
+            onOpenCreateIncident(userInfo); // Pasar la información del usuario
+            handleClose();
+        }
+    };
+
     return (
         <Dialog 
             open={isOpen} 
@@ -143,8 +136,8 @@ const ValidateUserModal: React.FC<ValidateUserModalProps> = ({
             maxWidth="sm"
             sx={{ '& .MuiPaper-root': { borderRadius: '20px', minHeight: '65vh', paddingInline: '2rem'} }}
         >
-            <DialogTitle>
-                <h3>Validación de usuario</h3>
+            <DialogTitle color='#2D3748'>
+                <p>Validación de usuario</p>
                 <IconButton
                     aria-label="close"
                     onClick={handleClose}
@@ -172,7 +165,6 @@ const ValidateUserModal: React.FC<ValidateUserModalProps> = ({
                         </Alert>
                     </Stack>
                 )}
-
                 <div className="custom-field">
                     <label className="custom-label">Tipo de documento</label>
                     <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
@@ -242,15 +234,15 @@ const ValidateUserModal: React.FC<ValidateUserModalProps> = ({
                     <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
                         <select
                             ref={selectRef}
-                            value={client}
+                            value={client ? JSON.stringify(client) : ''}
                             onClick={handleSelectClick}
-                            onChange={(e) => setClient(e.target.value)}
+                            onChange={(e) => setClient(JSON.parse(e.target.value))}
                             className="custom-select"
                             style={{ width: '100%', appearance: 'none', paddingRight: '2.5rem' }}
                         >
-                            <option value="">Seleccione un cliente</option>
-                            {clientes.map((cliente) => (
-                                <option key={cliente.nit} value={cliente.nit}>
+                            <option value="" key="default">Seleccione un cliente</option>
+                            {clientes.map((cliente, index) => (
+                                <option key={cliente.nit || index} value={JSON.stringify(cliente)}>
                                     {cliente.nombre}
                                 </option>
                             ))}
@@ -323,11 +315,9 @@ const ValidateUserModal: React.FC<ValidateUserModalProps> = ({
                             </div>
                         </div>
                         <div style={{ display: 'flex', justifyContent: 'center', marginTop: '3rem' }}>
-                            <button className="custom-button" onClick={() => {
-                                onOpenCreateIncident();
-                                handleClose();
-                            }}>
-                                Crear Incidente
+                            <button className="custom-button" onClick={
+                                handleCreateIncident}>
+                                    Crear Incidente
                             </button>
                         </div>
                     </div>

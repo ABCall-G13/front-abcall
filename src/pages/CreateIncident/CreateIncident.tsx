@@ -20,7 +20,7 @@ const CreateIncident: React.FC<CreateIncidentProps> = ({
         categoria: '',
         prioridad: '',
         canal: '',
-        cliente: initialUserInfo ? initialUserInfo.id : '', // Inicializar con el cliente validado si existe
+        cliente: initialUserInfo ? initialUserInfo.cliente_id : '',
         estado: 'abierto',
         fecha_creacion: new Date().toISOString().slice(0, 10),
         fecha_cierre: '',
@@ -88,9 +88,9 @@ const CreateIncident: React.FC<CreateIncidentProps> = ({
                 fecha_creacion: formData.fecha_creacion,
                 fecha_cierre: formData.fecha_cierre || null,
                 solucion: formData.solucion || null,
+                identificacion_usuario: initialUserInfo ? initialUserInfo.identificacion_usuario : null,
             });
 
-            console.log('Incidente creado:', response.data);
             setIsSubmitted(true);
             setTimeout(() => {
                 setIsSubmitted(false);
@@ -98,14 +98,13 @@ const CreateIncident: React.FC<CreateIncidentProps> = ({
                 onIncidentCreated();
             }, 3000);
         } catch (error) {
-            console.error('Error al crear incidente:', error);
             setErrorMessage('Hubo un error al crear el incidente. Intenta de nuevo.');
             setTimeout(() => setErrorMessage(null), 3000);
         }
     };
-
     return (
-        <Dialog open onClose={onClose} fullWidth maxWidth="sm">
+        <Dialog open onClose={onClose} fullWidth maxWidth="sm"
+        sx={{ '& .MuiPaper-root': { borderRadius: '20px', minHeight: '65vh', paddingInline: '2rem'} }}>
             <DialogContent>
             <button className="close-button" onClick={onClose}>
                 &times;
@@ -165,23 +164,6 @@ const CreateIncident: React.FC<CreateIncidentProps> = ({
                         {enums.prioridad.map((option, index) => (
                             <option key={index} value={option}>
                                 {option}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="cliente">Cliente</label>
-                    <select
-                        id="cliente"
-                        name="cliente"
-                        value={formData.cliente}
-                        onChange={handleChange}
-                        required
-                    >
-                        <option value="">Seleccione un cliente</option>
-                        {clientes.map((cliente) => (
-                            <option key={cliente.id} value={cliente.id}>
-                                {cliente.nombre}
                             </option>
                         ))}
                     </select>

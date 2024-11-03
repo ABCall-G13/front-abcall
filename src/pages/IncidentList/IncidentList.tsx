@@ -62,7 +62,9 @@ const IncidentList: React.FC = () => {
         setValidatedUserInfo(userInfo);
     };
 
-    const handleOpenCreateIncident = () => {
+    const handleOpenCreateIncident = (userInfo: any) => {
+        setValidatedUserInfo(userInfo);
+        setIsValidationModalOpen(false);
         setIsCreateIncidentVisible(true);
     };
 
@@ -103,8 +105,19 @@ const IncidentList: React.FC = () => {
             <div className="table-container">
                 <h3>Incidentes</h3>
                 <table className="incident-table">
-                    <thead>
-                        {/* Encabezados de la tabla */}
+                <thead>
+                        <tr>
+                            <th>RADICADO</th>
+                            <th>CLIENTE</th>
+                            <th>DESCRIPCIÓN</th>
+                            <th>ESTADO</th>
+                            <th>CATEGORÍA</th>
+                            <th>CANAL</th>
+                            <th>PRIORIDAD</th>
+                            <th>FECHA DE APERTURA</th>
+                            <th>FECHA DE CIERRE</th>
+                            <th></th>
+                        </tr>
                     </thead>
                     <tbody>
                         {incidents.length > 0 ? (
@@ -112,9 +125,7 @@ const IncidentList: React.FC = () => {
                                 <tr key={incident.id}>
                                     <td>{incident.radicado}</td>
                                     <td>{incident.cliente_id}</td>
-                                    <td className="truncate">
-                                        {incident.description}
-                                    </td>
+                                    <td className="truncate">{incident.description}</td>
                                     <td>
                                         <div className={`status ${incident.estado.toLowerCase()}`}>
                                             {incident.estado}
@@ -127,9 +138,7 @@ const IncidentList: React.FC = () => {
                                             {incident.prioridad}
                                         </div>
                                     </td>
-                                    <td>
-                                        {new Date(incident.fecha_creacion).toLocaleDateString()}
-                                    </td>
+                                    <td>{new Date(incident.fecha_creacion).toLocaleDateString()}</td>
                                     <td>
                                         {incident.fecha_cierre
                                             ? new Date(incident.fecha_cierre).toLocaleDateString()

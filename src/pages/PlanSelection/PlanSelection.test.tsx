@@ -188,6 +188,6 @@ describe('PlanSelection', () => {
         const emprendedorCard = screen.getByText('Emprendedor');
         fireEvent.click(emprendedorCard);
 
-        expect(navigate).toHaveBeenCalledWith('/confirmacion');
+        expect(navigate).toHaveBeenCalledWith('/incident-list');
     });
 });
