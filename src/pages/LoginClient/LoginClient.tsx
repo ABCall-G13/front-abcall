@@ -4,9 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../../utils/axiosInstance';
 import LanguageSelector from '../../components/Select/LanguageSelector';
 import CurrencySelector from '../../components/Select/CurrencySelector';
+import { useAuth } from '../../context/AuthContext';
 
 const LoginClient: React.FC = () => {
     const navigate = useNavigate();
+    const { login } = useAuth();
     const [formData, setFormData] = useState({ email: '', password: '' });
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
@@ -20,6 +22,7 @@ const LoginClient: React.FC = () => {
         setErrorMessage(null);
         try {
             await axiosInstance.post('/login-client', formData);
+            login();
             navigate('/dashboard');
         } catch (error) {
             setErrorMessage('Correo o contraseña incorrectos');
