@@ -27,6 +27,12 @@ const Sidebar: React.FC = () => {
                     <li>
                         <Link to="/incident-list">Incidentes</Link>
                     </li>
+                    <li>
+                        <Link to="/directory-list">Directorio</Link>
+                    </li>
+                    <li>
+                        <Link to="/common-issue-list">Problemas comunes</Link>
+                    </li>
                 </ul>
             </nav>
             <button className="logout-button">Cerrar Sesión</button>

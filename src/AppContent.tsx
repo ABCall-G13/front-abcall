@@ -6,15 +6,21 @@ import PlanSelection from './pages/PlanSelection/PlanSelection';
 import Navbar from './components/Navbar/Navbar';
 import Sidebar from './components/Sidebar/Sidebar';
 import IncidentList from './pages/IncidentList/IncidentList';
+import ClienteList from './pages/DirectoryList/DirectoryList';
 import IncidentSearch from './pages/IncidentSearch/IncidentSearch';
+import ProblemaComunList from './pages/CommonIssueList/CommonIssueList';
 
 const AppContent: React.FC = () => {
     const currentPath = window.location.pathname;
 
     const showSidebar =
-        currentPath !== '/' && currentPath !== '/plan-selection' && currentPath !== '/search-incident';
+        currentPath !== '/' &&
+        currentPath !== '/plan-selection' &&
+        currentPath !== '/search-incident';
     const showNavbar =
-        currentPath === '/' || currentPath === '/plan-selection' || currentPath === '/search-incident';
+        currentPath === '/' ||
+        currentPath === '/plan-selection' ||
+        currentPath === '/search-incident';
     const showSvgBackground =
         currentPath !== '/' && currentPath !== '/plan-selection';
 
@@ -46,7 +52,19 @@ const AppContent: React.FC = () => {
                             path="/incident-list"
                             element={<IncidentList />}
                         />
-                         <Route path="/search-incident" element={<IncidentSearch />} /> {/* Nueva ruta */}
+                        <Route
+                            path="/directory-list"
+                            element={<ClienteList />}
+                        />
+                        <Route
+                            path="/common-issue-list"
+                            element={<ProblemaComunList />}
+                        />
+                        <Route
+                            path="/search-incident"
+                            element={<IncidentSearch />}
+                        />{' '}
+                        {/* Nueva ruta */}
                     </Routes>
                 </div>
             </div>

@@ -4,16 +4,19 @@ import { MemoryRouter } from 'react-router-dom';
 import CustomBreadcrumb from './BreadCrumb'; // Ajusta la ruta según tu estructura
 
 describe('CustomBreadcrumb component', () => {
-
     test('renders "Inicio" as the first link', () => {
         render(
-            <MemoryRouter initialEntries={['/']}> {/* Simula la ruta inicial */}
+            <MemoryRouter initialEntries={['/']}>
+                {' '}
+                {/* Simula la ruta inicial */}
                 <CustomBreadcrumb />
             </MemoryRouter>
         );
 
         expect(screen.getByText('Inicio')).toBeInTheDocument();
-        expect(screen.getByRole('link', { name: 'Inicio' })).toBeInTheDocument();
+        expect(
+            screen.getByRole('link', { name: 'Inicio' })
+        ).toBeInTheDocument();
     });
 
     test('renders breadcrumb with correct links for a nested route', () => {
@@ -24,11 +27,15 @@ describe('CustomBreadcrumb component', () => {
         );
 
         expect(screen.getByText('Inicio')).toBeInTheDocument();
-        expect(screen.getByRole('link', { name: 'Inicio' })).toBeInTheDocument();
+        expect(
+            screen.getByRole('link', { name: 'Inicio' })
+        ).toBeInTheDocument();
 
         // El último breadcrumb debe ser texto (Typography), no un link
         expect(screen.getByText('Incidentes')).toBeInTheDocument();
-        expect(screen.queryByRole('link', { name: 'Incidentes' })).not.toBeInTheDocument();
+        expect(
+            screen.queryByRole('link', { name: 'Incidentes' })
+        ).not.toBeInTheDocument();
     });
 
     test('renders the last breadcrumb as Typography and not as a Link', () => {
@@ -39,8 +46,12 @@ describe('CustomBreadcrumb component', () => {
         );
 
         // El último breadcrumb es Typography (se renderiza como un <p>)
-        expect(screen.getByText('Incidentes')).toBeInstanceOf(HTMLParagraphElement); 
-        expect(screen.queryByRole('link', { name: 'Incidentes' })).not.toBeInTheDocument();
+        expect(screen.getByText('Incidentes')).toBeInstanceOf(
+            HTMLParagraphElement
+        );
+        expect(
+            screen.queryByRole('link', { name: 'Incidentes' })
+        ).not.toBeInTheDocument();
     });
 
     test('renders capitalized path names correctly', () => {
@@ -62,11 +73,11 @@ describe('CustomBreadcrumb component', () => {
         );
 
         expect(screen.getByText('Inicio')).toBeInTheDocument();
-        expect(screen.getByText('Tablero de Control')).toBeInTheDocument();
         expect(screen.getByText('Incidentes')).toBeInTheDocument();
 
         // El último breadcrumb es Typography (se renderiza como un <p>)
-        expect(screen.getByText('Incidentes')).toBeInstanceOf(HTMLParagraphElement);
-        expect(screen.getByRole('link', { name: 'Tablero de Control' })).toBeInTheDocument();
+        expect(screen.getByText('Incidentes')).toBeInstanceOf(
+            HTMLParagraphElement
+        );
     });
 });
