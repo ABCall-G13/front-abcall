@@ -34,7 +34,7 @@ describe('IncidentSearch Component', () => {
     fireEvent.click(screen.getByText('Consultar'));
 
     // Verifica si el error aparece
-    await waitFor(() => expect(screen.getByText('No se encontró el incidente')).toBeInTheDocument());
+    expect(await screen.findByText('No se encontró el incidente')).toBeInTheDocument();
 
     // Verifica que el error desaparece después de 3 segundos
     await waitFor(() => expect(screen.queryByText('No se encontró el incidente')).not.toBeInTheDocument(), { timeout: 4000 });
@@ -67,6 +67,6 @@ describe('IncidentSearch Component', () => {
     fireEvent.click(screen.getByText('Consultar'));
 
     // Verifica que el modal se abre y los detalles del incidente se muestran
-    await waitFor(() => expect(screen.getByText('Incidente de prueba')).toBeInTheDocument());
+    expect(await screen.findByText('Incidente de prueba')).toBeInTheDocument();
   });
 });
