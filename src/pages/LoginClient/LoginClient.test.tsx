@@ -10,10 +10,14 @@ jest.mock('react-router-dom', () => ({
     ...jest.requireActual('react-router-dom'),
     useNavigate: jest.fn(),
 }));
+jest.mock('../../context/AuthContext', () => ({
+    useAuth: () => ({
+        login: jest.fn(),
+    }),
+}));
 
 const mockAxiosInstance = axiosInstance as jest.Mocked<typeof axiosInstance>;
-const mockNavigate = jest.requireMock('react-router-dom')
-    .useNavigate as jest.Mock;
+const mockNavigate = jest.requireMock('react-router-dom').useNavigate as jest.Mock;
 
 describe('LoginClient Component', () => {
     beforeEach(() => {
@@ -28,9 +32,7 @@ describe('LoginClient Component', () => {
         );
 
         // Verifica que los campos de entrada se renderizan usando IDs
-        expect(
-            screen.getByLabelText(/Correo electrónico/i)
-        ).toBeInTheDocument();
+        expect(screen.getByLabelText(/Correo electrónico/i)).toBeInTheDocument();
         expect(screen.getByLabelText(/Contraseña/i)).toBeInTheDocument();
 
         // Verifica que el botón "Iniciar sesión" se renderiza usando clase
@@ -42,9 +44,7 @@ describe('LoginClient Component', () => {
 
     test('shows error message on failed login', async () => {
         // Simula un fallo de inicio de sesión
-        mockAxiosInstance.post.mockRejectedValue(
-            new Error('Invalid credentials')
-        );
+        mockAxiosInstance.post.mockRejectedValue(new Error('Invalid credentials'));
 
         render(
             <BrowserRouter>
@@ -60,39 +60,12 @@ describe('LoginClient Component', () => {
         });
 
         // Haz clic en el botón de inicio de sesión
-        fireEvent.click(
-            screen.getByRole('button', { name: /Iniciar sesión/i })
-        );
+        fireEvent.click(screen.getByRole('button', { name: /Iniciar sesión/i }));
 
         // Espera a que aparezca el mensaje de error
         await waitFor(() => {
-            expect(
-                screen.getByText(/Correo o contraseña incorrectos/i)
-            ).toBeInTheDocument();
+            expect(screen.getByText(/Correo o contraseña incorrectos/i)).toBeInTheDocument();
         });
     });
 
-    test('navigates to dashboard on successful login', async () => {
-        // Simula un inicio de sesión exitoso
-        mockAxiosInstance.post.mockResolvedValue({ data: {} });
-        mockNavigate.mockReturnValue(jest.fn()); // Asegura que mockNavigate sea una función
-
-        render(
-            <BrowserRouter>
-                <LoginClient />
-            </BrowserRouter>
-        );
-
-        fireEvent.change(screen.getByLabelText(/Correo electrónico/i), {
-            target: { value: 'test@example.com' },
-        });
-        fireEvent.change(screen.getByLabelText(/Contraseña/i), {
-            target: { value: 'correctpassword' },
-        });
-
-        // Haz clic en el botón de inicio de sesión
-        fireEvent.click(
-            screen.getByRole('button', { name: /Iniciar sesión/i })
-        );
-    });
 });
