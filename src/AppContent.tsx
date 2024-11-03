@@ -33,7 +33,6 @@ const AppContent: React.FC = () => {
 
     return (
         <AuthProvider>
-            <Router>
                 <div className={`app-container ${showSvgBackground ? 'svg-background' : ''}`}>
                     {showNavbar && <Navbar />}
                     <div className={`content-wrapper ${showSidebar ? 'with-sidebar' : ''}`}>
@@ -95,7 +94,6 @@ const AppContent: React.FC = () => {
                         </div>
                     </div>
                 </div>
-            </Router>
         </AuthProvider>
     );
 };

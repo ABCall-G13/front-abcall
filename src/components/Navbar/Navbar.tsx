@@ -12,7 +12,7 @@ const Navbar: React.FC = () => {
                 <img src={logo} alt="ABCall Logo" />
             </div>
             <div className="navbar-links">
-                <a href="/login" className="navbar-link">
+                <a href="/login-client" className="navbar-link">
                     <img src={key} alt="Iniciar Sesión" /> INICIAR SESIÓN
                 </a>
                 <Link to="/search-incident" className="navbar-link">
