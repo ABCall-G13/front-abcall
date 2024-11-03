@@ -175,6 +175,7 @@ const ValidateUserModal: React.FC<ValidateUserModalProps> = ({
                             onChange={(e) => setDocType(e.target.value)}
                             className="custom-select"
                             style={{ width: '100%', appearance: 'none', paddingRight: '2.5rem' }}
+                            aria-label="Tipo de documento"  // Añadido para accesibilidad
                         >
                             <option value="">Seleccione un tipo de documento</option>
                             <option value="CC">Cédula de ciudadanía</option>
@@ -236,12 +237,15 @@ const ValidateUserModal: React.FC<ValidateUserModalProps> = ({
                             ref={selectRef}
                             value={client ? JSON.stringify(client) : ''}
                             onClick={handleSelectClick}
-                            onChange={(e) => setClient(JSON.parse(e.target.value))}
-                            className="custom-select"
+                            onChange={(e) => {
+                                const value = e.target.value;
+                                setClient(value ? JSON.parse(value) : null);
+                            }}                            className="custom-select"
                             style={{ width: '100%', appearance: 'none', paddingRight: '2.5rem' }}
+                            aria-label="Cliente"  // Añadido para accesibilidad
                         >
                             <option value="" key="default">Seleccione un cliente</option>
-                            {clientes.map((cliente, index) => (
+                            {Array.isArray(clientes) && clientes.map((cliente, index) => (
                                 <option key={cliente.nit || index} value={JSON.stringify(cliente)}>
                                     {cliente.nombre}
                                 </option>
@@ -291,7 +295,7 @@ const ValidateUserModal: React.FC<ValidateUserModalProps> = ({
                 )}
 
                 {isUserFound && userInfo && (
-                    <div style={{ marginTop: '20px' }}>
+                    <div data-testid="user-found-message" style={{ marginTop: '20px' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                             <CheckCircleIcon style={{ color: 'green' }} />
                             <p className="found-user">Usuario encontrado</p>
@@ -315,9 +319,8 @@ const ValidateUserModal: React.FC<ValidateUserModalProps> = ({
                             </div>
                         </div>
                         <div style={{ display: 'flex', justifyContent: 'center', marginTop: '3rem' }}>
-                            <button className="custom-button" onClick={
-                                handleCreateIncident}>
-                                    Crear Incidente
+                            <button className="custom-button" onClick={handleCreateIncident}>
+                                Crear Incidente
                             </button>
                         </div>
                     </div>
