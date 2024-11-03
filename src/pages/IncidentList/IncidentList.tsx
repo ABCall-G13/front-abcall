@@ -104,6 +104,8 @@ const IncidentList: React.FC = () => {
 
             <div className="table-container">
                 <h3>Incidentes</h3>
+
+
                 <table className="incident-table">
                 <thead>
                         <tr>
@@ -127,14 +129,18 @@ const IncidentList: React.FC = () => {
                                     <td>{incident.cliente_id}</td>
                                     <td className="truncate">{incident.description}</td>
                                     <td>
-                                        <div className={`status ${incident.estado.toLowerCase()}`}>
+                                        <div
+                                            className={`status ${incident.estado.toLowerCase()}`}
+                                        >
                                             {incident.estado}
                                         </div>
                                     </td>
                                     <td>{incident.categoria}</td>
                                     <td>{incident.canal}</td>
                                     <td>
-                                        <div className={`priority ${incident.prioridad.toLowerCase()}`}>
+                                        <div
+                                            className={`priority ${incident.prioridad.toLowerCase()}`}
+                                        >
                                             {incident.prioridad}
                                         </div>
                                     </td>

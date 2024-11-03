@@ -1,0 +1,92 @@
+.cliente-list-container {
+    padding: 2rem;
+    position: relative;
+    min-height: 100vh;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.btn-create-cliente {
+    background-color: #2d3748;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    float: right;
+    font-weight: bold;
+    font-size: 0.6rem;
+}
+
+.btn-create-cliente:hover {
+    background-color: #2d3748c5;
+}
+
+.cliente-table th,
+.cliente-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.table-container {
+    overflow-x: auto;
+    min-height: 66vh;
+    overflow-y: auto;
+    background-color: white;
+    border-radius: 10px;
+    padding: 3%;
+}
+
+.cliente-table {
+    width: 100%;
+    border-collapse: collapse;
+    color: #718096;
+}
+
+.cliente-table td {
+    padding: 12px;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    font-size: 0.87rem;
+}
+
+.cliente-table th {
+    padding: 12px;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    background-color: #ffffff;
+    text-align: left;
+    font-weight: bold;
+    color: #a0aec0;
+    font-size: 0.63rem;
+    position: relative;
+    letter-spacing: 1px;
+}
+
+h3 {
+    font-size: 1.12rem;
+    color: #2d3748;
+}
+
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 0.6rem;
+}
+
+/* Truncate long text in cells */
+.truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px; /* Adjust the max width as needed */
+}
+
+.spacing-divider {
+    height: 2.5rem; /* Adjust height as needed for the desired space */
+}
