@@ -1,8 +1,10 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import axiosInstance from '../../utils/axiosInstance';
 import IncidentList from './IncidentList';
 import { MemoryRouter } from 'react-router-dom';
+import { act } from 'react';
 
 // Mock de axiosInstance
 jest.mock('../../utils/axiosInstance');
@@ -168,5 +170,71 @@ describe('IncidentList component', () => {
 
         // Limpia el espía de console.error
         consoleErrorSpy.mockRestore();
+    });
+
+    test('fetches and displays incidents', async () => {
+        render(
+            <MemoryRouter>
+                <IncidentList />
+            </MemoryRouter>
+        );
+
+        expect(await screen.findByText(/Incidentes/i)).toBeInTheDocument();
+        expect(await screen.findByText(/Incidente 1/i)).toBeInTheDocument();
+    });
+
+    test('opens and handles user validation modal', async () => {
+        render(
+            <MemoryRouter>
+                <IncidentList />
+            </MemoryRouter>
+        );
+    
+        // Simula abrir el modal de validación de usuario
+        fireEvent.click(screen.getByText(/AGREGAR INCIDENTE/i));
+        expect(await screen.findByText(/Validación de usuario/i)).toBeInTheDocument();
+        // Simula la selección de un tipo de documento
+        const selectField = screen.getByLabelText(/Tipo de documento/i);
+        fireEvent.change(selectField, { target: { value: 'CC' } });
+        expect((selectField as HTMLSelectElement).value).toBe('CC');
+    
+        // Simula completar el proceso de validación del usuario
+        const inputField = screen.getByLabelText(/Número de identificación/i);
+        await userEvent.type(inputField, 'usuarioValido');
+        
+        const validateButton = screen.getByText(/Validar usuario/i);
+        fireEvent.click(validateButton);
+    });
+
+    test('opens incident detail modal', async () => {
+        render(
+            <MemoryRouter>
+                <IncidentList />
+            </MemoryRouter>
+        );
+
+        // Espera a que los incidentes se carguen
+        expect(await screen.findByText(/RAD123/i)).toBeInTheDocument();
+        // Simula el clic en el botón "Detalle" del primer incidente
+        const detailButton = screen.getAllByRole('button', { name: '' })[0];
+        fireEvent.click(detailButton);
+        
+
+        // Verifica que el modal de detalles del incidente se abre
+        expect(await screen.findByText(/Detalle del Incidente/i)).toBeInTheDocument();
+    });
+
+    test('closes create incident modal', async () => {
+        await act(async () => {
+            render(
+                <MemoryRouter>
+                    <IncidentList />
+                </MemoryRouter>
+            );
+        });
+
+        // Abre el modal de validación de usuario y simula validación
+        fireEvent.click(screen.getByText(/AGREGAR INCIDENTE/i));
+        expect(screen.queryByText(/Crear Incidente/i)).not.toBeInTheDocument();
     });
 });

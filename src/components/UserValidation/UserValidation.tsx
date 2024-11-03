@@ -218,8 +218,9 @@ const ValidateUserModal: React.FC<ValidateUserModalProps> = ({
                 </div>
 
                 <div className="custom-field">
-                    <label className="custom-label">Número de identificación</label>
+                    <label htmlFor="docNumber" className="custom-label">Número de identificación</label>
                     <input
+                        id="docNumber"
                         type="text"
                         placeholder="Ingrese el número de identificación"
                         value={docNumber}
