@@ -2,10 +2,16 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import axiosInstance from '../../utils/axiosInstance';
+import axiosUserServiceInstance from '../../utils/axiosUserServiceInstance';
 import UserSync from './UserSync';
 
 jest.mock('../../utils/axiosInstance');
 const mockAxiosInstance = axiosInstance as jest.Mocked<typeof axiosInstance>;
+
+jest.mock('../../utils/axiosUserServiceInstance');
+const mockAxiosUserServiceInstance = axiosUserServiceInstance as jest.Mocked<
+    typeof axiosUserServiceInstance
+>;
 
 describe('UserSync Component', () => {
     beforeEach(() => {
@@ -59,7 +65,7 @@ describe('UserSync Component', () => {
     });
 
     test('uploads file successfully', async () => {
-        mockAxiosInstance.post.mockResolvedValue({ data: {} });
+        mockAxiosUserServiceInstance.post.mockResolvedValue({ data: {} });
 
         render(<UserSync />);
 
@@ -80,7 +86,7 @@ describe('UserSync Component', () => {
     });
 
     test('displays error message when upload fails', async () => {
-        mockAxiosInstance.post.mockRejectedValue(
+        mockAxiosUserServiceInstance.post.mockRejectedValue(
             new Error('Error al subir el archivo')
         );
 
