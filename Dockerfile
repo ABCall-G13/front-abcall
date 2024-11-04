@@ -5,8 +5,12 @@ WORKDIR /app
 # Aceptar argumento de construcción para la variable de entorno
 ARG REACT_APP_BASE_URL
 
+ARG REACT_APP_USER_SERVICE_URL
+
 # Configurar la variable de entorno para la compilación de React
 ENV REACT_APP_BASE_URL=$REACT_APP_BASE_URL
+
+ENV REACT_APP_USER_SERVICE_URL=$REACT_APP_USER_SERVICE_URL
 
 # Copiar archivos de configuración
 COPY package*.json tsconfig.json ./

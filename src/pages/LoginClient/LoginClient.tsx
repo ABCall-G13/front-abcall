@@ -22,7 +22,7 @@ const LoginClient: React.FC = () => {
         setErrorMessage(null);
         try {
             const response = await axiosInstance.post('/login-client', formData);
-            const token = response.data.token;
+            const token = response.data.access_token;
             login(token);
             navigate('/dashboard');
         } catch (error) {

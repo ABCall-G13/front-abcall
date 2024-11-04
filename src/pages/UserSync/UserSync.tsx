@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axiosInstance from '../../utils/axiosInstance';
+import axiosUserServiceInstance from '../../utils/axiosUserServiceInstance';
 import './UserSync.css';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 
@@ -36,7 +36,7 @@ const UserSync: React.FC = () => {
 
         try {
             setUploadStatus('Subiendo...');
-            await axiosInstance.post('/sync-users', formData, {
+            await axiosUserServiceInstance.post('/sync-users', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
