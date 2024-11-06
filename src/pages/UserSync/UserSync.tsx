@@ -58,7 +58,7 @@ const UserSync: React.FC = () => {
                         type="file"
                         onChange={handleFileChange}
                         accept=".xlsx"
-                        data-testid="file-input" // Añadido para facilitar la selección en tests
+                        data-testid="file-input"
                     />
                     <p>Click para subir o arrastra y suelta el archivo aquí</p>
                     <small>CSV (max. 50MB)</small>
