@@ -100,7 +100,7 @@ const ValidateUserModal: React.FC<ValidateUserModalProps> = ({
                     phone: userData.telefono,
                     email: userData.email,
                     cliente_id: client.id,
-                    identificacion_usuario: userData.id,
+                    identificacion_usuario: userData.documento,
                 };
                 setUserInfo(userFormattedData);
                 setIsUserFound(true);
@@ -231,8 +231,8 @@ const ValidateUserModal: React.FC<ValidateUserModalProps> = ({
                 </div>
 
                 <div className="custom-field">
+                    <label className="custom-label" htmlFor='client'>Cliente</label>
                     <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
-                        <label className="custom-label" htmlFor='client'>Cliente</label>
                         <select
                             ref={selectRef}
                             value={client ? JSON.stringify(client) : ''}
