@@ -25,6 +25,7 @@ const CreateIncident: React.FC<CreateIncidentProps> = ({
         fecha_creacion: new Date().toISOString().slice(0, 10),
         fecha_cierre: '',
         solucion: '',
+        identificacion_usuario: ''
     });
 
     const [enums, setEnums] = useState({

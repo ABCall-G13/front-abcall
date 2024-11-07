@@ -6,6 +6,7 @@ services:
             target: production
             args:
                 REACT_APP_BASE_URL: ${REACT_APP_BASE_URL}
+                REACT_APP_USER_SERVICE_URL: ${REACT_APP_USER_SERVICE_URL}
         container_name: ${DOCKER_SERVICE_NAME}
         volumes:
             - ./src:/app/src
