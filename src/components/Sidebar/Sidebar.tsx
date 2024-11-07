@@ -18,7 +18,7 @@ const Sidebar: React.FC = () => {
         <div className="sidebar-card">
             <div className="logo-container">
                 <img src={logo} alt="ABCall Logo" className="logo-image" />
-                <div className='version-side'>v1.24.0</div>
+                <div className='version-side'>v1.21.0</div>
             </div>
             <nav>
                 <ul>
