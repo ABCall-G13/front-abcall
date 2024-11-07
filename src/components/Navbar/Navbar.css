@@ -26,3 +26,7 @@
 .navbar-link:hover {
     color: #f0a500; /* Cambia a color dorado al hacer hover */
 }
+.version {
+    color: white;
+    font-size: 0.7rem;
+}

@@ -98,3 +98,9 @@
 .sidebar-card .logout-button:hover {
     background-color: #4167b2;
 }
+.version-side {
+    color: #2d3748;
+    font-size: 0.7rem;
+    text-align: center;
+    margin-right: 1rem;
+}
