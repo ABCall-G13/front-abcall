@@ -37,7 +37,7 @@ const LoginClient: React.FC = () => {
                 <CurrencySelector />
             </div>
             <div className="login-client-card">
-                <h2 id="title-login">Iniciar sesión</h2>
+                <h2>Iniciar sesión</h2>
                 {errorMessage && (
                     <p className="error-message">{errorMessage}</p>
                 )}
@@ -69,6 +69,7 @@ const LoginClient: React.FC = () => {
                     <button type="submit" className="submit-btn">
                         Iniciar sesión
                     </button>
+                    <div className='register_text'>¿No tienes una cuenta? <a href='/register'>Registrate</a></div>
                 </form>
             </div>
         </div>
