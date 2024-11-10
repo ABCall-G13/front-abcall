@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './PlanSelection.css';
 import { useNavigate } from 'react-router-dom';
+import axiosInstance from '../../utils/axiosInstance';
 
 const PlanSelection: React.FC = () => {
     const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
@@ -9,11 +10,26 @@ const PlanSelection: React.FC = () => {
     const handlePlanSelect = (plan: string) => {
         setSelectedPlan(plan);
 
-        // Aquí puedes realizar la llamada a la API si es necesario
-        console.log('Plan seleccionado:', plan);
+        // Llamada a la API para actualizar el plan
+        actualizarPlanCliente(plan)
+            .then(() => {
+                console.log('Plan actualizado exitosamente:', plan);
+                navigate('/incident-list'); // Redirige a la página de confirmación
+            })
+            .catch((error) => {
+                console.error('Error al actualizar el plan:', error);
+            });
+    };
 
-        // Redirigir o realizar la acción que necesites después de la selección
-        navigate('/incident-list'); // Redirige a la página de confirmación o la que desees
+    const actualizarPlanCliente = async (plan: string) => {
+        try {
+            const response = await axiosInstance.post('/clientes/update-plan', {
+                plan: plan,
+            });
+            return response.data;
+        } catch (error) {
+            throw new Error('No se pudo actualizar el plan.');
+        }
     };
 
     return (
