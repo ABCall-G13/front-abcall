@@ -15,21 +15,42 @@ const CreateProblemaComun: React.FC<CreateProblemaComunProps> = ({
         description: '',
         categoria: '',
         solucion: '',
+        cliente_id: '', // New field for client ID
     });
 
     const [categorias, setCategorias] = useState<string[]>([]);
+    const [clientes, setClientes] = useState<{ id: number; nombre: string }[]>(
+        [
+            { id: 1, nombre: 'Cliente 1' },
+            { id: 2, nombre: 'Cliente 2' },
+            { id: 3, nombre: 'Cliente 3' },
+        ]
+    ); // Manually added initial clients
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-    // Fetch category options from the `/incidentes/fields` endpoint
     useEffect(() => {
+        // Fetch categories
         axiosInstance
             .get('/incidentes/fields')
             .then((response) => {
-                setCategorias(response.data.categoria); // Set categories from response
+                setCategorias(response.data.categoria);
             })
             .catch((error) => {
                 console.error('Error al obtener categorías:', error);
+            });
+
+        // Fetch additional clients from backend
+        axiosInstance
+            .get('/clientes/')
+            .then((response) => {
+                setClientes((prevClientes) => [
+                    ...prevClientes,
+                    ...response.data,
+                ]);
+            })
+            .catch((error) => {
+                console.error('Error al obtener clientes:', error);
             });
     }, []);
 
@@ -51,14 +72,14 @@ const CreateProblemaComun: React.FC<CreateProblemaComunProps> = ({
                 description: formData.description,
                 categoria: formData.categoria,
                 solucion: formData.solucion,
+                cliente_id: formData.cliente_id,
             });
 
             console.log('Problema común creado:', response.data);
 
-            // Mark submission as successful and call the callback functions
             setIsSubmitted(true);
-            onProblemaComunCreated(); // Notify parent of the new issue creation
-            onClose(); // Close the modal immediately
+            onProblemaComunCreated();
+            onClose();
         } catch (error) {
             console.error('Error al crear problema común:', error);
             setErrorMessage(
@@ -114,6 +135,23 @@ const CreateProblemaComun: React.FC<CreateProblemaComunProps> = ({
                         {categorias.map((categoria, index) => (
                             <option key={index} value={categoria}>
                                 {categoria}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+                <div className="form-group">
+                    <label htmlFor="cliente_id">Cliente</label>
+                    <select
+                        id="cliente_id"
+                        name="cliente_id"
+                        value={formData.cliente_id}
+                        onChange={handleChange}
+                        required
+                    >
+                        <option value="">Selecciona un cliente</option>
+                        {clientes.map((cliente) => (
+                            <option key={cliente.id} value={cliente.id}>
+                                {cliente.nombre}
                             </option>
                         ))}
                     </select>
