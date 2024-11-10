@@ -71,6 +71,7 @@ const IncidentList: React.FC = () => {
     const closeCreateIncidentModal = () => {
         setIsCreateIncidentVisible(false);
         setValidatedUserInfo(null);
+        fetchIncidents();
     };
 
     return (

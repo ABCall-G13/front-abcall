@@ -7,11 +7,17 @@ import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 
 const LookerDashboard = lazy(() => import('./pages/Dashboard/Dashboard'));
 const Register = lazy(() => import('./pages/Register/Register'));
-const PlanSelection = lazy(() => import('./pages/PlanSelection/PlanSelection'));
+const PlanSelection = lazy(
+    () => import('./pages/PlanSelection/PlanSelection')
+);
 const IncidentList = lazy(() => import('./pages/IncidentList/IncidentList'));
 const ClienteList = lazy(() => import('./pages/DirectoryList/DirectoryList'));
-const IncidentSearch = lazy(() => import('./pages/IncidentSearch/IncidentSearch'));
-const ProblemaComunList = lazy(() => import('./pages/CommonIssueList/CommonIssueList'));
+const IncidentSearch = lazy(
+    () => import('./pages/IncidentSearch/IncidentSearch')
+);
+const ProblemaComunList = lazy(
+    () => import('./pages/CommonIssueList/CommonIssueList')
+);
 const UserSync = lazy(() => import('./pages/UserSync/UserSync'));
 const LoginClient = lazy(() => import('./pages/LoginClient/LoginClient'));
 
@@ -37,21 +43,76 @@ const AppContent: React.FC = () => {
         <AuthProvider>
             <div className="app-container">
                 {showNavbar && <Navbar />}
-                <div className={`content-wrapper ${showSidebar ? 'with-sidebar' : ''}`}>
+                <div
+                    className={`content-wrapper ${
+                        showSidebar ? 'with-sidebar' : ''
+                    }`}
+                >
                     {showSidebar && <Sidebar />}
                     <div className="main-content">
                         <Suspense fallback={<div>Loading...</div>}>
                             <Routes>
                                 <Route path="/" element={<LoginClient />} />
-                                <Route path="/plan-selection" element={<PlanSelection />} />
-                                <Route path="/dashboard" element={<PrivateRoute><LookerDashboard /></PrivateRoute>} />
-                                <Route path="/incident-list" element={<PrivateRoute><IncidentList /></PrivateRoute>} />
-                                <Route path="/directory-list" element={<PrivateRoute><ClienteList /></PrivateRoute>} />
-                                <Route path="/common-issue-list" element={<PrivateRoute><ProblemaComunList /></PrivateRoute>} />
-                                <Route path="/search-incident" element={<PrivateRoute><IncidentSearch /></PrivateRoute>} />
-                                <Route path="/sync-users" element={<PrivateRoute><UserSync /></PrivateRoute>} />
-                                <Route path="/login-client" element={<LoginClient />} />
-                                <Route path="/register" element={<Register />} />
+                                <Route
+                                    path="/plan-selection"
+                                    element={<PlanSelection />}
+                                />
+                                <Route
+                                    path="/dashboard"
+                                    element={
+                                        <PrivateRoute>
+                                            <LookerDashboard />
+                                        </PrivateRoute>
+                                    }
+                                />
+                                <Route
+                                    path="/incident-list"
+                                    element={
+                                        <PrivateRoute>
+                                            <IncidentList />
+                                        </PrivateRoute>
+                                    }
+                                />
+                                <Route
+                                    path="/directory-list"
+                                    element={
+                                        <PrivateRoute>
+                                            <ClienteList />
+                                        </PrivateRoute>
+                                    }
+                                />
+                                <Route
+                                    path="/common-issue-list"
+                                    element={
+                                        <PrivateRoute>
+                                            <ProblemaComunList />
+                                        </PrivateRoute>
+                                    }
+                                />
+                                <Route
+                                    path="/search-incident"
+                                    element={
+                                        <PrivateRoute>
+                                            <IncidentSearch />
+                                        </PrivateRoute>
+                                    }
+                                />
+                                <Route
+                                    path="/sync-users"
+                                    element={
+                                        <PrivateRoute>
+                                            <UserSync />
+                                        </PrivateRoute>
+                                    }
+                                />
+                                <Route
+                                    path="/login-client"
+                                    element={<LoginClient />}
+                                />
+                                <Route
+                                    path="/register"
+                                    element={<Register />}
+                                />
                             </Routes>
                         </Suspense>
                     </div>

@@ -9,12 +9,19 @@ interface ProblemaComun {
     description: string;
     categoria: string;
     solucion: string;
+    cliente_id: number;
+}
+
+interface Cliente {
+    id: number;
+    nombre: string;
 }
 
 const ProblemaComunList: React.FC = () => {
     const [problemasComunes, setProblemasComunes] = useState<ProblemaComun[]>(
         []
     );
+    const [clientes, setClientes] = useState<Cliente[]>([]);
     const [isCreateProblemaVisible, setIsCreateProblemaVisible] =
         useState(false);
 
@@ -29,9 +36,26 @@ const ProblemaComunList: React.FC = () => {
             });
     };
 
+    const fetchClientes = () => {
+        axiosInstance
+            .get('/clientes')
+            .then((response) => {
+                setClientes(response.data);
+            })
+            .catch((error) => {
+                console.error('Error al obtener clientes:', error);
+            });
+    };
+
     useEffect(() => {
         fetchProblemasComunes();
+        fetchClientes();
     }, []);
+
+    const getClienteNombre = (clientId: number) => {
+        const cliente = clientes.find((cliente) => cliente.id === clientId);
+        return cliente ? cliente.nombre : 'Cliente no encontrado';
+    };
 
     const toggleCreateProblema = () => {
         setIsCreateProblemaVisible(!isCreateProblemaVisible);
@@ -63,16 +87,21 @@ const ProblemaComunList: React.FC = () => {
                 <table className="problema-comun-table">
                     <thead>
                         <tr>
+                            <th>CLIENTE</th>{' '}
+                            {/* New column for cliente nombre */}
                             <th>DESCRIPCIÓN</th>
                             <th>CATEGORÍA</th>
                             <th>SOLUCIÓN</th>
-                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         {problemasComunes.length > 0 ? (
                             problemasComunes.map((problema) => (
                                 <tr key={problema.id}>
+                                    <td>
+                                        {getClienteNombre(problema.cliente_id)}
+                                    </td>{' '}
+                                    {/* Display cliente nombre */}
                                     <td className="truncate">
                                         {problema.description}
                                     </td>
