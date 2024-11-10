@@ -84,9 +84,9 @@ const AppContent: React.FC = () => {
                                 <Route
                                     path="/common-issue-list"
                                     element={
-                                        // <PrivateRoute>
-                                        <ProblemaComunList />
-                                        // </PrivateRoute>
+                                        <PrivateRoute>
+                                            <ProblemaComunList />
+                                        </PrivateRoute>
                                     }
                                 />
                                 <Route
