@@ -20,12 +20,8 @@ const CreateProblemaComun: React.FC<CreateProblemaComunProps> = ({
 
     const [categorias, setCategorias] = useState<string[]>([]);
     const [clientes, setClientes] = useState<{ id: number; nombre: string }[]>(
-        [
-            { id: 1, nombre: 'Cliente 1' },
-            { id: 2, nombre: 'Cliente 2' },
-            { id: 3, nombre: 'Cliente 3' },
-        ]
-    ); // Manually added initial clients
+        []
+    );
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
