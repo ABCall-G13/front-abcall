@@ -206,7 +206,7 @@ describe('PlanSelection', () => {
         // Verifica que se haya llamado a la API con el plan correcto
         await waitFor(() => 
             expect(mockAxiosInstance.post).toHaveBeenCalledWith('/clientes/update-plan', {
-                plan: 'emprendedor',
+                plan: 'Emprendedor',
             })
         );
         
