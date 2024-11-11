@@ -24,9 +24,12 @@ interface Incident {
 const IncidentList: React.FC = () => {
     const [incidents, setIncidents] = useState<Incident[]>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [selectedIncident, setSelectedIncident] = useState<Incident | null>(null);
+    const [selectedIncident, setSelectedIncident] = useState<Incident | null>(
+        null
+    );
     const [isValidationModalOpen, setIsValidationModalOpen] = useState(false);
-    const [isCreateIncidentVisible, setIsCreateIncidentVisible] = useState(false);
+    const [isCreateIncidentVisible, setIsCreateIncidentVisible] =
+        useState(false);
     const [validatedUserInfo, setValidatedUserInfo] = useState<any>(null);
 
     const fetchIncidents = () => {
@@ -78,15 +81,18 @@ const IncidentList: React.FC = () => {
         <div className="incident-list-container">
             <BreadCrumb />
             <div className="button-container">
-                <button onClick={openValidationModal} className="btn-create-incident">
+                <button
+                    onClick={openValidationModal}
+                    className="btn-create-incident"
+                >
                     AGREGAR INCIDENTE
                 </button>
             </div>
-            
-            <ValidateUserModal 
-                isOpen={isValidationModalOpen} 
-                onUserValidated={handleUserValidated} 
-                onClose={() => setIsValidationModalOpen(false)} 
+
+            <ValidateUserModal
+                isOpen={isValidationModalOpen}
+                onUserValidated={handleUserValidated}
+                onClose={() => setIsValidationModalOpen(false)}
                 onOpenCreateIncident={handleOpenCreateIncident}
             />
 
@@ -106,9 +112,8 @@ const IncidentList: React.FC = () => {
             <div className="table-container">
                 <h3>Incidentes</h3>
 
-
                 <table className="incident-table">
-                <thead>
+                    <thead>
                         <tr>
                             <th>RADICADO</th>
                             <th>CLIENTE</th>
@@ -128,7 +133,9 @@ const IncidentList: React.FC = () => {
                                 <tr key={incident.id}>
                                     <td>{incident.radicado}</td>
                                     <td>{incident.cliente_id}</td>
-                                    <td className="truncate">{incident.description}</td>
+                                    <td className="truncate">
+                                        {incident.description}
+                                    </td>
                                     <td>
                                         <div
                                             className={`status ${incident.estado.toLowerCase()}`}
@@ -145,10 +152,16 @@ const IncidentList: React.FC = () => {
                                             {incident.prioridad}
                                         </div>
                                     </td>
-                                    <td>{new Date(incident.fecha_creacion).toLocaleDateString()}</td>
+                                    <td>
+                                        {new Date(
+                                            incident.fecha_creacion
+                                        ).toLocaleDateString()}
+                                    </td>
                                     <td>
                                         {incident.fecha_cierre
-                                            ? new Date(incident.fecha_cierre).toLocaleDateString()
+                                            ? new Date(
+                                                  incident.fecha_cierre
+                                              ).toLocaleDateString()
                                             : '-'}
                                     </td>
                                     <td>
@@ -163,7 +176,9 @@ const IncidentList: React.FC = () => {
                             ))
                         ) : (
                             <tr>
-                                <td colSpan={10}>No se encontraron incidentes</td>
+                                <td colSpan={10}>
+                                    No se encontraron incidentes
+                                </td>
                             </tr>
                         )}
                     </tbody>

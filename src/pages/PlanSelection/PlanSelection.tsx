@@ -41,7 +41,7 @@ const PlanSelection: React.FC = () => {
             <div className="plan-cards">
                 <div
                     className={`plan-card emprendedor ${
-                        selectedPlan === 'Emprendedor' ? 'selected' : ''
+                        selectedPlan === 'emprendedor' ? 'selected' : ''
                     }`}
                     onClick={() => handlePlanSelect('emprendedor')}
                     onKeyDown={(e) => {
@@ -82,7 +82,7 @@ const PlanSelection: React.FC = () => {
                 </div>
                 <div
                     className={`plan-card empresario-plus ${
-                        selectedPlan === 'Empresario Plus' ? 'selected' : ''
+                        selectedPlan === 'empresario_plus' ? 'selected' : ''
                     }`}
                     onClick={() => handlePlanSelect('empresario_plus')}
                     onKeyDown={(e) => {
@@ -131,7 +131,7 @@ const PlanSelection: React.FC = () => {
                 </div>
                 <div
                     className={`plan-card empresario ${
-                        selectedPlan === 'Empresario' ? 'selected' : ''
+                        selectedPlan === 'empresario' ? 'selected' : ''
                     }`}
                     onClick={() => handlePlanSelect('empresario')}
                     onKeyDown={(e) => {
