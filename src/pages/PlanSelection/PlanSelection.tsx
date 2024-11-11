@@ -43,10 +43,10 @@ const PlanSelection: React.FC = () => {
                     className={`plan-card emprendedor ${
                         selectedPlan === 'Emprendedor' ? 'selected' : ''
                     }`}
-                    onClick={() => handlePlanSelect('Emprendedor')}
+                    onClick={() => handlePlanSelect('emprendedor')}
                     onKeyDown={(e) => {
                         if (e.key === 'Enter' || e.key === ' ') {
-                            handlePlanSelect('Emprendedor');
+                            handlePlanSelect('emprendedor');
                         }
                     }}
                     role="button"
@@ -84,10 +84,10 @@ const PlanSelection: React.FC = () => {
                     className={`plan-card empresario-plus ${
                         selectedPlan === 'Empresario Plus' ? 'selected' : ''
                     }`}
-                    onClick={() => handlePlanSelect('Empresario Plus')}
+                    onClick={() => handlePlanSelect('empresario_plus')}
                     onKeyDown={(e) => {
                         if (e.key === 'Enter' || e.key === ' ') {
-                            handlePlanSelect('Empresario Plus');
+                            handlePlanSelect('empresario_plus');
                         }
                     }}
                     role="button"
@@ -133,10 +133,10 @@ const PlanSelection: React.FC = () => {
                     className={`plan-card empresario ${
                         selectedPlan === 'Empresario' ? 'selected' : ''
                     }`}
-                    onClick={() => handlePlanSelect('Empresario')}
+                    onClick={() => handlePlanSelect('empresario')}
                     onKeyDown={(e) => {
                         if (e.key === 'Enter' || e.key === ' ') {
-                            handlePlanSelect('Empresario');
+                            handlePlanSelect('empresario');
                         }
                     }}
                     role="button"
