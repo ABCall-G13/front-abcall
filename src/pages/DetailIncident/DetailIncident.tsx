@@ -53,17 +53,6 @@ const DetailIncidentModal: React.FC<DetailIncidentModalProps> = ({
         }
     };
 
-    const handleEscalar = async () => {
-        try {
-            await axiosInstance.put(`/incidente/${incidentDetail.id}/escalar`);
-            onIncidentUpdated();
-            onClose();
-        } catch (error) {
-            setError('Error al escalar incidente');
-            console.error('Error al escalar incidente:', error);
-        }
-    };
-
     const handleAddSolution = (solucion: string) => {
         setSolucion(solucion);
     };
