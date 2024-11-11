@@ -33,69 +33,63 @@ const DetailIncidentModal: React.FC<DetailIncidentModalProps> = ({
         useState(false);
     const [problemasIA, setProblemasIA] = useState<any[]>([]); // State to store IA solutions
     const [problemasComunes, setProblemasComunes] = useState<any[]>([]); // State to store common issues
+    const [error, setError] = useState<string | null>(null); // State to handle error messages
 
     if (!isOpen) {
         return null;
     }
 
-    const handleSolucionar = () => {
-        axiosInstance
-            .put(`/incidente/${incidentDetail.id}/solucionar`, { solucion })
-            .then(() => {
-                onIncidentUpdated();
-                onClose();
-            })
-            .catch((error) => {
-                console.error('Error al solucionar incidente:', error);
-            });
+    const handleSolucionar = async () => {
+        try {
+            await axiosInstance.put(
+                `/incidente/${incidentDetail.id}/solucionar`,
+                { solucion }
+            );
+            onIncidentUpdated();
+            onClose();
+        } catch (error) {
+            setError('Error al solucionar incidente');
+            console.error('Error al solucionar incidente:', error);
+        }
     };
 
-    const handleEscalar = () => {
-        axiosInstance
-            .put(`/incidente/${incidentDetail.id}/escalar`)
-            .then(() => {
-                onIncidentUpdated();
-                onClose();
-            })
-            .catch((error) => {
-                console.error('Error al escalar incidente:', error);
-            });
+    const handleEscalar = async () => {
+        try {
+            await axiosInstance.put(`/incidente/${incidentDetail.id}/escalar`);
+            onIncidentUpdated();
+            onClose();
+        } catch (error) {
+            setError('Error al escalar incidente');
+            console.error('Error al escalar incidente:', error);
+        }
     };
 
     const handleAddSolution = (solucion: string) => {
         setSolucion(solucion);
     };
 
-    const fetchIAProblemas = () => {
-        axiosInstance
-            .post('/search-issues', { query: incidentDetail.description })
-            .then((response) => {
-                setProblemasIA(response.data);
-                setIsProblemaComunModalOpen(true);
-            })
-            .catch((error) => {
-                console.error('Error fetching IA problem data:', error);
+    const fetchIAProblemas = async () => {
+        try {
+            const response = await axiosInstance.post('/search-issues', {
+                query: incidentDetail.description,
             });
+            setProblemasIA(response.data);
+            setIsProblemaComunModalOpen(true);
+        } catch (error) {
+            setError('Error fetching IA problem data');
+            console.error('Error fetching IA problem data:', error);
+        }
     };
 
-    const fetchProblemasComunes = () => {
-        axiosInstance
-            .get('/soluciones')
-            .then((response) => {
-                setProblemasComunes(response.data);
-                setIsProblemaComunModalOpen(true);
-            })
-            .catch((error) => {
-                console.error('Error fetching common problem data:', error);
-            });
-    };
-
-    const handleProblemaComunModal = () => {
-        fetchIAProblemas(); // Fetch IA solutions when the button is clicked
-    };
-
-    const handleFetchProblemasComunes = () => {
-        fetchProblemasComunes(); // Fetch common problems when btn-problema-comun is clicked
+    const fetchProblemasComunes = async () => {
+        try {
+            const response = await axiosInstance.get('/soluciones');
+            setProblemasComunes(response.data);
+            setIsProblemaComunModalOpen(true);
+        } catch (error) {
+            setError('Error fetching common problem data');
+            console.error('Error fetching common problem data:', error);
+        }
     };
 
     const closeProblemaComunModal = () => {
@@ -150,13 +144,13 @@ const DetailIncidentModal: React.FC<DetailIncidentModalProps> = ({
                     <h3 className="section-title">Solución</h3>
                     <div className="solution-actions">
                         <button
-                            onClick={handleProblemaComunModal}
+                            onClick={fetchIAProblemas}
                             className="btn-solucion-ia"
                         >
                             Buscar solución con IA
                         </button>
                         <button
-                            onClick={handleFetchProblemasComunes}
+                            onClick={fetchProblemasComunes}
                             className="btn-problema-comun"
                         >
                             Buscar problemas comunes
@@ -185,13 +179,14 @@ const DetailIncidentModal: React.FC<DetailIncidentModalProps> = ({
                             </button>
                         </div>
                     )}
+                    {error && <p>{error}</p>}
                 </div>
 
                 <ProblemaComunModal
                     isOpen={isProblemaComunModalOpen}
                     onClose={closeProblemaComunModal}
                     onAddSolution={handleAddSolution}
-                    problemas={problemasComunes} // Pass common problems to the modal
+                    problemas={problemasComunes}
                 />
             </div>
         </div>

@@ -114,4 +114,32 @@ describe('DetailIncidentModal', () => {
 
         fireEvent.click(screen.getByText('Buscar problemas comunes'));
     });
+
+    it('shows error message on solucionar failure', async () => {
+        (axiosInstance.put as jest.Mock).mockRejectedValueOnce(
+            new Error('Network error')
+        );
+        render(
+            <DetailIncidentModal
+                isOpen={true}
+                onClose={mockOnClose}
+                incidentDetail={mockIncidentDetail}
+                onIncidentUpdated={mockOnIncidentUpdated}
+            />
+        );
+
+        fireEvent.change(
+            screen.getByPlaceholderText('Escribe la solución aquí'),
+            {
+                target: { value: 'Test solution' },
+            }
+        );
+        fireEvent.click(screen.getByText('Guardar Solución'));
+
+        await waitFor(() =>
+            expect(
+                screen.getByText('Error al solucionar incidente')
+            ).toBeInTheDocument()
+        );
+    });
 });
