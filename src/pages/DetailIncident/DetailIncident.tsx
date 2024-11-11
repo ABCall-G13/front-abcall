@@ -31,6 +31,8 @@ const DetailIncidentModal: React.FC<DetailIncidentModalProps> = ({
     const [solucion, setSolucion] = useState<string>('');
     const [isProblemaComunModalOpen, setIsProblemaComunModalOpen] =
         useState(false);
+    const [problemasIA, setProblemasIA] = useState<any[]>([]); // State to store IA solutions
+    const [problemasComunes, setProblemasComunes] = useState<any[]>([]); // State to store common issues
 
     if (!isOpen) {
         return null;
@@ -64,8 +66,36 @@ const DetailIncidentModal: React.FC<DetailIncidentModalProps> = ({
         setSolucion(solucion);
     };
 
+    const fetchIAProblemas = () => {
+        axiosInstance
+            .post('/search-issues', { query: incidentDetail.description })
+            .then((response) => {
+                setProblemasIA(response.data);
+                setIsProblemaComunModalOpen(true);
+            })
+            .catch((error) => {
+                console.error('Error fetching IA problem data:', error);
+            });
+    };
+
+    const fetchProblemasComunes = () => {
+        axiosInstance
+            .get('/soluciones')
+            .then((response) => {
+                setProblemasComunes(response.data);
+                setIsProblemaComunModalOpen(true);
+            })
+            .catch((error) => {
+                console.error('Error fetching common problem data:', error);
+            });
+    };
+
     const handleProblemaComunModal = () => {
-        setIsProblemaComunModalOpen(true);
+        fetchIAProblemas(); // Fetch IA solutions when the button is clicked
+    };
+
+    const handleFetchProblemasComunes = () => {
+        fetchProblemasComunes(); // Fetch common problems when btn-problema-comun is clicked
     };
 
     const closeProblemaComunModal = () => {
@@ -120,22 +150,16 @@ const DetailIncidentModal: React.FC<DetailIncidentModalProps> = ({
                     <h3 className="section-title">Solución</h3>
                     <div className="solution-actions">
                         <button
-                            onClick={handleSolucionar}
+                            onClick={handleProblemaComunModal}
                             className="btn-solucion-ia"
                         >
                             Buscar solución con IA
                         </button>
                         <button
-                            onClick={handleProblemaComunModal}
+                            onClick={handleFetchProblemasComunes}
                             className="btn-problema-comun"
                         >
                             Buscar problemas comunes
-                        </button>
-                        <button
-                            onClick={handleEscalar}
-                            className="btn-registrar-solucion"
-                        >
-                            Crear solución
                         </button>
                     </div>
                     <div className="scroll-container">
@@ -144,6 +168,7 @@ const DetailIncidentModal: React.FC<DetailIncidentModalProps> = ({
                                 'Aún no se ha proporcionado una solución.'}
                         </div>
                     </div>
+
                     {incidentDetail.estado === 'abierto' && (
                         <div className="incident-actions">
                             <textarea
@@ -158,12 +183,6 @@ const DetailIncidentModal: React.FC<DetailIncidentModalProps> = ({
                             >
                                 Guardar Solución
                             </button>
-                            <button
-                                onClick={handleEscalar}
-                                className="btn-escalar"
-                            >
-                                Escalar
-                            </button>
                         </div>
                     )}
                 </div>
@@ -172,6 +191,7 @@ const DetailIncidentModal: React.FC<DetailIncidentModalProps> = ({
                     isOpen={isProblemaComunModalOpen}
                     onClose={closeProblemaComunModal}
                     onAddSolution={handleAddSolution}
+                    problemas={problemasComunes} // Pass common problems to the modal
                 />
             </div>
         </div>
