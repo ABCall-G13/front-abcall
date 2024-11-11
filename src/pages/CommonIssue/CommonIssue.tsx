@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './CommonIssue.css'; // Import custom styles
+import './CommonIssue.css';
 import axiosInstance from '../../utils/axiosInstance';
 
 interface ProblemaComun {
@@ -12,26 +12,16 @@ interface ProblemaComun {
 interface ProblemaComunModalProps {
     isOpen: boolean;
     onClose: () => void;
+    problemas: ProblemaComun[]; // Add the problemas prop here
+    onAddSolution: (solucion: string) => void;
 }
 
-const ProblemaComunModal: React.FC<
-    ProblemaComunModalProps & { onAddSolution: (solucion: string) => void }
-> = ({ isOpen, onClose, onAddSolution }) => {
-    const [problemas, setProblemas] = useState<ProblemaComun[]>([]);
-
-    useEffect(() => {
-        if (isOpen) {
-            axiosInstance
-                .get('/soluciones')
-                .then((response) => {
-                    setProblemas(response.data);
-                })
-                .catch((error) => {
-                    console.error('Error fetching problem data:', error);
-                });
-        }
-    }, [isOpen]);
-
+const ProblemaComunModal: React.FC<ProblemaComunModalProps> = ({
+    isOpen,
+    onClose,
+    problemas,
+    onAddSolution,
+}) => {
     if (!isOpen) {
         return null;
     }

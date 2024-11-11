@@ -25,19 +25,14 @@ describe('ProblemaComunModal component', () => {
         },
     ];
 
-    beforeAll(() => {
-        (axiosInstance.get as jest.Mock).mockResolvedValue({
-            data: problemasMockData,
-        });
-    });
-
-    test('renders correctly and handles state updates with act', async () => {
+    test('renders correctly and displays problem data', async () => {
         await act(async () => {
             render(
                 <ProblemaComunModal
                     isOpen={true}
                     onClose={mockOnClose}
                     onAddSolution={mockOnAddSolution}
+                    problemas={problemasMockData} // Provide mock problemas data here
                 />
             );
         });

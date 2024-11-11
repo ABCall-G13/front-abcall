@@ -41,12 +41,12 @@ const PlanSelection: React.FC = () => {
             <div className="plan-cards">
                 <div
                     className={`plan-card emprendedor ${
-                        selectedPlan === 'emprendedor' ? 'selected' : ''
+                        selectedPlan === 'Emprendedor' ? 'selected' : ''
                     }`}
-                    onClick={() => handlePlanSelect('emprendedor')}
+                    onClick={() => handlePlanSelect('Emprendedor')}
                     onKeyDown={(e) => {
                         if (e.key === 'Enter' || e.key === ' ') {
-                            handlePlanSelect('emprendedor');
+                            handlePlanSelect('Emprendedor');
                         }
                     }}
                     role="button"
@@ -82,12 +82,12 @@ const PlanSelection: React.FC = () => {
                 </div>
                 <div
                     className={`plan-card empresario-plus ${
-                        selectedPlan === 'empresarioPlus' ? 'selected' : ''
+                        selectedPlan === 'Empresario Plus' ? 'selected' : ''
                     }`}
-                    onClick={() => handlePlanSelect('empresarioPlus')}
+                    onClick={() => handlePlanSelect('Empresario Plus')}
                     onKeyDown={(e) => {
                         if (e.key === 'Enter' || e.key === ' ') {
-                            handlePlanSelect('empresarioPlus');
+                            handlePlanSelect('Empresario Plus');
                         }
                     }}
                     role="button"
@@ -131,12 +131,12 @@ const PlanSelection: React.FC = () => {
                 </div>
                 <div
                     className={`plan-card empresario ${
-                        selectedPlan === 'empresario' ? 'selected' : ''
+                        selectedPlan === 'Empresario' ? 'selected' : ''
                     }`}
-                    onClick={() => handlePlanSelect('empresario')}
+                    onClick={() => handlePlanSelect('Empresario')}
                     onKeyDown={(e) => {
                         if (e.key === 'Enter' || e.key === ' ') {
-                            handlePlanSelect('empresario');
+                            handlePlanSelect('Empresario');
                         }
                     }}
                     role="button"
