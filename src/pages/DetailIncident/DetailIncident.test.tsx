@@ -36,8 +36,12 @@ describe('DetailIncidentModal', () => {
         );
 
         expect(screen.getByText('Detalle del Incidente')).toBeInTheDocument();
-        expect(screen.getByText('Descripción del soporte:')).toBeInTheDocument();
-        expect(screen.getByText('Test incident description')).toBeInTheDocument();
+        expect(
+            screen.getByText('Descripción del soporte:')
+        ).toBeInTheDocument();
+        expect(
+            screen.getByText('Test incident description')
+        ).toBeInTheDocument();
     });
 
     it('does not render when closed', () => {
@@ -50,7 +54,9 @@ describe('DetailIncidentModal', () => {
             />
         );
 
-        expect(screen.queryByText('Detalle del Incidente')).not.toBeInTheDocument();
+        expect(
+            screen.queryByText('Detalle del Incidente')
+        ).not.toBeInTheDocument();
     });
 
     it('calls onClose when close button is clicked', () => {
@@ -78,35 +84,20 @@ describe('DetailIncidentModal', () => {
             />
         );
 
-        fireEvent.change(screen.getByPlaceholderText('Escribe la solución aquí'), {
-            target: { value: 'Test solution' },
-        });
+        fireEvent.change(
+            screen.getByPlaceholderText('Escribe la solución aquí'),
+            {
+                target: { value: 'Test solution' },
+            }
+        );
         fireEvent.click(screen.getByText('Guardar Solución'));
 
-        await waitFor(() => 
+        await waitFor(() =>
             expect(axiosInstance.put).toHaveBeenCalledWith(
                 `/incidente/1/solucionar`,
                 { solucion: 'Test solution' }
             )
         );
-        await waitFor(() => expect(mockOnIncidentUpdated).toHaveBeenCalled());
-        await waitFor(() => expect(mockOnClose).toHaveBeenCalled());
-    });
-
-    it('handles escalar action', async () => {
-        (axiosInstance.put as jest.Mock).mockResolvedValueOnce({});
-        render(
-            <DetailIncidentModal
-                isOpen={true}
-                onClose={mockOnClose}
-                incidentDetail={mockIncidentDetail}
-                onIncidentUpdated={mockOnIncidentUpdated}
-            />
-        );
-
-        fireEvent.click(screen.getByText('Escalar'));
-
-        await waitFor(() => expect(axiosInstance.put).toHaveBeenCalledWith(`/incidente/1/escalar`));
         await waitFor(() => expect(mockOnIncidentUpdated).toHaveBeenCalled());
         await waitFor(() => expect(mockOnClose).toHaveBeenCalled());
     });

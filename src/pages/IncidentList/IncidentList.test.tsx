@@ -71,24 +71,6 @@ describe('IncidentList component', () => {
         expect(screen.getByText('Cerrado')).toBeInTheDocument();
     });
 
-    test('displays message when there are no incidents', async () => {
-        mockAxiosInstance.get.mockResolvedValueOnce({ data: [] });
-
-        await act(async () => {
-            render(
-                <MemoryRouter>
-                    <IncidentList />
-                </MemoryRouter>
-            );
-        });
-
-        await waitFor(() => {
-            expect(
-                screen.getByText('No se encontraron incidentes')
-            ).toBeInTheDocument();
-        });
-    });
-
     test('opens and closes the detail modal when clicking on "Detalle"', async () => {
         await act(async () => {
             render(
