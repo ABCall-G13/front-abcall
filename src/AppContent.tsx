@@ -4,6 +4,7 @@ import Navbar from './components/Navbar/Navbar';
 import Sidebar from './components/Sidebar/Sidebar';
 import { AuthProvider } from './context/AuthContext';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
+import Chatbot from './pages/Chatbot/Chatbot';
 
 const LookerDashboard = lazy(() => import('./pages/Dashboard/Dashboard'));
 const Register = lazy(() => import('./pages/Register/Register'));
@@ -56,6 +57,7 @@ const AppContent: React.FC = () => {
                         </Suspense>
                     </div>
                 </div>
+                <Chatbot /> {/* Chatbot accesible en todas las páginas */}
             </div>
         </AuthProvider>
     );
