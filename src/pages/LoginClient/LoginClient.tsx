@@ -24,9 +24,29 @@ const LoginClient: React.FC = () => {
             const response = await axiosInstance.post('/login-client', formData);
             const token = response.data.access_token;
             login(token);
-            navigate('/dashboard');
+
+            const hasPlan = await checkPlanStatus(token);
+            if (hasPlan) {
+                navigate('/dashboard');
+            } else {
+                navigate('/plan-selection');
+            }
         } catch (error) {
             setErrorMessage('Correo o contraseña incorrectos');
+        }
+    };
+
+    const checkPlanStatus = async (token: string) => {
+        try {
+            const response = await axiosInstance.get('/status-plan', {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            return response.data;
+        } catch (error) {
+            console.error('Error al verificar el estado del plan:', error);
+            return false;
         }
     };
 

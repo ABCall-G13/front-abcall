@@ -66,7 +66,7 @@ const Register: React.FC = () => {
         axiosInstance
             .post('/clientes/', formData)
             .then((response) => {
-                navigate('/plan-selection');
+                navigate('/login-client');
                 setDisabledButton(false);
             })
             .catch((error) => {
