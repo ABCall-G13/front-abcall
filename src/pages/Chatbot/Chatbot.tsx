@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import './Chatbot.css';
 import { Dialog, DialogTitle, DialogContent, DialogActions, TextField } from '@mui/material';
+import axiosInstance from '../../utils/axiosInstance';
 import chatIcon from '../../assets/icons/chat.svg';
 import sendIcon from '../../assets/icons/row.svg';
-import botIcon from '../../assets/icons/bot-icon.svg'; // Agrega el icono del bot aquí
+import botIcon from '../../assets/icons/bot-icon.svg';
 
 interface Message {
   sender: 'user' | 'bot';
@@ -44,15 +45,11 @@ const Chatbot: React.FC = () => {
     setUserInput('');
 
     try {
-      const response = await fetch('https://your-backend-url.com/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: userInput })
-      });
-      const data = await response.json();
+      const response = await axiosInstance.post('/search-issues', { query: userInput });
+      console.log(response.data[0].solucion);
       setMessages([
         ...newMessages,
-        { sender: 'bot', text: data.response, timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }
+        { sender: 'bot', text: response.data[0].solucion, timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }
       ]);
     } catch (error) {
       console.error("Error:", error);
