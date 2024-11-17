@@ -60,9 +60,9 @@ const AppContent: React.FC = () => {
                                 <Route
                                     path="/dashboard"
                                     element={
-                                        // <PrivateRoute>
-                                        <LookerDashboard />
-                                        // </PrivateRoute>
+                                        <PrivateRoute>
+                                            <LookerDashboard />
+                                        </PrivateRoute>
                                     }
                                 />
                                 <Route
