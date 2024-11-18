@@ -108,7 +108,21 @@
     "Prioridad": "Prioridad",
     "Selecciona una prioridad": "Selecciona una prioridad",
     "Canal": "Canal",
-    "Selecciona un canal": "Selecciona un canal"
+    "Selecciona un canal": "Selecciona un canal",
+
+    
+    "Error al obtener categorías:": "Error al obtener categorías:",
+    "Error al obtener clientes:": "Error al obtener clientes:",
+    "Error al crear problema común:": "Error al crear problema común:",
+    "Hubo un error al crear el problema común. Intenta de nuevo.": "Hubo un error al crear el problema común. Intenta de nuevo.",
+    "Problema común creado satisfactoriamente": "Problema común creado satisfactoriamente",
+    "Registrar Problema Común": "Registrar Problema Común",
+    "Cliente": "Cliente",
+    "Selecciona un cliente": "Selecciona un cliente",
+    "Solución": "Solución",
+    "Crear Problema Común": "Crear Problema Común"
+      
+      
 
     
     

@@ -113,7 +113,19 @@
     "Prioridad": "Priority",
     "Selecciona una prioridad": "Select a priority",
     "Canal": "Channel",
-    "Selecciona un canal": "Select a channel"
+    "Selecciona un canal": "Select a channel",
+
+
+    "Error al obtener categorías:": "Error fetching categories:",
+    "Error al obtener clientes:": "Error fetching clients:",
+    "Error al crear problema común:": "Error creating common issue:",
+    "Hubo un error al crear el problema común. Intenta de nuevo.": "There was an error creating the common issue. Please try again.",
+    "Problema común creado satisfactoriamente": "Common issue created successfully",
+    "Registrar Problema Común": "Register Common Issue",
+    "Cliente": "Client",
+    "Selecciona un cliente": "Select a client",
+    "Solución": "Solution",
+    "Crear Problema Común": "Create Common Issue"
 
 
       
