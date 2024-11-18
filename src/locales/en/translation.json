@@ -22,7 +22,37 @@
     "Archivo seleccionado:": "Selected file:",
     "Click para subir o arrastra y suelta el archivo aquí": "Click to upload or drag and drop the file here",
     "CSV (max. 50MB)": "CSV (max. 50MB)",
-    "Subir": "Upload"
+    "Subir": "Upload",
+
+
+    
+    "El teléfono solo puede contener números.": "The phone number can only contain digits.",
+    "Las contraseñas no coinciden.": "Passwords do not match.",
+    "Ocurrió un error al crear el cliente.": "An error occurred while creating the client.",
+    "Registrarse": "Register",
+    "Nombre empresa": "Company Name",
+    "Introduce el nombre de la empresa": "Enter the company name",
+    "NIT": "Tax ID (NIT)",
+    "Introduce el NIT de la empresa": "Enter the company's Tax ID",
+    "Dirección": "Address",
+    "Introduce la dirección de la empresa": "Enter the company's address",
+    "Teléfono": "Phone",
+    "Introduce el teléfono de la empresa": "Enter the company's phone number",
+    "Industria": "Industry",
+    "Selecciona una industria": "Select an industry",
+    "Tecnología": "Technology",
+    "Finanzas": "Finance",
+    "Salud": "Healthcare",
+    "Confirmar contraseña": "Confirm Password",
+    "Bienvenida para los Usuarios": "Welcome Message for Users",
+    "Escribe el mensaje de bienvenida que tus clientes escucharán cuando se comuniquen con el servicio de soporte.": "Write the welcome message that your clients will hear when they contact support.",
+    "Siguiente": "Next"
+    
+
+
+    
+
+
     
     
 }

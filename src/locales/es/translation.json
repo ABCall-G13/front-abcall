@@ -12,7 +12,7 @@
     "Iniciar sesión": "Iniciar sesión",
     "Registrate": "Registrate",
 
-    
+
     "Cargar usuarios": "Cargar usuarios",
     "Por favor, selecciona un archivo Excel (.xlsx)": "Por favor, selecciona un archivo Excel (.xlsx)",
     "No hay archivo seleccionado": "No hay archivo seleccionado",
@@ -22,6 +22,31 @@
     "Archivo seleccionado:": "Archivo seleccionado:",
     "Click para subir o arrastra y suelta el archivo aquí": "Haz clic para subir o arrastra y suelta el archivo aquí",
     "CSV (max. 50MB)": "CSV (máx. 50MB)",
-    "Subir": "Subir"
+    "Subir": "Subir",
+
+    
+    "El teléfono solo puede contener números.": "El teléfono solo puede contener números.",
+    "Las contraseñas no coinciden.": "Las contraseñas no coinciden.",
+    "Ocurrió un error al crear el cliente.": "Ocurrió un error al crear el cliente.",
+    "Registrarse": "Registrarse",
+    "Nombre empresa": "Nombre empresa",
+    "Introduce el nombre de la empresa": "Introduce el nombre de la empresa",
+    "NIT": "NIT",
+    "Introduce el NIT de la empresa": "Introduce el NIT de la empresa",
+    "Dirección": "Dirección",
+    "Introduce la dirección de la empresa": "Introduce la dirección de la empresa",
+    "Teléfono": "Teléfono",
+    "Introduce el teléfono de la empresa": "Introduce el teléfono de la empresa",
+    "Industria": "Industria",
+    "Selecciona una industria": "Selecciona una industria",
+    "Tecnología": "Tecnología",
+    "Finanzas": "Finanzas",
+    "Salud": "Salud",
+    "Confirmar contraseña": "Confirmar contraseña",
+    "Bienvenida para los Usuarios": "Bienvenida para los Usuarios",
+    "Escribe el mensaje de bienvenida que tus clientes escucharán cuando se comuniquen con el servicio de soporte.": "Escribe el mensaje de bienvenida que tus clientes escucharán cuando se comuniquen con el servicio de soporte.",
+    "Siguiente": "Siguiente"
+    
+    
 
 }
