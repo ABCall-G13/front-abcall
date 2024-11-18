@@ -100,7 +100,21 @@
     "Ventas": "Sales",
     "Facturación": "Billing",
     "Chat": "Chat",
-    "Email": "Email"
+    "Email": "Email",
+
+
+    "Error al obtener los valores permitidos:": "Error fetching allowed values:",
+    "Error al obtener los clientes:": "Error fetching clients:",
+    "Incidente creado satisfactoriamente": "Incident created successfully",
+    "Registrar Incidente": "Register Incident",
+    "Descripción": "Description",
+    "Categoría": "Category",
+    "Selecciona una categoría": "Select a category",
+    "Prioridad": "Priority",
+    "Selecciona una prioridad": "Select a priority",
+    "Canal": "Channel",
+    "Selecciona un canal": "Select a channel"
+
 
       
       

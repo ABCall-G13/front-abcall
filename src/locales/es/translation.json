@@ -96,7 +96,20 @@
     "Ventas": "Ventas",
     "Facturación": "Facturación",
     "Chat": "Chat",
-    "Email": "Email"
+    "Email": "Email",
+
+    "Error al obtener los valores permitidos:": "Error al obtener los valores permitidos:",
+    "Error al obtener los clientes:": "Error al obtener los clientes:",
+    "Incidente creado satisfactoriamente": "Incidente creado satisfactoriamente",
+    "Registrar Incidente": "Registrar Incidente",
+    "Descripción": "Descripción",
+    "Categoría": "Categoría",
+    "Selecciona una categoría": "Selecciona una categoría",
+    "Prioridad": "Prioridad",
+    "Selecciona una prioridad": "Selecciona una prioridad",
+    "Canal": "Canal",
+    "Selecciona un canal": "Selecciona un canal"
+
     
     
 
