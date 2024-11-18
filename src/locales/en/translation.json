@@ -141,5 +141,25 @@
     "Consultar Incidente": "Check Incident",
     "REGISTRARSE": "REGISTER",
     "INICIAR SESIÓN": "LOGIN",
-    "CONSULTAR INCIDENTE": "CHECK INCIDENT"
+    "CONSULTAR INCIDENTE": "CHECK INCIDENT",
+
+    "Por favor, completa todos los campos.": "Please complete all fields.",
+    "Usuario no encontrado.": "User not found.",
+    "Validación de usuario": "User Validation",
+    "Tipo de documento": "Document Type",
+    "Seleccione un tipo de documento": "Select a document type",
+    "Cédula de ciudadanía": "Citizenship ID",
+    "Pasaporte": "Passport",
+    "Cédula de extranjería": "Foreigner ID",
+    "Número de identificación": "Identification Number",
+    "Ingrese el número de identificación": "Enter the identification number",
+    "Seleccione un cliente": "Select a client",
+    "Validar usuario": "Validate User",
+    "Crear Incidente": "Create Incident",
+    "Usuario encontrado": "User found",
+    "Usuario:": "User:",
+    "Documento:": "Document:",
+    "Teléfono:": "Phone:",
+    "Email:": "Email:",
+    "Información del usuario:": "User information:"
 }

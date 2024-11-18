@@ -141,5 +141,25 @@
     "Consultar Incidente": "Consultar Incidente",
     "REGISTRARSE": "REGISTRARSE",
     "INICIAR SESIÓN": "INICIAR SESIÓN",
-    "CONSULTAR INCIDENTE": "CONSULTAR INCIDENTE"
+    "CONSULTAR INCIDENTE": "CONSULTAR INCIDENTE",
+
+    "Por favor, completa todos los campos.": "Por favor, completa todos los campos.",
+    "Usuario no encontrado.": "Usuario no encontrado.",
+    "Validación de usuario": "Validación de usuario",
+    "Tipo de documento": "Tipo de documento",
+    "Seleccione un tipo de documento": "Seleccione un tipo de documento",
+    "Cédula de ciudadanía": "Cédula de ciudadanía",
+    "Pasaporte": "Pasaporte",
+    "Cédula de extranjería": "Cédula de extranjería",
+    "Número de identificación": "Número de identificación",
+    "Ingrese el número de identificación": "Ingrese el número de identificación",
+    "Seleccione un cliente": "Seleccione un cliente",
+    "Validar usuario": "Validar usuario",
+    "Crear Incidente": "Crear Incidente",
+    "Usuario encontrado": "Usuario encontrado",
+    "Usuario:": "Usuario:",
+    "Documento:": "Documento:",
+    "Teléfono:": "Teléfono:",
+    "Email:": "Email:",
+    "Información del usuario:": "Información del usuario:"
 }
