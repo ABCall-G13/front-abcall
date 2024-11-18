@@ -1,0 +1,14 @@
+{
+    "welcome": "Bienvenido a nuestro servicio",
+    "login": "Iniciar sesión",
+    "register": "Registrarse",
+    "Correo o contraseña incorrectos": "Correo o contraseña incorrectos",
+    "Correo electrónico": "Correo electrónico",
+    "Introduce tu correo electrónico": "Introduce tu correo electrónico",
+    "Contraseña": "Contraseña",
+    "Introduce tu contraseña": "Introduce tu contraseña",
+    "¿No tienes una cuenta?": "¿No tienes una cuenta?",
+    "Hubo un error al crear el incidente. Intenta de nuevo.": "Hubo un error al crear el incidente. Intenta de nuevo.",
+    "Iniciar sesión": "Iniciar sesión",
+    "Registrate": "Registrate"
+}
