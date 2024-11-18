@@ -10,5 +10,18 @@
     "¿No tienes una cuenta?": "¿No tienes una cuenta?",
     "Hubo un error al crear el incidente. Intenta de nuevo.": "Hubo un error al crear el incidente. Intenta de nuevo.",
     "Iniciar sesión": "Iniciar sesión",
-    "Registrate": "Registrate"
+    "Registrate": "Registrate",
+
+    
+    "Cargar usuarios": "Cargar usuarios",
+    "Por favor, selecciona un archivo Excel (.xlsx)": "Por favor, selecciona un archivo Excel (.xlsx)",
+    "No hay archivo seleccionado": "No hay archivo seleccionado",
+    "Subiendo...": "Subiendo...",
+    "Archivo subido exitosamente": "Archivo subido exitosamente",
+    "Error al subir el archivo": "Error al subir el archivo",
+    "Archivo seleccionado:": "Archivo seleccionado:",
+    "Click para subir o arrastra y suelta el archivo aquí": "Haz clic para subir o arrastra y suelta el archivo aquí",
+    "CSV (max. 50MB)": "CSV (máx. 50MB)",
+    "Subir": "Subir"
+
 }

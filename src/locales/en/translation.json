@@ -10,5 +10,19 @@
     "¿No tienes una cuenta?": "Don't have an account?",
     "Hubo un error al crear el incidente. Intenta de nuevo.": "There was an error creating the incident. Please try again.",
     "Iniciar sesión": "Login",
-    "Registrate": "Register"
+    "Registrate": "Register",
+
+    
+    "Cargar usuarios": "Upload users",
+    "Por favor, selecciona un archivo Excel (.xlsx)": "Please select an Excel file (.xlsx)",
+    "No hay archivo seleccionado": "No file selected",
+    "Subiendo...": "Uploading...",
+    "Archivo subido exitosamente": "File uploaded successfully",
+    "Error al subir el archivo": "Error uploading file",
+    "Archivo seleccionado:": "Selected file:",
+    "Click para subir o arrastra y suelta el archivo aquí": "Click to upload or drag and drop the file here",
+    "CSV (max. 50MB)": "CSV (max. 50MB)",
+    "Subir": "Upload"
+    
+    
 }
