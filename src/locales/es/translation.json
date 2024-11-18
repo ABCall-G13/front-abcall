@@ -71,7 +71,32 @@
     "No se encontró el incidente": "No se encontró el incidente",
     "Ingrese el radicado del incidente": "Ingrese el radicado del incidente",
     "Buscar incidente por radicado": "Buscar incidente por radicado",
-    "Consultar": "Consultar"
+    "Consultar": "Consultar",
+
+    "Error al obtener incidentes:": "Error al obtener incidentes:",
+    "AGREGAR INCIDENTE": "AGREGAR INCIDENTE",
+    "Incidentes": "Incidentes",
+    "No se encontraron incidentes": "No se encontraron incidentes",
+    "RADICADO": "RADICADO",
+    "CLIENTE": "CLIENTE",
+    "DESCRIPCIÓN": "DESCRIPCIÓN",
+    "ESTADO": "ESTADO",
+    "CATEGORÍA": "CATEGORÍA",
+    "CANAL": "CANAL",
+    "PRIORIDAD": "PRIORIDAD",
+    "FECHA DE APERTURA": "FECHA DE APERTURA",
+    "FECHA DE CIERRE": "FECHA DE CIERRE",
+    "Abierto": "Abierto",
+    "En proceso": "En proceso",
+    "Cerrado": "Cerrado",
+    "Alta": "Alta",
+    "Media": "Media",
+    "Baja": "Baja",
+    "Soporte": "Soporte",
+    "Ventas": "Ventas",
+    "Facturación": "Facturación",
+    "Chat": "Chat",
+    "Email": "Email"
     
     
 

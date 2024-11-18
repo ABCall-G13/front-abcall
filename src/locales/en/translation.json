@@ -69,12 +69,39 @@
     "Plan actualizado exitosamente:": "Plan updated successfully:",
     "Error al actualizar el plan:": "Error updating the plan:",
     "No se pudo actualizar el plan.": "Could not update the plan.",
-    
+
 
     "No se encontró el incidente": "Incident not found",
     "Ingrese el radicado del incidente": "Enter the incident reference number",
     "Buscar incidente por radicado": "Search incident by reference number",
-    "Consultar": "Search"
+    "Consultar": "Search",
+
+
+    "Error al obtener incidentes:": "Error fetching incidents:",
+    "AGREGAR INCIDENTE": "ADD INCIDENT",
+    "Incidentes": "Incidents",
+    "No se encontraron incidentes": "No incidents found",
+    "RADICADO": "REFERENCE",
+    "CLIENTE": "CLIENT",
+    "DESCRIPCIÓN": "DESCRIPTION",
+    "ESTADO": "STATUS",
+    "CATEGORÍA": "CATEGORY",
+    "CANAL": "CHANNEL",
+    "PRIORIDAD": "PRIORITY",
+    "FECHA DE APERTURA": "OPENING DATE",
+    "FECHA DE CIERRE": "CLOSING DATE",
+    "Abierto": "Open",
+    "En proceso": "In Progress",
+    "Cerrado": "Closed",
+    "Alta": "High",
+    "Media": "Medium",
+    "Baja": "Low",
+    "Soporte": "Support",
+    "Ventas": "Sales",
+    "Facturación": "Billing",
+    "Chat": "Chat",
+    "Email": "Email"
+
       
       
     
