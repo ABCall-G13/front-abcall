@@ -46,7 +46,31 @@
     "Confirmar contraseña": "Confirm Password",
     "Bienvenida para los Usuarios": "Welcome Message for Users",
     "Escribe el mensaje de bienvenida que tus clientes escucharán cuando se comuniquen con el servicio de soporte.": "Write the welcome message that your clients will hear when they contact support.",
-    "Siguiente": "Next"
+    "Siguiente": "Next",
+
+    
+    "Elige el plan perfecto para impulsar tu negocio y brindar la mejor experiencia a tus clientes.": "Choose the perfect plan to boost your business and provide the best experience to your customers.",
+    "Emprendedor": "Entrepreneur",
+    "Empresario": "Business",
+    "Empresario Plus": "Business Plus",
+    "¡Optimiza tu atención telefónica y resuelve problemas rápidamente! Ofrece a tus clientes un servicio profesional para gestionar sus solicitudes, con automatización y seguimiento continuo.": "Optimize your phone support and solve problems quickly! Offer your customers a professional service to manage their requests with automation and continuous tracking.",
+    "Canales: Teléfono": "Channels: Phone",
+    "Registro y gestión de PQRs": "Registration and management of PQRs",
+    "Automatización de escalamiento de problemas": "Problem escalation automation",
+    "Notificaciones por correo, SMS o llamada": "Notifications via email, SMS, or call",
+    "Acceso a la app para seguimiento de incidentes": "Access to the app for incident tracking",
+    "¡Impulsa tu negocio con la última tecnología en inteligencia artificial y analítica predictiva! Resuelve problemas antes de que ocurran y ofrece experiencias únicas a tus clientes.": "Boost your business with the latest in artificial intelligence and predictive analytics! Solve problems before they occur and offer unique experiences to your customers.",
+    "Canales: Teléfono, chatbot, app móvil, correo electrónico": "Channels: Phone, chatbot, mobile app, email",
+    "IA y analítica predictiva para atención multicanal": "AI and predictive analytics for multichannel support",
+    "Lleva tu atención al cliente al siguiente nivel con soporte multicanal. Más formas de contacto, más oportunidades de vender y mejorar la experiencia de tus usuarios.": "Take your customer service to the next level with multichannel support. More ways to connect, more opportunities to sell and enhance your users' experience.",
+    "Tablero de control con métricas clave": "Dashboard with key metrics",
+    "Análisis de rendimiento": "Performance analysis",
+    "Comprar": "Buy",
+    "Plan actualizado exitosamente:": "Plan updated successfully:",
+    "Error al actualizar el plan:": "Error updating the plan:",
+    "No se pudo actualizar el plan.": "Could not update the plan."
+      
+      
     
 
 
