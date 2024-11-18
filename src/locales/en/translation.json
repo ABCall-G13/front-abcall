@@ -135,5 +135,11 @@
     "Directorio": "Directory",
     "Problemas comunes": "Common Issues",
     "Cerrar Sesión": "Logout",
-    "v{{version}}": "v{{version}}"
+    "v{{version}}": "v{{version}}",
+
+    "Iniciar Sesión": "Login",
+    "Consultar Incidente": "Check Incident",
+    "REGISTRARSE": "REGISTER",
+    "INICIAR SESIÓN": "LOGIN",
+    "CONSULTAR INCIDENTE": "CHECK INCIDENT"
 }

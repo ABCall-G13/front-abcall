@@ -135,5 +135,11 @@
     "Directorio": "Directorio",
     "Problemas comunes": "Problemas comunes",
     "Cerrar Sesión": "Cerrar Sesión",
-    "v{{version}}": "v{{version}}"
-    }
+    "v{{version}}": "v{{version}}",
+
+    "Iniciar Sesión": "Iniciar Sesión",
+    "Consultar Incidente": "Consultar Incidente",
+    "REGISTRARSE": "REGISTRARSE",
+    "INICIAR SESIÓN": "INICIAR SESIÓN",
+    "CONSULTAR INCIDENTE": "CONSULTAR INCIDENTE"
+}
