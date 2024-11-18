@@ -68,7 +68,13 @@
     "Comprar": "Buy",
     "Plan actualizado exitosamente:": "Plan updated successfully:",
     "Error al actualizar el plan:": "Error updating the plan:",
-    "No se pudo actualizar el plan.": "Could not update the plan."
+    "No se pudo actualizar el plan.": "Could not update the plan.",
+    
+
+    "No se encontró el incidente": "Incident not found",
+    "Ingrese el radicado del incidente": "Enter the incident reference number",
+    "Buscar incidente por radicado": "Search incident by reference number",
+    "Consultar": "Search"
       
       
     
