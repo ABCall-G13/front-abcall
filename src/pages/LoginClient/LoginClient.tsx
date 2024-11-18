@@ -23,8 +23,7 @@ const LoginClient: React.FC = () => {
         try {
             const response = await axiosInstance.post('/login-client', formData);
             const token = response.data.access_token;
-            login(token);
-
+            login(token, 'cliente');
             const hasPlan = await checkPlanStatus(token);
             if (hasPlan) {
                 navigate('/dashboard');
@@ -32,7 +31,18 @@ const LoginClient: React.FC = () => {
                 navigate('/plan-selection');
             }
         } catch (error) {
-            setErrorMessage('Correo o contraseña incorrectos');
+            try {
+                // Intentar login como agente
+                const agentResponse = await axiosInstance.post('/agentes/login', {
+                    correo: formData.email,
+                    password: formData.password,
+                });
+                const token = agentResponse.data.access_token;
+                login(token, 'agente');
+                navigate('/incident-list');
+            } catch {
+                setErrorMessage('Correo o contraseña incorrectos');
+            }
         }
     };
 
