@@ -125,7 +125,14 @@
     "Cliente": "Client",
     "Selecciona un cliente": "Select a client",
     "Solución": "Solution",
-    "Crear Problema Común": "Create Common Issue"
+    "Crear Problema Común": "Create Common Issue",
+
+
+    "Error al obtener problemas comunes:": "Error fetching common issues:",
+    "AGREGAR PROBLEMA COMÚN": "ADD COMMON ISSUE",
+    "Problemas Comunes": "Common Issues",
+    "No se encontraron problemas comunes": "No common issues found",
+    "Cliente no encontrado": "Client not found"
 
 
       

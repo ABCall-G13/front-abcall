@@ -120,7 +120,15 @@
     "Cliente": "Cliente",
     "Selecciona un cliente": "Selecciona un cliente",
     "Solución": "Solución",
-    "Crear Problema Común": "Crear Problema Común"
+    "Crear Problema Común": "Crear Problema Común",
+
+
+    "Error al obtener problemas comunes:": "Error al obtener problemas comunes:",
+    "AGREGAR PROBLEMA COMÚN": "AGREGAR PROBLEMA COMÚN",
+    "Problemas Comunes": "Problemas Comunes",
+    "SOLUCIÓN": "SOLUCIÓN",
+    "No se encontraron problemas comunes": "No se encontraron problemas comunes",
+    "Cliente no encontrado": "Cliente no encontrado"
       
       
 
