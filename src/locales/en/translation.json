@@ -127,5 +127,13 @@
 
     "SOLUCIÓN": "SOLUTION",
     "ACCIONES": "ACTIONS",
-    "Agregar Solución": "Add Solution"
+    "Agregar Solución": "Add Solution",
+
+    "ABCall Logo": "ABCall Logo",
+    "Tableros": "Dashboards",
+    "Sincronizar usuarios": "Sync Users",
+    "Directorio": "Directory",
+    "Problemas comunes": "Common Issues",
+    "Cerrar Sesión": "Logout",
+    "v{{version}}": "v{{version}}"
 }

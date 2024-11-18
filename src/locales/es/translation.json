@@ -127,5 +127,13 @@
     "Cliente no encontrado": "Cliente no encontrado",
 
     "ACCIONES": "ACCIONES",
-    "Agregar Solución": "Agregar Solución"
-}
+    "Agregar Solución": "Agregar Solución",
+
+    "ABCall Logo": "Logo ABCall",
+    "Tableros": "Tableros",
+    "Sincronizar usuarios": "Sincronizar usuarios",
+    "Directorio": "Directorio",
+    "Problemas comunes": "Problemas comunes",
+    "Cerrar Sesión": "Cerrar Sesión",
+    "v{{version}}": "v{{version}}"
+    }
