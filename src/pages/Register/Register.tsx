@@ -4,9 +4,11 @@ import axiosInstance from '../../utils/axiosInstance';
 import { useNavigate } from 'react-router-dom';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
+import { useTranslation } from 'react-i18next';
 
 const Register: React.FC = () => {
     const navigate = useNavigate();
+    const { t } = useTranslation();
     const [formData, setFormData] = useState({
         nombre: '',
         email: '',
@@ -20,7 +22,7 @@ const Register: React.FC = () => {
     });
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const [phoneError, setPhoneError] = useState<string | null>(null);
-    const [disabledButton, setDisabledButton ] = useState<boolean>(false);
+    const [disabledButton, setDisabledButton] = useState<boolean>(false);
 
     const handleChange = (
         e: React.ChangeEvent<
@@ -32,7 +34,7 @@ const Register: React.FC = () => {
         if (name === 'telefono') {
             const isNumeric = /^\d+$/.test(value);
             if (!isNumeric) {
-                setPhoneError('El teléfono solo puede contener números.');
+                setPhoneError(t('El teléfono solo puede contener números.'));
             } else {
                 setPhoneError(null);
             }
@@ -49,14 +51,14 @@ const Register: React.FC = () => {
         setDisabledButton(true);
 
         if (!/^\d+$/.test(formData.telefono)) {
-            setPhoneError('El teléfono solo puede contener números.');
-            setDisabledButton(false); 
+            setPhoneError(t('El teléfono solo puede contener números.'));
+            setDisabledButton(false);
             return;
         }
 
         if (formData.password !== formData.confirmPassword) {
-            setErrorMessage('Las contraseñas no coinciden.');
-            setDisabledButton(false); 
+            setErrorMessage(t('Las contraseñas no coinciden.'));
+            setDisabledButton(false);
             return;
         }
 
@@ -70,20 +72,20 @@ const Register: React.FC = () => {
                 setDisabledButton(false);
             })
             .catch((error) => {
-                console.error('Error al crear cliente:', error); // Asegúrate de registrar el error
+                console.error('Error al crear cliente:', error);
                 if (error.response?.data?.detail) {
                     setErrorMessage(error.response.data.detail);
                 } else {
-                    setErrorMessage('Ocurrió un error al crear el cliente.');
+                    setErrorMessage(t('Ocurrió un error al crear el cliente.'));
                 }
-                setDisabledButton(false); 
+                setDisabledButton(false);
             });
     };
 
     return (
         <div className="register-container">
             <div className="register-card">
-                <h2>Registrarse</h2>
+                <h2>{t('Registrarse')}</h2>
 
                 {errorMessage && (
                     <Stack sx={{ width: '100%', marginBottom: 2 }} spacing={2}>
@@ -96,13 +98,13 @@ const Register: React.FC = () => {
                         <div className="form-column">
                             <div className="form-group">
                                 <label htmlFor="companyName">
-                                    Nombre empresa
+                                    {t('Nombre empresa')}
                                 </label>
                                 <input
                                     type="text"
                                     id="companyName"
                                     name="nombre"
-                                    placeholder="Introduce el nombre de la empresa"
+                                    placeholder={t('Introduce el nombre de la empresa')}
                                     value={formData.nombre}
                                     onChange={handleChange}
                                     required
@@ -111,13 +113,13 @@ const Register: React.FC = () => {
 
                             <div className="form-group">
                                 <label htmlFor="email">
-                                    Correo electrónico
+                                    {t('Correo electrónico')}
                                 </label>
                                 <input
                                     type="email"
                                     id="email"
                                     name="email"
-                                    placeholder="Introduce tu correo electrónico"
+                                    placeholder={t('Introduce tu correo electrónico')}
                                     value={formData.email}
                                     onChange={handleChange}
                                     required
@@ -125,12 +127,12 @@ const Register: React.FC = () => {
                             </div>
 
                             <div className="form-group">
-                                <label htmlFor="nit">NIT</label>
+                                <label htmlFor="nit">{t('NIT')}</label>
                                 <input
                                     type="text"
                                     id="nit"
                                     name="nit"
-                                    placeholder="Introduce el NIT de la empresa"
+                                    placeholder={t('Introduce el NIT de la empresa')}
                                     value={formData.nit}
                                     onChange={handleChange}
                                     required
@@ -138,12 +140,12 @@ const Register: React.FC = () => {
                             </div>
 
                             <div className="form-group">
-                                <label htmlFor="address">Dirección</label>
+                                <label htmlFor="address">{t('Dirección')}</label>
                                 <input
                                     type="text"
                                     id="address"
                                     name="direccion"
-                                    placeholder="Introduce la dirección de la empresa"
+                                    placeholder={t('Introduce la dirección de la empresa')}
                                     value={formData.direccion}
                                     onChange={handleChange}
                                     required
@@ -151,12 +153,12 @@ const Register: React.FC = () => {
                             </div>
 
                             <div className="form-group">
-                                <label htmlFor="phone">Teléfono</label>
+                                <label htmlFor="phone">{t('Teléfono')}</label>
                                 <input
                                     type="tel"
                                     id="phone"
                                     name="telefono"
-                                    placeholder="Introduce el teléfono de la empresa"
+                                    placeholder={t('Introduce el teléfono de la empresa')}
                                     value={formData.telefono}
                                     onChange={handleChange}
                                     required
@@ -169,7 +171,7 @@ const Register: React.FC = () => {
                             </div>
 
                             <div className="form-group">
-                                <label htmlFor="industry">Industria</label>
+                                <label htmlFor="industry">{t('Industria')}</label>
                                 <select
                                     id="industry"
                                     name="industria"
@@ -178,25 +180,29 @@ const Register: React.FC = () => {
                                     required
                                 >
                                     <option value="">
-                                        Selecciona una industria
+                                        {t('Selecciona una industria')}
                                     </option>
                                     <option value="technology">
-                                        Tecnología
+                                        {t('Tecnología')}
                                     </option>
-                                    <option value="finance">Finanzas</option>
-                                    <option value="healthcare">Salud</option>
+                                    <option value="finance">
+                                        {t('Finanzas')}
+                                    </option>
+                                    <option value="healthcare">
+                                        {t('Salud')}
+                                    </option>
                                 </select>
                             </div>
                         </div>
 
                         <div className="form-column">
                             <div className="form-group">
-                                <label htmlFor="password">Contraseña</label>
+                                <label htmlFor="password">{t('Contraseña')}</label>
                                 <input
                                     type="password"
                                     id="password"
                                     name="password"
-                                    placeholder="Introduce tu contraseña"
+                                    placeholder={t('Introduce tu contraseña')}
                                     value={formData.password}
                                     onChange={handleChange}
                                     required
@@ -205,13 +211,13 @@ const Register: React.FC = () => {
 
                             <div className="form-group">
                                 <label htmlFor="confirmPassword">
-                                    Confirmar contraseña
+                                    {t('Confirmar contraseña')}
                                 </label>
                                 <input
                                     type="password"
                                     id="confirmPassword"
                                     name="confirmPassword"
-                                    placeholder="Introduce tu contraseña"
+                                    placeholder={t('Introduce tu contraseña')}
                                     value={formData.confirmPassword}
                                     onChange={handleChange}
                                     required
@@ -220,12 +226,12 @@ const Register: React.FC = () => {
 
                             <div className="form-group">
                                 <label htmlFor="WelcomeMessage">
-                                    Bienvenida para los Usuarios
+                                    {t('Bienvenida para los Usuarios')}
                                 </label>
                                 <textarea
                                     id="WelcomeMessage"
                                     name="WelcomeMessage"
-                                    placeholder="Escribe el mensaje de bienvenida que tus clientes escucharán cuando se comuniquen con el servicio de soporte."
+                                    placeholder={t('Escribe el mensaje de bienvenida que tus clientes escucharán cuando se comuniquen con el servicio de soporte.')}
                                     value={formData.WelcomeMessage}
                                     onChange={handleChange}
                                     required
@@ -233,8 +239,12 @@ const Register: React.FC = () => {
                             </div>
                         </div>
                     </div>
-                    <button type="submit" className="submit-btn" disabled={disabledButton} >
-                        Siguiente
+                    <button
+                        type="submit"
+                        className="submit-btn"
+                        disabled={disabledButton}
+                    >
+                        {t('Siguiente')}
                     </button>
                 </form>
             </div>

@@ -13,12 +13,13 @@ import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import './UserValidation.css';
 import axiosInstance from '../../utils/axiosInstance';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import { useTranslation } from 'react-i18next';
 
 interface ValidateUserModalProps {
     isOpen: boolean;
     onUserValidated: (userInfo: any) => void;
     onClose: () => void;
-    onOpenCreateIncident: (userInfo: any) => void; // Pasar datos del usuario al modal de creación de incidentes
+    onOpenCreateIncident: (userInfo: any) => void;
 }
 
 const ValidateUserModal: React.FC<ValidateUserModalProps> = ({
@@ -27,6 +28,8 @@ const ValidateUserModal: React.FC<ValidateUserModalProps> = ({
     onClose,
     onOpenCreateIncident,
 }) => {
+    const { t } = useTranslation();
+
     const [docType, setDocType] = useState('');
     const [docNumber, setDocNumber] = useState('');
     const [client, setClient] = useState<any>(null);
@@ -63,7 +66,8 @@ const ValidateUserModal: React.FC<ValidateUserModalProps> = ({
         axiosInstance
             .get('/clientes')
             .then((response) => setClientes(response.data))
-            .catch((error) => console.error('Error al obtener los clientes:', error));
+            .catch((error) => console.error(t('Error al obtener los clientes:'), error));
+
         const handleClickOutside = (event: MouseEvent) => {
             if (selectRef.current && !selectRef.current.contains(event.target as Node)) {
                 setIsSelectOpen(false);
@@ -93,7 +97,7 @@ const ValidateUserModal: React.FC<ValidateUserModalProps> = ({
 
             if (response.data && Object.keys(response.data).length > 0) {
                 const userData = response.data;
-                console.log('Datos del usuario:', userData);
+                console.log(t('Información del usuario:'), userData);
                 const userFormattedData = {
                     name: userData.nombre,
                     document: `${userData.tipo_documento}. ${userData.documento}`,
@@ -120,22 +124,28 @@ const ValidateUserModal: React.FC<ValidateUserModalProps> = ({
 
     const handleCreateIncident = () => {
         if (userInfo) {
-            console.log('Información del usuario:', userInfo);
-            onOpenCreateIncident(userInfo); // Pasar la información del usuario
+            console.log(t('Información del usuario:'), userInfo);
+            onOpenCreateIncident(userInfo);
             handleClose();
         }
     };
 
     return (
-        <Dialog 
-            open={isOpen} 
-            onClose={handleClose} 
-            fullWidth 
+        <Dialog
+            open={isOpen}
+            onClose={handleClose}
+            fullWidth
             maxWidth="sm"
-            sx={{ '& .MuiPaper-root': { borderRadius: '20px', minHeight: '65vh', paddingInline: '2rem'} }}
+            sx={{
+                '& .MuiPaper-root': {
+                    borderRadius: '20px',
+                    minHeight: '65vh',
+                    paddingInline: '2rem',
+                },
+            }}
         >
-            <DialogTitle color='#2D3748'>
-                <p>Validación de usuario</p>
+            <DialogTitle color="#2D3748">
+                <p>{t('Validación de usuario')}</p>
                 <IconButton
                     aria-label="close"
                     onClick={handleClose}
@@ -152,20 +162,28 @@ const ValidateUserModal: React.FC<ValidateUserModalProps> = ({
                 {showEmptyFieldsAlert && (
                     <Stack sx={{ width: '100%', marginBottom: 2 }} spacing={2}>
                         <Alert severity="error" className="custom-alert">
-                            Por favor, completa todos los campos.
+                            {t('Por favor, completa todos los campos.')}
                         </Alert>
                     </Stack>
                 )}
                 {showUserNotFoundAlert && (
                     <Stack sx={{ width: '100%', marginBottom: 2 }} spacing={2}>
                         <Alert severity="error" className="custom-alert">
-                            Usuario no encontrado.
+                            {t('Usuario no encontrado.')}
                         </Alert>
                     </Stack>
                 )}
                 <div className="custom-field">
-                    <label className="custom-label" htmlFor='docType'>Tipo de documento</label>
-                    <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+                    <label className="custom-label" htmlFor="docType">
+                        {t('Tipo de documento')}
+                    </label>
+                    <div
+                        style={{
+                            position: 'relative',
+                            display: 'flex',
+                            alignItems: 'center',
+                        }}
+                    >
                         <select
                             ref={selectRef}
                             value={docType}
@@ -173,14 +191,14 @@ const ValidateUserModal: React.FC<ValidateUserModalProps> = ({
                             onChange={(e) => setDocType(e.target.value)}
                             className="custom-select"
                             style={{ width: '100%', appearance: 'none', paddingRight: '2.5rem' }}
-                            aria-label="Tipo de documento"  // Añadido para accesibilidad
+                            aria-label={t('Tipo de documento')}
                             id="docType"
                         >
-                            <option value="">Seleccione un tipo de documento</option>
-                            <option value="CC">Cédula de ciudadanía</option>
-                            <option value="PP">Pasaporte</option>
-                            <option value="CE">Cédula de extranjería</option>
-                            <option value="NIT">NIT</option>
+                            <option value="">{t('Seleccione un tipo de documento')}</option>
+                            <option value="CC">{t('Cédula de ciudadanía')}</option>
+                            <option value="PP">{t('Pasaporte')}</option>
+                            <option value="CE">{t('Cédula de extranjería')}</option>
+                            <option value="NIT">{t('NIT')}</option>
                         </select>
                         {docType && (
                             <IconButton
@@ -219,11 +237,13 @@ const ValidateUserModal: React.FC<ValidateUserModalProps> = ({
                 </div>
 
                 <div className="custom-field">
-                    <label htmlFor="docNumber" className="custom-label">Número de identificación</label>
+                    <label htmlFor="docNumber" className="custom-label">
+                        {t('Número de identificación')}
+                    </label>
                     <input
                         id="docNumber"
                         type="text"
-                        placeholder="Ingrese el número de identificación"
+                        placeholder={t('Ingrese el número de identificación')}
                         value={docNumber}
                         onChange={(e) => setDocNumber(e.target.value)}
                         className="custom-input"
@@ -231,8 +251,16 @@ const ValidateUserModal: React.FC<ValidateUserModalProps> = ({
                 </div>
 
                 <div className="custom-field">
-                    <label className="custom-label" htmlFor='client'>Cliente</label>
-                    <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+                    <label className="custom-label" htmlFor="client">
+                        {t('Cliente')}
+                    </label>
+                    <div
+                        style={{
+                            position: 'relative',
+                            display: 'flex',
+                            alignItems: 'center',
+                        }}
+                    >
                         <select
                             ref={selectRef}
                             value={client ? JSON.stringify(client) : ''}
@@ -240,17 +268,24 @@ const ValidateUserModal: React.FC<ValidateUserModalProps> = ({
                             onChange={(e) => {
                                 const value = e.target.value;
                                 setClient(value ? JSON.parse(value) : null);
-                            }}                            className="custom-select"
+                            }}
+                            className="custom-select"
                             style={{ width: '100%', appearance: 'none', paddingRight: '2.5rem' }}
-                            aria-label="Cliente"  // Añadido para accesibilidad
-                            id='client'
+                            aria-label={t('Cliente')}
+                            id="client"
                         >
-                            <option value="" key="default">Seleccione un cliente</option>
-                            {Array.isArray(clientes) && clientes.map((cliente, index) => (
-                                <option key={cliente.nit || index} value={JSON.stringify(cliente)}>
-                                    {cliente.nombre}
-                                </option>
-                            ))}
+                            <option value="" key="default">
+                                {t('Seleccione un cliente')}
+                            </option>
+                            {Array.isArray(clientes) &&
+                                clientes.map((cliente, index) => (
+                                    <option
+                                        key={cliente.nit || index}
+                                        value={JSON.stringify(cliente)}
+                                    >
+                                        {cliente.nombre}
+                                    </option>
+                                ))}
                         </select>
                         {client && (
                             <IconButton
@@ -290,40 +325,83 @@ const ValidateUserModal: React.FC<ValidateUserModalProps> = ({
                     </div>
                 </div>
                 {!isUserFound && (
-                    <div style={{ display: 'flex', justifyContent: 'center', marginTop: '3rem' }}>
-                        <button className="custom-button" onClick={handleValidateUser} id='validar-btn'>
-                            Validar usuario
+                    <div
+                        style={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            marginTop: '3rem',
+                        }}
+                    >
+                        <button
+                            className="custom-button"
+                            onClick={handleValidateUser}
+                            id="validar-btn"
+                        >
+                            {t('Validar usuario')}
                         </button>
                     </div>
                 )}
 
                 {isUserFound && userInfo && (
-                    <div data-testid="user-found-message" style={{ marginTop: '20px' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <div
+                        data-testid="user-found-message"
+                        style={{ marginTop: '20px' }}
+                    >
+                        <div
+                            style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '8px',
+                            }}
+                        >
                             <CheckCircleIcon style={{ color: 'green' }} />
-                            <p className="found-user">Usuario encontrado</p>
+                            <p className="found-user">{t('Usuario encontrado')}</p>
                         </div>
-                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', marginTop: '10px' }}>
+                        <div
+                            style={{
+                                display: 'flex',
+                                flexWrap: 'wrap',
+                                gap: '20px',
+                                marginTop: '10px',
+                            }}
+                        >
                             <div style={{ flex: '1 1 45%' }}>
-                                <label><strong>Usuario:</strong></label>
+                                <label>
+                                    <strong>{t('Usuario:')}</strong>
+                                </label>
                                 <p>{userInfo.name}</p>
                             </div>
                             <div style={{ flex: '1 1 45%' }}>
-                                <label><strong>Documento:</strong></label>
+                                <label>
+                                    <strong>{t('Documento:')}</strong>
+                                </label>
                                 <p>{userInfo.document}</p>
                             </div>
                             <div style={{ flex: '1 1 45%' }}>
-                                <label><strong>Teléfono:</strong></label>
+                                <label>
+                                    <strong>{t('Teléfono:')}</strong>
+                                </label>
                                 <p>{userInfo.phone}</p>
                             </div>
                             <div style={{ flex: '1 1 45%' }}>
-                                <label><strong>Email:</strong></label>
+                                <label>
+                                    <strong>{t('Email:')}</strong>
+                                </label>
                                 <p>{userInfo.email}</p>
                             </div>
                         </div>
-                        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '3rem' }}>
-                            <button className="custom-button" onClick={handleCreateIncident}>
-                                Crear Incidente
+                        <div
+                            style={{
+                                display: 'flex',
+                                justifyContent: 'center',
+                                marginTop: '3rem',
+                            }}
+                        >
+                            <button
+                                className="custom-button"
+                                onClick={handleCreateIncident}
+                            >
+                                {t('Crear Incidente')}
                             </button>
                         </div>
                     </div>

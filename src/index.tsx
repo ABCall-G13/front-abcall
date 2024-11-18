@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import AppContent from './AppContent';
+import './i18n';
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
