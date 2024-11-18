@@ -1,4 +1,3 @@
-// [src/i18n.test.js](src/i18n.test.js)
 import i18n from './i18n';
 
 describe('i18n configuration', () => {
