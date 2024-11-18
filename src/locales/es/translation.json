@@ -12,7 +12,6 @@
     "Iniciar sesión": "Iniciar sesión",
     "Registrate": "Registrate",
 
-
     "Cargar usuarios": "Cargar usuarios",
     "Por favor, selecciona un archivo Excel (.xlsx)": "Por favor, selecciona un archivo Excel (.xlsx)",
     "No hay archivo seleccionado": "No hay archivo seleccionado",
@@ -24,7 +23,6 @@
     "CSV (max. 50MB)": "CSV (máx. 50MB)",
     "Subir": "Subir",
 
-    
     "El teléfono solo puede contener números.": "El teléfono solo puede contener números.",
     "Las contraseñas no coinciden.": "Las contraseñas no coinciden.",
     "Ocurrió un error al crear el cliente.": "Ocurrió un error al crear el cliente.",
@@ -110,7 +108,6 @@
     "Canal": "Canal",
     "Selecciona un canal": "Selecciona un canal",
 
-    
     "Error al obtener categorías:": "Error al obtener categorías:",
     "Error al obtener clientes:": "Error al obtener clientes:",
     "Error al crear problema común:": "Error al crear problema común:",
@@ -122,17 +119,13 @@
     "Solución": "Solución",
     "Crear Problema Común": "Crear Problema Común",
 
-
     "Error al obtener problemas comunes:": "Error al obtener problemas comunes:",
     "AGREGAR PROBLEMA COMÚN": "AGREGAR PROBLEMA COMÚN",
     "Problemas Comunes": "Problemas Comunes",
     "SOLUCIÓN": "SOLUCIÓN",
     "No se encontraron problemas comunes": "No se encontraron problemas comunes",
-    "Cliente no encontrado": "Cliente no encontrado"
-      
-      
+    "Cliente no encontrado": "Cliente no encontrado",
 
-    
-    
-
+    "ACCIONES": "ACCIONES",
+    "Agregar Solución": "Agregar Solución"
 }

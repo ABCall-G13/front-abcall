@@ -12,7 +12,6 @@
     "Iniciar sesión": "Login",
     "Registrate": "Register",
 
-    
     "Cargar usuarios": "Upload users",
     "Por favor, selecciona un archivo Excel (.xlsx)": "Please select an Excel file (.xlsx)",
     "No hay archivo seleccionado": "No file selected",
@@ -24,8 +23,6 @@
     "CSV (max. 50MB)": "CSV (max. 50MB)",
     "Subir": "Upload",
 
-
-    
     "El teléfono solo puede contener números.": "The phone number can only contain digits.",
     "Las contraseñas no coinciden.": "Passwords do not match.",
     "Ocurrió un error al crear el cliente.": "An error occurred while creating the client.",
@@ -48,7 +45,6 @@
     "Escribe el mensaje de bienvenida que tus clientes escucharán cuando se comuniquen con el servicio de soporte.": "Write the welcome message that your clients will hear when they contact support.",
     "Siguiente": "Next",
 
-    
     "Elige el plan perfecto para impulsar tu negocio y brindar la mejor experiencia a tus clientes.": "Choose the perfect plan to boost your business and provide the best experience to your customers.",
     "Emprendedor": "Entrepreneur",
     "Empresario": "Business",
@@ -70,12 +66,10 @@
     "Error al actualizar el plan:": "Error updating the plan:",
     "No se pudo actualizar el plan.": "Could not update the plan.",
 
-
     "No se encontró el incidente": "Incident not found",
     "Ingrese el radicado del incidente": "Enter the incident reference number",
     "Buscar incidente por radicado": "Search incident by reference number",
     "Consultar": "Search",
-
 
     "Error al obtener incidentes:": "Error fetching incidents:",
     "AGREGAR INCIDENTE": "ADD INCIDENT",
@@ -102,7 +96,6 @@
     "Chat": "Chat",
     "Email": "Email",
 
-
     "Error al obtener los valores permitidos:": "Error fetching allowed values:",
     "Error al obtener los clientes:": "Error fetching clients:",
     "Incidente creado satisfactoriamente": "Incident created successfully",
@@ -115,7 +108,6 @@
     "Canal": "Channel",
     "Selecciona un canal": "Select a channel",
 
-
     "Error al obtener categorías:": "Error fetching categories:",
     "Error al obtener clientes:": "Error fetching clients:",
     "Error al crear problema común:": "Error creating common issue:",
@@ -127,22 +119,13 @@
     "Solución": "Solution",
     "Crear Problema Común": "Create Common Issue",
 
-
     "Error al obtener problemas comunes:": "Error fetching common issues:",
     "AGREGAR PROBLEMA COMÚN": "ADD COMMON ISSUE",
     "Problemas Comunes": "Common Issues",
     "No se encontraron problemas comunes": "No common issues found",
-    "Cliente no encontrado": "Client not found"
+    "Cliente no encontrado": "Client not found",
 
-
-      
-      
-    
-
-
-    
-
-
-    
-    
+    "SOLUCIÓN": "SOLUTION",
+    "ACCIONES": "ACTIONS",
+    "Agregar Solución": "Add Solution"
 }
