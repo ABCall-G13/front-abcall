@@ -210,7 +210,6 @@ describe('DetailIncidentModal', () => {
                 />
             );
         });
-
         fireEvent.change(
             screen.getByPlaceholderText('Escribe la solución aquí'),
             {
