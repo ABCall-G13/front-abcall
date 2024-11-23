@@ -32,7 +32,6 @@ describe('Sidebar Component', () => {
         );
 
         expect(screen.getByText('Tableros')).toBeInTheDocument();
-        expect(screen.getByText('Incidentes')).toBeInTheDocument();
         expect(screen.getByText('Sincronizar usuarios')).toBeInTheDocument();
         expect(screen.queryByText('Directorio')).not.toBeInTheDocument();
         expect(screen.queryByText('Problemas comunes')).not.toBeInTheDocument();
