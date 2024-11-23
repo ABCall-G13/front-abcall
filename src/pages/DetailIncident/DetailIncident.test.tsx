@@ -163,7 +163,9 @@ describe('DetailIncidentModal', () => {
 
         await waitFor(() =>
             expect(
-                screen.getByText('Error fetching IA problem data')
+                screen.getByText(
+                    'No se encontraron problemas comunes para este incidente.'
+                )
             ).toBeInTheDocument()
         );
     });
@@ -208,7 +210,6 @@ describe('DetailIncidentModal', () => {
                 />
             );
         });
-
         fireEvent.change(
             screen.getByPlaceholderText('Escribe la solución aquí'),
             {

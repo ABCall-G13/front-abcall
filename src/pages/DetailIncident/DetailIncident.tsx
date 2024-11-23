@@ -65,8 +65,13 @@ const DetailIncidentModal: React.FC<DetailIncidentModalProps> = ({
             setProblemasIA(response.data);
             setIsProblemaComunModalOpen(true);
         } catch (error) {
-            setError('Error fetching IA problem data');
-            console.error('Error fetching IA problem data:', error);
+            setError(
+                'No se encontraron problemas comunes para este incidente.'
+            );
+            console.error(
+                'No se encontraron problemas comunes para este incidente.',
+                error
+            );
         }
     };
 
@@ -175,7 +180,9 @@ const DetailIncidentModal: React.FC<DetailIncidentModalProps> = ({
                     isOpen={isProblemaComunModalOpen}
                     onClose={closeProblemaComunModal}
                     onAddSolution={handleAddSolution}
-                    problemas={problemasComunes}
+                    problemas={
+                        problemasIA.length > 0 ? problemasIA : problemasComunes
+                    }
                 />
             </div>
         </div>
