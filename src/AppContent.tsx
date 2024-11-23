@@ -57,40 +57,40 @@ const AppContent: React.FC = () => {
                             />
 
                             {/* Rutas para clientes */}
-                            {/* {isAuthenticated && role === 'cliente' && ( */}
-                            <>
-                                <Route
-                                    path="/dashboard"
-                                    element={<LookerDashboard />}
-                                />
-                                <Route
-                                    path="/incident-list"
-                                    element={<IncidentList />}
-                                />
-                                <Route
-                                    path="/sync-users"
-                                    element={<UserSync />}
-                                />
-                            </>
-                            {/* )} */}
+                            {isAuthenticated && role === 'cliente' && (
+                                <>
+                                    <Route
+                                        path="/dashboard"
+                                        element={<LookerDashboard />}
+                                    />
+                                    <Route
+                                        path="/incident-list"
+                                        element={<IncidentList />}
+                                    />
+                                    <Route
+                                        path="/sync-users"
+                                        element={<UserSync />}
+                                    />
+                                </>
+                            )}
 
                             {/* Rutas para agentes */}
-                            {/* {isAuthenticated && role === 'agente' && ( */}
-                            <>
-                                <Route
-                                    path="/incident-list"
-                                    element={<IncidentList />}
-                                />
-                                <Route
-                                    path="/directory-list"
-                                    element={<ClienteList />}
-                                />
-                                <Route
-                                    path="/common-issue-list"
-                                    element={<ProblemaComunList />}
-                                />
-                            </>
-                            {/* )} */}
+                            {isAuthenticated && role === 'agente' && (
+                                <>
+                                    <Route
+                                        path="/incident-list"
+                                        element={<IncidentList />}
+                                    />
+                                    <Route
+                                        path="/directory-list"
+                                        element={<ClienteList />}
+                                    />
+                                    <Route
+                                        path="/common-issue-list"
+                                        element={<ProblemaComunList />}
+                                    />
+                                </>
+                            )}
 
                             {/* Redireccionar a la página de inicio si la ruta no está permitida */}
                             <Route
