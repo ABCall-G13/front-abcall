@@ -31,9 +31,13 @@ const DetailIncidentModal: React.FC<DetailIncidentModalProps> = ({
     const [solucion, setSolucion] = useState<string>('');
     const [isProblemaComunModalOpen, setIsProblemaComunModalOpen] =
         useState(false);
-    const [problemasIA, setProblemasIA] = useState<any[]>([]); // State to store IA solutions
-    const [problemasComunes, setProblemasComunes] = useState<any[]>([]); // State to store common issues
-    const [error, setError] = useState<string | null>(null); // State to handle error messages
+    const [problemasIA, setProblemasIA] = useState<any[]>([]);
+    const [problemasComunes, setProblemasComunes] = useState<any[]>([]);
+    const [error, setError] = useState<string | null>(null);
+    const [modalContext, setModalContext] = useState<'ia' | 'comunes' | null>(
+        null
+    );
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     if (!isOpen) {
         return null;
@@ -58,36 +62,42 @@ const DetailIncidentModal: React.FC<DetailIncidentModalProps> = ({
     };
 
     const fetchIAProblemas = async () => {
+        setIsLoading(true);
         try {
             const response = await axiosInstance.post('/search-issues', {
                 query: incidentDetail.description,
             });
             setProblemasIA(response.data);
+            setModalContext('ia');
             setIsProblemaComunModalOpen(true);
         } catch (error) {
             setError(
                 'No se encontraron problemas comunes para este incidente.'
             );
-            console.error(
-                'No se encontraron problemas comunes para este incidente.',
-                error
-            );
+            console.error(error);
+        } finally {
+            setIsLoading(false);
         }
     };
 
     const fetchProblemasComunes = async () => {
+        setIsLoading(true);
         try {
             const response = await axiosInstance.get('/soluciones');
             setProblemasComunes(response.data);
+            setModalContext('comunes');
             setIsProblemaComunModalOpen(true);
         } catch (error) {
             setError('Error fetching common problem data');
-            console.error('Error fetching common problem data:', error);
+            console.error(error);
+        } finally {
+            setIsLoading(false);
         }
     };
 
     const closeProblemaComunModal = () => {
         setIsProblemaComunModalOpen(false);
+        setModalContext(null);
     };
 
     return (
@@ -140,14 +150,20 @@ const DetailIncidentModal: React.FC<DetailIncidentModalProps> = ({
                         <button
                             onClick={fetchIAProblemas}
                             className="btn-solucion-ia"
+                            disabled={isLoading}
                         >
-                            Buscar solución con IA
+                            {isLoading && modalContext === 'ia'
+                                ? 'Cargando...'
+                                : 'Buscar solución con IA'}
                         </button>
                         <button
                             onClick={fetchProblemasComunes}
                             className="btn-problema-comun"
+                            disabled={isLoading}
                         >
-                            Buscar problemas comunes
+                            {isLoading && modalContext === 'comunes'
+                                ? 'Cargando...'
+                                : 'Buscar problemas comunes'}
                         </button>
                     </div>
                     <div className="scroll-container">
@@ -181,7 +197,7 @@ const DetailIncidentModal: React.FC<DetailIncidentModalProps> = ({
                     onClose={closeProblemaComunModal}
                     onAddSolution={handleAddSolution}
                     problemas={
-                        problemasIA.length > 0 ? problemasIA : problemasComunes
+                        modalContext === 'ia' ? problemasIA : problemasComunes
                     }
                 />
             </div>
