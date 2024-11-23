@@ -34,46 +34,6 @@ describe('AppContent Component', () => {
         expect(screen.queryByText('Sidebar')).not.toBeInTheDocument();
     });
 
-    // test('renders Sidebar when authenticated as cliente (line 15)', () => {
-    //     (useAuth as jest.Mock).mockReturnValue({
-    //         isAuthenticated: true,
-    //         role: 'cliente',
-    //     });
-
-    //     render(
-    //         <AuthProvider>
-    //             <BrowserRouter>
-    //                 <AppContent />
-    //             </BrowserRouter>
-    //         </AuthProvider>
-    //     );
-
-    //     expect(screen.getByText('Tableros')).toBeInTheDocument();
-    //     expect(screen.getByText('Incidentes')).toBeInTheDocument();
-    //     expect(screen.getByText('Sincronizar usuarios')).toBeInTheDocument();
-    //     expect(screen.queryByRole('navigation')).not.toBeInTheDocument();
-    // });
-
-    // test('renders Sidebar when authenticated as agente (line 15)', () => {
-    //     (useAuth as jest.Mock).mockReturnValue({
-    //         isAuthenticated: true,
-    //         role: 'agente',
-    //     });
-
-    //     render(
-    //         <AuthProvider>
-    //             <BrowserRouter>
-    //                 <AppContent />
-    //             </BrowserRouter>
-    //         </AuthProvider>
-    //     );
-
-    //     expect(screen.getByText('Directorio')).toBeInTheDocument();
-    //     expect(screen.getByText('Incidentes')).toBeInTheDocument();
-    //     expect(screen.getByText('Problemas comunes')).toBeInTheDocument();
-    //     expect(screen.queryByRole('navigation')).not.toBeInTheDocument();
-    // });
-
     test('uses useLocation for route-based rendering (line 10)', () => {
         (useAuth as jest.Mock).mockReturnValue({
             isAuthenticated: true,
@@ -108,21 +68,4 @@ describe('AppContent Component', () => {
         expect(screen.getByRole('navigation')).toBeInTheDocument();
         expect(screen.queryByText('Tableros')).not.toBeInTheDocument();
     });
-
-    // test('redirects to home page for unknown routes', () => {
-    //     (useAuth as jest.Mock).mockReturnValue({
-    //         isAuthenticated: true,
-    //         role: 'cliente',
-    //     });
-
-    //     render(
-    //         <AuthProvider>
-    //             <MemoryRouter initialEntries={['/unknown-route']}>
-    //                 <AppContent />
-    //             </MemoryRouter>
-    //         </AuthProvider>
-    //     );
-
-    //     expect(screen.getByText('Loading...')).toBeInTheDocument();
-    // });
 });
