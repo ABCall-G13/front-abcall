@@ -21,11 +21,51 @@ interface Incident {
     solucion?: string | null;
     radicado: string;
 }
-
+const sampleIncidents: Incident[] = [
+    {
+        id: 1,
+        cliente_id: 101,
+        description: 'El sistema no responde al iniciar sesión.',
+        estado: 'Abierto',
+        categoria: 'Software',
+        canal: 'Email',
+        prioridad: 'Alta',
+        fecha_creacion: '2024-11-21T10:30:00Z',
+        fecha_cierre: null,
+        solucion: null,
+        radicado: 'RAD1234567890',
+    },
+    {
+        id: 2,
+        cliente_id: 102,
+        description: 'Error al generar un reporte mensual.',
+        estado: 'Cerrado',
+        categoria: 'Reportes',
+        canal: 'Teléfono',
+        prioridad: 'Media',
+        fecha_creacion: '2024-11-20T15:45:00Z',
+        fecha_cierre: '2024-11-21T09:00:00Z',
+        solucion: 'Reporte regenerado exitosamente.',
+        radicado: 'RAD0987654321',
+    },
+    {
+        id: 3,
+        cliente_id: 103,
+        description: 'No se puede acceder a los datos del cliente.',
+        estado: 'En Proceso',
+        categoria: 'Base de Datos',
+        canal: 'Chat',
+        prioridad: 'Baja',
+        fecha_creacion: '2024-11-19T08:20:00Z',
+        fecha_cierre: null,
+        solucion: null,
+        radicado: 'RAD1122334455',
+    },
+];
 const IncidentList: React.FC = () => {
     const { t } = useTranslation();
 
-    const [incidents, setIncidents] = useState<Incident[]>([]);
+    const [incidents, setIncidents] = useState<Incident[]>(sampleIncidents);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedIncident, setSelectedIncident] = useState<Incident | null>(
         null

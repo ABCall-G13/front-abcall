@@ -1,9 +1,7 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-    baseURL:
-        process.env.REACT_APP_BASE_URL ||
-        'https://front-abcall-345518488840.us-central1.run.app/v1',
+    baseURL: process.env.REACT_APP_BASE_URL || 'http://localhost:8080',
     headers: {
         'Content-Type': 'application/json',
     },
