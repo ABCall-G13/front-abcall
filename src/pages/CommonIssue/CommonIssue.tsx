@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import './CommonIssue.css';
 import axiosInstance from '../../utils/axiosInstance';
+import { useTranslation } from 'react-i18next';
 
 interface ProblemaComun {
     id: number;
@@ -12,7 +13,7 @@ interface ProblemaComun {
 interface ProblemaComunModalProps {
     isOpen: boolean;
     onClose: () => void;
-    problemas: ProblemaComun[]; // Add the problemas prop here
+    problemas: ProblemaComun[];
     onAddSolution: (solucion: string) => void;
 }
 
@@ -22,6 +23,8 @@ const ProblemaComunModal: React.FC<ProblemaComunModalProps> = ({
     problemas,
     onAddSolution,
 }) => {
+    const { t } = useTranslation();
+
     if (!isOpen) {
         return null;
     }
@@ -32,16 +35,16 @@ const ProblemaComunModal: React.FC<ProblemaComunModalProps> = ({
                 <button className="close-button" onClick={onClose}>
                     &times;
                 </button>
-                <h2 className="modal-title">Problemas Comunes</h2>
+                <h2 className="modal-title">{t('Problemas Comunes')}</h2>
 
                 <div className="table-container">
                     <table className="problema-comun-table">
                         <thead>
                             <tr>
-                                <th>DESCRIPCIÓN</th>
-                                <th>CATEGORÍA</th>
-                                <th>SOLUCIÓN</th>
-                                <th>ACCIONES</th>
+                                <th>{t('DESCRIPCIÓN')}</th>
+                                <th>{t('CATEGORÍA')}</th>
+                                <th>{t('SOLUCIÓN')}</th>
+                                <th>{t('ACCIONES')}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -61,7 +64,7 @@ const ProblemaComunModal: React.FC<ProblemaComunModalProps> = ({
                                                 }}
                                                 className="btn-agregar-solucion"
                                             >
-                                                Agregar Solución
+                                                {t('Agregar Solución')}
                                             </button>
                                         </td>
                                     </tr>
@@ -69,7 +72,9 @@ const ProblemaComunModal: React.FC<ProblemaComunModalProps> = ({
                             ) : (
                                 <tr>
                                     <td colSpan={4}>
-                                        No se encontraron problemas comunes
+                                        {t(
+                                            'No se encontraron problemas comunes'
+                                        )}
                                     </td>
                                 </tr>
                             )}

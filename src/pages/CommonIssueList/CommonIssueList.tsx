@@ -3,6 +3,7 @@ import BreadCrumb from '../../components/BreadCrumb/BreadCrumb';
 import './CommonIssueList.css';
 import axiosInstance from '../../utils/axiosInstance';
 import CreateProblemaComun from '../CreateCommonIssue/CreateCommonIssue';
+import { useTranslation } from 'react-i18next';
 
 interface ProblemaComun {
     id: number;
@@ -18,6 +19,8 @@ interface Cliente {
 }
 
 const ProblemaComunList: React.FC = () => {
+    const { t } = useTranslation();
+
     const [problemasComunes, setProblemasComunes] = useState<ProblemaComun[]>(
         []
     );
@@ -32,7 +35,7 @@ const ProblemaComunList: React.FC = () => {
                 setProblemasComunes(response.data);
             })
             .catch((error) => {
-                console.error('Error al obtener problemas comunes:', error);
+                console.error(t('Error al obtener problemas comunes:'), error);
             });
     };
 
@@ -43,7 +46,7 @@ const ProblemaComunList: React.FC = () => {
                 setClientes(response.data);
             })
             .catch((error) => {
-                console.error('Error al obtener clientes:', error);
+                console.error(t('Error al obtener clientes:'), error);
             });
     };
 
@@ -54,7 +57,7 @@ const ProblemaComunList: React.FC = () => {
 
     const getClienteNombre = (clientId: number) => {
         const cliente = clientes.find((cliente) => cliente.id === clientId);
-        return cliente ? cliente.nombre : 'Cliente no encontrado';
+        return cliente ? cliente.nombre : t('Cliente no encontrado');
     };
 
     const toggleCreateProblema = () => {
@@ -69,7 +72,7 @@ const ProblemaComunList: React.FC = () => {
                     onClick={toggleCreateProblema}
                     className="btn-create-problema-comun"
                 >
-                    AGREGAR PROBLEMA COMÚN
+                    {t('AGREGAR PROBLEMA COMÚN')}
                 </button>
             </div>
             {isCreateProblemaVisible && (
@@ -82,16 +85,15 @@ const ProblemaComunList: React.FC = () => {
             )}
 
             <div className="table-container">
-                <h3>Problemas Comunes</h3>
+                <h3>{t('Problemas Comunes')}</h3>
 
                 <table className="problema-comun-table">
                     <thead>
                         <tr>
-                            <th>CLIENTE</th>{' '}
-                            {/* New column for cliente nombre */}
-                            <th>DESCRIPCIÓN</th>
-                            <th>CATEGORÍA</th>
-                            <th>SOLUCIÓN</th>
+                            <th>{t('CLIENTE')}</th>
+                            <th>{t('DESCRIPCIÓN')}</th>
+                            <th>{t('CATEGORÍA')}</th>
+                            <th>{t('SOLUCIÓN')}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -100,8 +102,7 @@ const ProblemaComunList: React.FC = () => {
                                 <tr key={problema.id}>
                                     <td>
                                         {getClienteNombre(problema.cliente_id)}
-                                    </td>{' '}
-                                    {/* Display cliente nombre */}
+                                    </td>
                                     <td className="truncate">
                                         {problema.description}
                                     </td>
@@ -114,7 +115,7 @@ const ProblemaComunList: React.FC = () => {
                         ) : (
                             <tr>
                                 <td colSpan={4}>
-                                    No se encontraron problemas comunes
+                                    {t('No se encontraron problemas comunes')}
                                 </td>
                             </tr>
                         )}
