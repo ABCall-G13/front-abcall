@@ -199,5 +199,4 @@ const IncidentList: React.FC = () => {
         </div>
     );
 };
-
 export default IncidentList;
