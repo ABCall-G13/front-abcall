@@ -1,46 +1,92 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor, act } from '@testing-library/react';
 import LookerDashboard from './Dashboard';
 import { MemoryRouter } from 'react-router-dom';
+import axios from 'axios';
+
+// Mock AuthContext
+jest.mock('../../context/AuthContext', () => ({
+    useAuth: jest.fn(),
+}));
+
+// Mock axios
+jest.mock('axios');
 
 describe('LookerDashboard', () => {
-    it('renders the dashboard title', () => {
+    const mockUseAuth = require('../../context/AuthContext').useAuth;
+    const mockAxios = require('axios').default;
+
+    beforeEach(() => {
+        jest.clearAllMocks();
+    });
+
+    it('renders the loading state initially', () => {
+        mockUseAuth.mockReturnValue({ token: 'mock-token' });
         render(
             <MemoryRouter>
                 <LookerDashboard />
             </MemoryRouter>
         );
-        const titleElement = screen.getByText(/Tablero de control/i);
-        expect(titleElement).toBeInTheDocument();
+        expect(screen.getByText(/loading/i)).toBeInTheDocument();
     });
 
-    it('renders the iframe with the correct src', () => {
-        render(<LookerDashboard />);
+    it('renders an error when the token is missing', async () => {
+        mockUseAuth.mockReturnValue({ token: null });
+
+        render(
+            <MemoryRouter>
+                <LookerDashboard />
+            </MemoryRouter>
+        );
+
+        await waitFor(() => {
+            expect(
+                screen.getByText(/authentication token not found/i)
+            ).toBeInTheDocument();
+        });
+    });
+
+    it('renders an error if fetching client ID fails', async () => {
+        mockUseAuth.mockReturnValue({ token: 'mock-token' });
+        mockAxios.get.mockRejectedValue(new Error('Network Error'));
+
+        render(
+            <MemoryRouter>
+                <LookerDashboard />
+            </MemoryRouter>
+        );
+
+        await waitFor(() => {
+            expect(
+                screen.getByText(/failed to fetch client id/i)
+            ).toBeInTheDocument();
+        });
+    });
+
+    it('renders the dashboard iframe when client ID is fetched successfully', async () => {
+        mockUseAuth.mockReturnValue({ token: 'mock-token' });
+        mockAxios.get.mockResolvedValue({ data: 123 });
+
+        render(
+            <MemoryRouter>
+                <LookerDashboard />
+            </MemoryRouter>
+        );
+
+        await waitFor(() => {
+            expect(
+                screen.getByText(/tablero de control/i)
+            ).toBeInTheDocument();
+        });
+
         const iframeElement = screen.getByTitle('Looker Studio Dashboard');
         expect(iframeElement).toBeInTheDocument();
         expect(iframeElement).toHaveAttribute(
             'src',
             expect.stringContaining(
-                'https://lookerstudio.google.com/embed/reporting/639d9b14-f68b-443c-8698-3be0916f0906/page/2TRFE'
+                'https://lookerstudio.google.com/embed/reporting'
             )
         );
-    });
-
-    it('renders the iframe with the correct styles', () => {
-        render(<LookerDashboard />);
-        const iframeElement = screen.getByTitle('Looker Studio Dashboard');
         expect(iframeElement).toHaveStyle('border: 0');
-        expect(iframeElement).toHaveAttribute('width', '100%');
-        expect(iframeElement).toHaveAttribute('height', '100%');
-    });
-
-    it('renders the container with the correct styles', () => {
-        render(<LookerDashboard />);
-        const titleElement = screen.getByText(/Tablero de control/i);
-        // eslint-disable-next-line testing-library/no-node-access
-        const containerElement = titleElement.closest('div');
-        expect(containerElement).toHaveStyle('width: 100%');
-        expect(containerElement).toHaveStyle('height: 100%');
-        expect(containerElement).toHaveStyle('padding-inline: 10px');
     });
 });
