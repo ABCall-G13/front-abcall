@@ -1,8 +1,6 @@
-import React from 'react';
 import { render, screen, waitFor, act } from '@testing-library/react';
 import LookerDashboard from './Dashboard';
 import { MemoryRouter } from 'react-router-dom';
-import axios from 'axios';
 
 jest.mock('../../context/AuthContext', () => ({
     useAuth: jest.fn(),
