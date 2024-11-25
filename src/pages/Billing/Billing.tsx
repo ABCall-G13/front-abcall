@@ -93,7 +93,6 @@ const IncidentesFacturados: React.FC = () => {
       <table className="incident-table">
         <thead>
           <tr>
-            <th>Factura ID</th>
             <th>Radicado Incidente</th>
             <th>Costo</th>
             <th>Fecha Incidente</th>
@@ -102,7 +101,6 @@ const IncidentesFacturados: React.FC = () => {
         <tbody>
           {filteredIncidentes.map((incidente) => (
             <tr key={incidente.factura_id}>
-              <td>{incidente.factura_id}</td>
               <td>{incidente.radicado_incidente}</td>
               <td>{incidente.costo.toFixed(2)}</td>
               <td>{incidente.fecha_incidente}</td>
