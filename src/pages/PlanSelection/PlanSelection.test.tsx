@@ -207,6 +207,7 @@ describe('PlanSelection', () => {
         await waitFor(() => 
             expect(mockAxiosInstance.post).toHaveBeenCalledWith('/clientes/update-plan', {
                 plan: 'emprendedor',
+                currency: 'COP',
             })
         );
         

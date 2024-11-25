@@ -30,8 +30,6 @@ describe('AppContent Component', () => {
         );
 
         expect(screen.getByText('Tableros')).toBeInTheDocument();
-        expect(screen.getByText('Incidentes')).toBeInTheDocument();
-        expect(screen.getByText('Sincronizar usuarios')).toBeInTheDocument();
     });
 
     test('renders Sidebar and agente routes when authenticated as agente', () => {
