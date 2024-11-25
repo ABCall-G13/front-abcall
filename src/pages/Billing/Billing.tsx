@@ -41,7 +41,7 @@ const IncidentesFacturados: React.FC = () => {
     if (selectedFacturaId) {
       // Cargar incidentes facturados de la factura seleccionada
       axiosInstance
-        .get(`/facturas/${selectedFacturaId}/incidentes`)
+        .get(`/facturas/${Number(selectedFacturaId)}/incidentes`)
         .then((response) => {
           setIncidentes(response.data);
           setFilteredIncidentes(response.data);
@@ -61,7 +61,7 @@ const IncidentesFacturados: React.FC = () => {
   const handleDownloadFactura = () => {
     if (selectedFacturaId) {
       axiosInstance
-        .get(`/facturas/${selectedFacturaId}/download`, { responseType: "blob" })
+        .get(`/facturas/${Number(selectedFacturaId)}/download`, { responseType: "blob" })
         .then((response) => {
           const url = window.URL.createObjectURL(new Blob([response.data]));
           const link = document.createElement("a");
