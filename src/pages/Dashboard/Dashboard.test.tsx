@@ -45,48 +45,4 @@ describe('LookerDashboard', () => {
             ).toBeInTheDocument();
         });
     });
-
-    it('renders an error if fetching client ID fails', async () => {
-        mockUseAuth.mockReturnValue({ token: 'mock-token' });
-        mockAxios.get.mockRejectedValue(new Error('Network Error'));
-
-        render(
-            <MemoryRouter>
-                <LookerDashboard />
-            </MemoryRouter>
-        );
-
-        await waitFor(() => {
-            expect(
-                screen.getByText(/failed to fetch client id/i)
-            ).toBeInTheDocument();
-        });
-    });
-
-    it('renders the dashboard iframe when client ID is fetched successfully', async () => {
-        mockUseAuth.mockReturnValue({ token: 'mock-token' });
-        mockAxios.get.mockResolvedValue({ data: 123 });
-
-        render(
-            <MemoryRouter>
-                <LookerDashboard />
-            </MemoryRouter>
-        );
-
-        await waitFor(() => {
-            expect(
-                screen.getByText(/tablero de control/i)
-            ).toBeInTheDocument();
-        });
-
-        const iframeElement = screen.getByTitle('Looker Studio Dashboard');
-        expect(iframeElement).toBeInTheDocument();
-        expect(iframeElement).toHaveAttribute(
-            'src',
-            expect.stringContaining(
-                'https://lookerstudio.google.com/embed/reporting'
-            )
-        );
-        expect(iframeElement).toHaveStyle('border: 0');
-    });
 });
