@@ -1,6 +1,7 @@
 import { render, screen, waitFor, act } from '@testing-library/react';
 import LookerDashboard from './Dashboard';
 import { MemoryRouter } from 'react-router-dom';
+import axios from 'axios';
 
 jest.mock('../../context/AuthContext', () => ({
     useAuth: jest.fn(),
@@ -138,5 +139,70 @@ describe('LookerDashboard - Additional Tests', () => {
             )
         );
         expect(iframeElement).toHaveStyle('border: 0');
+    });
+
+    it('handles an Axios error and displays the correct error message', async () => {
+        const consoleSpy = jest.spyOn(console, 'error').mockImplementation();
+        mockUseAuth.mockReturnValue({ token: 'mock-token' });
+        mockAxios.get.mockRejectedValueOnce({
+            isAxiosError: true,
+            response: { data: { message: 'Failed to fetch client ID' } },
+        });
+
+        await act(async () => {
+            render(
+                <MemoryRouter>
+                    <LookerDashboard />
+                </MemoryRouter>
+            );
+        });
+
+        await waitFor(() => {
+            expect(
+                screen.getByText(/failed to fetch client id/i)
+            ).toBeInTheDocument();
+            expect(consoleSpy).toHaveBeenCalledWith(
+                'Axios error:',
+                expect.objectContaining({
+                    response: {
+                        data: { message: 'Failed to fetch client ID' },
+                    },
+                })
+            );
+        });
+
+        consoleSpy.mockRestore();
+    });
+
+    it('handles an Axios error with no response message and displays a default error', async () => {
+        const consoleSpy = jest.spyOn(console, 'error').mockImplementation();
+        mockUseAuth.mockReturnValue({ token: 'mock-token' });
+        mockAxios.get.mockRejectedValueOnce({
+            isAxiosError: true,
+            response: undefined, // Simulate an Axios error with no response
+        });
+
+        await act(async () => {
+            render(
+                <MemoryRouter>
+                    <LookerDashboard />
+                </MemoryRouter>
+            );
+        });
+
+        await waitFor(() => {
+            expect(
+                screen.getByText(/failed to fetch client id/i)
+            ).toBeInTheDocument();
+            expect(consoleSpy).toHaveBeenCalledWith(
+                'Axios error:',
+                expect.objectContaining({
+                    isAxiosError: true,
+                    response: undefined,
+                })
+            );
+        });
+
+        consoleSpy.mockRestore();
     });
 });
