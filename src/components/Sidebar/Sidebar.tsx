@@ -95,6 +95,21 @@ const Sidebar: React.FC = () => {
                                     {!isCollapsed && t('Sincronizar usuarios')}
                                 </Link>
                             </li>
+                            <li
+                                className={
+                                    location.pathname === '/billing'
+                                        ? 'active'
+                                        : ''
+                                }
+                            >
+                                <Link to="/billing">
+                                    <FiUserCheck
+                                        size={20}
+                                        className="menu-icon"
+                                    />
+                                    {!isCollapsed && t('Facturación')}
+                                </Link>
+                            </li>
                             <li>
                                 <button
                                     className="logout-button"
