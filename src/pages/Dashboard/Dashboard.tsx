@@ -1,12 +1,63 @@
-import React from 'react';
-import BreadCrumb from '../../components/BreadCrumb/BreadCrumb';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useAuth } from '../../context/AuthContext';
 
 const LookerDashboard = () => {
-    const refreshCache = `t=${new Date().getTime()}`;
-    const clientId = 1;
-    const clientParam = `params=%7B"ds27.cliente_parameter":${clientId}%7D`;
+    const { token } = useAuth();
+    const [clientId, setClientId] = useState<number | null>(null);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
 
-    const urlParams = `?${clientParam}&${refreshCache}`;
+    useEffect(() => {
+        const fetchCurrentClientId = async () => {
+            if (!token) {
+                setError('Authentication token not found');
+                setLoading(false);
+                return;
+            }
+
+            try {
+                const response = await axios.get('/current-client', {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+
+                const fetchedClientId = response.data?.clientId;
+                if (!fetchedClientId)
+                    throw new Error('Invalid response format');
+                setClientId(fetchedClientId);
+            } catch (err) {
+                if (axios.isAxiosError(err)) {
+                    console.error('Axios error:', err);
+                    setError(
+                        err.response?.data?.message ||
+                            'Failed to fetch client ID'
+                    );
+                } else if (err instanceof Error) {
+                    console.error('Error:', err.message);
+                    setError(err.message);
+                } else {
+                    console.error('Unknown error:', err);
+                    setError('An unexpected error occurred');
+                }
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchCurrentClientId();
+    }, [token]);
+
+    if (loading) return <div>Loading...</div>;
+    if (error) return <div>Error: {error}</div>;
+
+    const refreshCache = `t=${new Date().getTime()}`;
+    const clientParam = encodeURIComponent(
+        JSON.stringify({ 'ds27.cliente_parameter': clientId })
+    );
+
+    const urlParams = `?params=${clientParam}&${refreshCache}`;
 
     return (
         <div style={{ width: '100%', height: '100%', paddingInline: '10px' }}>
