@@ -27,6 +27,7 @@ const PlanSelection: React.FC = () => {
     try {
       const response = await axiosInstance.post('/clientes/update-plan', {
         plan: plan,
+        currency: 'COP',
       });
       return response.data;
     } catch (error) {

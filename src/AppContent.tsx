@@ -19,6 +19,7 @@ const ProblemaComunList = lazy(
 );
 const UserSync = lazy(() => import('./pages/UserSync/UserSync'));
 const LoginClient = lazy(() => import('./pages/LoginClient/LoginClient'));
+const IncidentesFacturados = lazy(() => import('./pages/Billing/Billing'));
 
 const AppContent: React.FC = () => {
     const location = useLocation();
@@ -56,21 +57,14 @@ const AppContent: React.FC = () => {
                                 element={<IncidentSearch />}
                             />
 
+
                             {/* Rutas para clientes */}
                             {isAuthenticated && role === 'cliente' && (
                                 <>
-                                    <Route
-                                        path="/dashboard"
-                                        element={<LookerDashboard />}
-                                    />
-                                    <Route
-                                        path="/incident-list"
-                                        element={<IncidentList />}
-                                    />
-                                    <Route
-                                        path="/sync-users"
-                                        element={<UserSync />}
-                                    />
+                                    <Route path="/dashboard" element={<LookerDashboard />} />
+                                    <Route path="/incident-list" element={<IncidentList />} />
+                                    <Route path="/sync-users" element={<UserSync />} />
+                                    <Route path="/billing" element={<IncidentesFacturados />} />
                                 </>
                             )}
 
