@@ -131,7 +131,6 @@ describe('LookerDashboard - Additional Tests', () => {
                 screen.getByText(/tablero de control/i)
             ).toBeInTheDocument();
         });
-
         const iframeElement = screen.getByTitle('Looker Studio Dashboard');
         expect(iframeElement).toBeInTheDocument();
         expect(iframeElement).toHaveAttribute(
