@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import axios, { AxiosError } from 'axios';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 import { useAuth } from '../../context/AuthContext';
 
 const LookerDashboard = () => {
