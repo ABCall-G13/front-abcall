@@ -8,10 +8,16 @@ jest.mock('../../context/AuthContext', () => ({
     useAuth: jest.fn(),
 }));
 
-// Mock axios
 jest.mock('axios');
 
-describe('LookerDashboard', () => {
+// Mock i18next with proper typing
+jest.mock('react-i18next', () => ({
+    useTranslation: () => ({
+        t: (key: string) => key, // Explicitly type 'key' as a string
+    }),
+}));
+
+describe('LookerDashboard - Additional Tests', () => {
     const mockUseAuth = require('../../context/AuthContext').useAuth;
     const mockAxios = require('axios').default;
 
@@ -29,6 +35,67 @@ describe('LookerDashboard', () => {
         );
 
         expect(screen.getByText(/loading/i)).toBeInTheDocument();
+    });
+
+    it('renders a generic error for non-Axios errors', async () => {
+        mockUseAuth.mockReturnValue({ token: 'mock-token' });
+        mockAxios.get.mockRejectedValueOnce(new Error('Unexpected error'));
+
+        await act(async () => {
+            render(
+                <MemoryRouter>
+                    <LookerDashboard />
+                </MemoryRouter>
+            );
+        });
+
+        await waitFor(() => {
+            expect(screen.getByText(/unexpected error/i)).toBeInTheDocument();
+        });
+    });
+
+    it('renders an iframe with the correct src params for a valid client ID', async () => {
+        mockUseAuth.mockReturnValue({ token: 'mock-token' });
+        mockAxios.get.mockResolvedValueOnce({ data: { clientId: 456 } });
+
+        await act(async () => {
+            render(
+                <MemoryRouter>
+                    <LookerDashboard />
+                </MemoryRouter>
+            );
+        });
+
+        await waitFor(() => {
+            const iframeElement = screen.getByTitle('Looker Studio Dashboard');
+            expect(iframeElement).toHaveAttribute(
+                'src',
+                expect.stringContaining(
+                    encodeURIComponent(
+                        JSON.stringify({ 'ds27.cliente_parameter': 456 })
+                    )
+                )
+            );
+        });
+    });
+
+    it('renders an error when the API returns an invalid response format', async () => {
+        mockUseAuth.mockReturnValue({ token: 'mock-token' });
+        mockAxios.get.mockResolvedValueOnce({ data: {} }); // Missing `clientId`
+
+        await act(async () => {
+            render(
+                <MemoryRouter>
+                    <LookerDashboard />
+                </MemoryRouter>
+            );
+        });
+
+        await waitFor(() => {
+            expect(
+                screen.getByText(/invalid response format/i)
+            ).toBeInTheDocument();
+        });
     });
 
     it('renders an error when the token is missing', async () => {
