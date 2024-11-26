@@ -54,6 +54,7 @@ const Chatbot: React.FC = () => {
   const [docNumber, setDocNumber] = useState('');
   const [clientes, setClientes] = useState<Cliente[]>([]);
   const [selectedClient, setSelectedClient] = useState<Cliente | null>(null);
+  const [userName, setUserName] = useState(null)
   const [isAskingProblem, setIsAskingProblem] = useState(false);
   const [isRetryOrExit, setIsRetryOrExit] = useState(false);
 
@@ -103,6 +104,7 @@ const Chatbot: React.FC = () => {
     setDocType('');
     setDocNumber('');
     setSelectedClient(null);
+    setUserName(null); // Reinicia el nombre del usuario
     setIsAskingProblem(false);
     setIsRetryOrExit(false);
   };
@@ -110,13 +112,16 @@ const Chatbot: React.FC = () => {
   const validateUser = async (client: Cliente): Promise<boolean> => {
     try {
       const response = await axiosInstance.get('/usuario', {
-        params: { doc_type:docType, doc_number: docNumber, client: client.nit },
+        params: { doc_type: docType, doc_number: docNumber, client: client.nit },
       });
-
-      if (response.data) {
+      console.log(response.data.nombre);
+      if (response.data && response.data.nombre) {
+        setUserName(response.data.nombre);
+        console.log(userName);
         return true;
       }
-
+  
+      // Si no hay un nombre válido, manejar el caso
       setMessages((prev) => [
         ...prev,
         {
@@ -139,6 +144,7 @@ const Chatbot: React.FC = () => {
       return false;
     }
   };
+  
 
   const validateClientPlan = async (client: Cliente): Promise<boolean> => {
     try {
@@ -304,7 +310,7 @@ const Chatbot: React.FC = () => {
         ...newMessages,
         {
           sender: 'bot',
-          text: `¡Hola ${clienteSeleccionado.nombre}! Por favor, describe tu problema.`,
+          text: `¡Hola! Por favor, describe tu problema con ${clienteSeleccionado.nombre}.`,
           timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         },
       ]);
@@ -322,21 +328,33 @@ const Chatbot: React.FC = () => {
         const solutions = response.data || [];
 
         if (solutions.length > 0) {
-          setMessages([
+            setMessages([
             ...newMessages,
             {
               sender: 'bot',
-              text: `Estas son algunas posibles soluciones:\n${solutions
-                .map((sol: any, i: number) => `${i + 1}. ${sol.solucion}`)
-                .join('\n')}`,
+              text: (
+              <span>
+                Estas son algunas posibles soluciones:
+                <br />
+                {solutions.map((sol: any, i: number) => (
+                <span key={i}>
+                  <b>{i + 1}.</b> {sol.solucion}
+                  <br />
+                </span>
+                ))}
+              </span>
+              ),
               timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
             },
             {
               sender: 'bot',
-              text: '¿Te ayudó alguna de estas soluciones? Escribe "1" para Sí o "2" para No.',
+              text: (<span>¿Te ayudó alguna de estas soluciones? <br/>
+              Escribe<br/>
+              <b>1</b> para Sí<br/>
+              <b>2</b> para No.</span>),
               timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
             },
-          ]);
+            ]);
           setIsRetryOrExit(true);
         } else {
           setMessages([
