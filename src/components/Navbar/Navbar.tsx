@@ -12,7 +12,7 @@ const Navbar: React.FC = () => {
         <nav className="navbar">
             <div className="navbar-logo">
                 <img src={logo} alt="ABCall Logo" />
-                <div className='version'>v1.24.0</div>
+                <div className='version'>v1.25.0</div>
             </div>
             <div className="navbar-links">
                 {location.pathname === '/login-client' ? (

@@ -54,9 +54,11 @@ const Chatbot: React.FC = () => {
   const [docNumber, setDocNumber] = useState('');
   const [clientes, setClientes] = useState<Cliente[]>([]);
   const [selectedClient, setSelectedClient] = useState<Cliente | null>(null);
-  const [userName, setUserName] = useState(null)
+  const [userName, setUserName] = useState<string | null>(null);
   const [isAskingProblem, setIsAskingProblem] = useState(false);
   const [isRetryOrExit, setIsRetryOrExit] = useState(false);
+  const [isSolvedOrNot, setIsSolvedOrNot] = useState(false);
+  const [isRegisteringIncident, setIsRegisteringIncident] = useState(false);
 
   useEffect(() => {
     if (open) {
@@ -212,6 +214,84 @@ const Chatbot: React.FC = () => {
         return;
       }
     }
+  
+    if (isSolvedOrNot) {
+      if (userResponse === '1') {
+        setMessages([
+          ...newMessages,
+          {
+            sender: 'bot',
+            text: '¡Qué gusto haber podido ayudarte! Si necesitas más asistencia, no dudes en contactar nuevamente.',
+            timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+          },
+        ]);
+        setIsRetryOrExit(true);
+        setIsSolvedOrNot(false);
+        return;
+      } else if (userResponse === '2') {
+        setMessages([
+          ...newMessages,
+          {
+            sender: 'bot',
+            text: 'Por favor, proporciona más detalles sobre tu problema para registrar el incidente.',
+            timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+          },
+        ]);
+        setIsRegisteringIncident(true);
+        setIsSolvedOrNot(false);
+        return;
+      }
+    }
+    if (isRegisteringIncident) {
+      try {
+        const searchResponse = await axiosInstance.post('/search-issues', { query: userResponse });
+        const solutions = searchResponse.data || [];
+        const categoria = solutions[0]?.categoria || 'general';
+        const prioridad = solutions[0]?.prioridad || 'media';
+
+        const incidentPayload = {
+          description: userResponse,
+          categoria,
+          prioridad,
+          canal: 'aplicación',
+          cliente_id: selectedClient?.id,
+          estado: 'abierto',
+          fecha_creacion: new Date().toISOString().split('T')[0],
+        };
+
+        await axiosInstance.post('/incidente', incidentPayload);
+
+        setMessages([
+          ...newMessages,
+          {
+            sender: 'bot',
+            text: 'El incidente ha sido registrado exitosamente. Nuestro equipo de soporte se pondrá en contacto contigo pronto.',
+            timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+          },
+          {
+            sender: 'bot',
+            text: (<span>¿Hay algo más en lo que pueda ayudarte? <br/>
+              Escribe<br/>
+              <b>1</b> para volver a iniciar<br/>
+              <b>2</b> para salir</span>),
+            timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+          },
+        ]);
+        setIsRegisteringIncident(false);
+        setIsRetryOrExit(true);
+      } catch (error) {
+        setMessages([
+          ...newMessages,
+          {
+            sender: 'bot',
+            text: 'Hubo un error al registrar el incidente. Por favor, intenta nuevamente más tarde.',
+            timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+          },
+        ]);
+      }
+      return;
+    }
+
 
     if (!docType) {
       const validDocTypes = ['cc', 'pp', 'ce', 'nit'];
@@ -319,14 +399,9 @@ const Chatbot: React.FC = () => {
     }
 
     if (isAskingProblem) {
-      if (!(await validateUser(selectedClient!)) || !(await validateClientPlan(selectedClient!))) {
-        return;
-      }
-
       try {
         const response = await axiosInstance.post('/search-issues', { query: userResponse });
         const solutions = response.data || [];
-
         if (solutions.length > 0) {
             setMessages([
             ...newMessages,
@@ -336,9 +411,9 @@ const Chatbot: React.FC = () => {
               <span>
                 Estas son algunas posibles soluciones:
                 <br />
-                {solutions.map((sol: any, i: number) => (
-                <span key={i}>
-                  <b>{i + 1}.</b> {sol.solucion}
+                {solutions.map((sol: any, index: number) => (
+                <span key={index}>
+                  <b>{index + 1}.</b> {sol.solucion}
                   <br />
                 </span>
                 ))}
@@ -355,18 +430,19 @@ const Chatbot: React.FC = () => {
               timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
             },
             ]);
-          setIsRetryOrExit(true);
+          setIsSolvedOrNot(true);
         } else {
           setMessages([
             ...newMessages,
             {
               sender: 'bot',
-              text: 'No se encontraron soluciones para tu problema. Se procederá a registrar un incidente.',
+              text: 'No se encontraron soluciones. Describe tu problema para registrar un incidente.',
               timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
             },
           ]);
+          setIsRegisteringIncident(true);
         }
-      } catch (error) {
+      } catch {
         setMessages([
           ...newMessages,
           {
@@ -376,6 +452,7 @@ const Chatbot: React.FC = () => {
           },
         ]);
       }
+      return;
     }
   };
 
