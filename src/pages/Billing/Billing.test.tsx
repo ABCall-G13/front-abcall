@@ -41,6 +41,9 @@ describe('IncidentesFacturados component', () => {
         },
     ];
 
+    const currency = "USD";
+    const language = "en";
+
     beforeEach(() => {
         mockAxiosInstance.get.mockReset();
     });
@@ -60,7 +63,9 @@ describe('IncidentesFacturados component', () => {
 
         await waitFor(() => {
             expect(mockAxiosInstance.get).toHaveBeenCalledWith('/facturas-by-cliente');
-            expect(mockAxiosInstance.get).toHaveBeenCalledWith('/facturas/1/incidentes');
+            expect(mockAxiosInstance.get).toHaveBeenCalledWith('/facturas/1/incidentes', {
+                params: { currency },
+            });
         });
 
         expect(screen.getByLabelText('Seleccionar Factura:')).toBeInTheDocument();
@@ -78,7 +83,9 @@ describe('IncidentesFacturados component', () => {
 
         await waitFor(() => {
             expect(mockAxiosInstance.get).toHaveBeenCalledWith('/facturas-by-cliente');
-            expect(mockAxiosInstance.get).toHaveBeenCalledWith('/facturas/1/incidentes');
+            expect(mockAxiosInstance.get).toHaveBeenCalledWith('/facturas/1/incidentes', {
+                params: { currency },
+            });
         });
 
         expect(screen.getByText('RAD001')).toBeInTheDocument();
@@ -106,6 +113,7 @@ describe('IncidentesFacturados component', () => {
 
         await waitFor(() => {
             expect(mockAxiosInstance.get).toHaveBeenCalledWith('/facturas/1/download', {
+                params: { currency, language },
                 responseType: 'blob',
             });
         });
@@ -143,7 +151,9 @@ describe('IncidentesFacturados component', () => {
         });
 
         await waitFor(() => {
-            expect(mockAxiosInstance.get).toHaveBeenCalledWith('/facturas/1/incidentes');
+            expect(mockAxiosInstance.get).toHaveBeenCalledWith('/facturas/1/incidentes', {
+                params: { currency },
+            });
         });
 
         consoleErrorSpy.mockRestore();
