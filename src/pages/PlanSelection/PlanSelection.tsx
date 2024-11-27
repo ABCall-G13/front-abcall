@@ -12,11 +12,10 @@ const PlanSelection: React.FC = () => {
   const handlePlanSelect = (plan: string) => {
     setSelectedPlan(plan);
 
-    // Llamada a la API para actualizar el plan
     actualizarPlanCliente(plan)
       .then(() => {
         console.log(t('Plan actualizado exitosamente:'), plan);
-        navigate('/incident-list'); // Redirige a la página de confirmación
+        navigate('/incident-list');
       })
       .catch((error) => {
         console.error(t('Error al actualizar el plan:'), error);
@@ -27,7 +26,6 @@ const PlanSelection: React.FC = () => {
     try {
       const response = await axiosInstance.post('/clientes/update-plan', {
         plan: plan,
-        currency: 'COP',
       });
       return response.data;
     } catch (error) {

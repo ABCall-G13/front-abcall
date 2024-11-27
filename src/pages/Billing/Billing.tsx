@@ -39,9 +39,13 @@ const IncidentesFacturados: React.FC = () => {
 
   useEffect(() => {
     if (selectedFacturaId) {
-      // Cargar incidentes facturados de la factura seleccionada
+
+      const currency = "USD";
+
       axiosInstance
-        .get(`/facturas/${Number(selectedFacturaId)}/incidentes`)
+        .get(`/facturas/${Number(selectedFacturaId)}/incidentes`, {
+          params: { currency },
+        })
         .then((response) => {
           setIncidentes(response.data);
           setFilteredIncidentes(response.data);
@@ -60,8 +64,15 @@ const IncidentesFacturados: React.FC = () => {
 
   const handleDownloadFactura = () => {
     if (selectedFacturaId) {
+
+      const currency = "USD"; 
+      const language = "en";
+  
       axiosInstance
-        .get(`/facturas/${Number(selectedFacturaId)}/download`, { responseType: "blob" })
+        .get(`/facturas/${Number(selectedFacturaId)}/download`, {
+          params: { currency, language },
+          responseType: "blob",
+        })
         .then((response) => {
           const url = window.URL.createObjectURL(new Blob([response.data]));
           const link = document.createElement("a");
