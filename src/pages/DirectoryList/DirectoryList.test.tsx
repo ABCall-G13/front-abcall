@@ -72,4 +72,27 @@ describe('ClienteList component', () => {
             screen.getByText('No se encontraron clientes')
         ).toBeInTheDocument();
     });
+
+    test('displays error message when fetching clients fails', async () => {
+        const errorMessage = 'Network Error';
+        mockAxiosInstance.get.mockRejectedValueOnce(new Error(errorMessage));
+
+        const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+
+        render(
+            <MemoryRouter>
+                <ClienteList />
+            </MemoryRouter>
+        );
+
+        await waitFor(() => {
+            expect(mockAxiosInstance.get).toHaveBeenCalledWith('/clientes');
+        });
+
+        await waitFor(() => {
+            expect(consoleErrorSpy).toHaveBeenCalledWith('Error al obtener clientes:', expect.any(Error));
+        });
+
+        consoleErrorSpy.mockRestore();
+    });
 });
