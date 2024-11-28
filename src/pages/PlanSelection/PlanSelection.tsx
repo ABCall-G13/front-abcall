@@ -9,6 +9,18 @@ const PlanSelection: React.FC = () => {
   const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
   const navigate = useNavigate();
 
+  // Obtener la moneda del localStorage
+  const currency = localStorage.getItem('currency') || 'USD';
+
+  // Función para convertir precios según la moneda
+  const formatPrice = (priceInUSD: number): string => {
+    const conversionRate = 4000; // Supongamos que 1 USD = 4000 COP
+    if (currency === 'COP') {
+      return `$${(priceInUSD * conversionRate).toLocaleString('es-CO')} COP`;
+    }
+    return `$${priceInUSD.toFixed(2)} USD`;
+  };
+
   const handlePlanSelect = (plan: string) => {
     setSelectedPlan(plan);
 
@@ -73,7 +85,7 @@ const PlanSelection: React.FC = () => {
             <button className="select-button emprendedor">
               {t('Comprar')}
             </button>
-            <div className="price-container emprendedor">$10</div>
+            <div className="price-container emprendedor">{formatPrice(10)}</div>
           </div>
         </div>
         <div
@@ -115,7 +127,9 @@ const PlanSelection: React.FC = () => {
             <button className="select-button empresario-plus">
               {t('Comprar')}
             </button>
-            <div className="price-container empresario-plus">$50</div>
+            <div className="price-container empresario-plus">
+              {formatPrice(50)}
+            </div>
           </div>
         </div>
         <div
@@ -155,7 +169,9 @@ const PlanSelection: React.FC = () => {
             <button className="select-button empresario">
               {t('Comprar')}
             </button>
-            <div className="price-container empresario">$20</div>
+            <div className="price-container empresario">
+              {formatPrice(20)}
+            </div>
           </div>
         </div>
       </div>
