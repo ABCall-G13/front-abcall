@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import axiosUserServiceInstance from '../../utils/axiosUserServiceInstance';
 import './UserSync.css';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import { useTranslation } from 'react-i18next';
 
 const UserSync: React.FC = () => {
+    const { t } = useTranslation();
     const [file, setFile] = useState<File | null>(null);
     const [uploadStatus, setUploadStatus] = useState<string>('');
 
@@ -15,7 +17,7 @@ const UserSync: React.FC = () => {
                 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
             if (!isExcel) {
                 setUploadStatus(
-                    'Por favor, selecciona un archivo Excel (.xlsx)'
+                    t('Por favor, selecciona un archivo Excel (.xlsx)')
                 );
                 setFile(null);
                 return;
@@ -27,7 +29,7 @@ const UserSync: React.FC = () => {
 
     const handleUpload = async () => {
         if (!file) {
-            setUploadStatus('No hay archivo seleccionado');
+            setUploadStatus(t('No hay archivo seleccionado'));
             return;
         }
 
@@ -35,23 +37,23 @@ const UserSync: React.FC = () => {
         formData.append('file', file);
 
         try {
-            setUploadStatus('Subiendo...');
+            setUploadStatus(t('Subiendo...'));
             await axiosUserServiceInstance.post('/sync-users', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-            setUploadStatus('Archivo subido exitosamente');
+            setUploadStatus(t('Archivo subido exitosamente'));
         } catch (error) {
             console.error('Error al subir el archivo:', error);
-            setUploadStatus('Error al subir el archivo');
+            setUploadStatus(t('Error al subir el archivo'));
         }
     };
 
     return (
         <div className="user-sync-container">
             <div className="user-sync-card">
-                <h2>Cargar usuarios</h2>
+                <h2>{t('Cargar usuarios')}</h2>
                 <div className="upload-area">
                     <CloudUploadIcon className="upload-icon" />
                     <input
@@ -60,16 +62,16 @@ const UserSync: React.FC = () => {
                         accept=".xlsx"
                         data-testid="file-input"
                     />
-                    <p>Click para subir o arrastra y suelta el archivo aquí</p>
-                    <small>CSV (max. 50MB)</small>
+                    <p>{t('Click para subir o arrastra y suelta el archivo aquí')}</p>
+                    <small>{t('CSV (max. 50MB)')}</small>
                 </div>
-                {file && <p>Archivo seleccionado: {file.name}</p>}
+                {file && <p>{t('Archivo seleccionado:')} {file.name}</p>}
                 <button
                     onClick={handleUpload}
                     className="upload-btn"
                     disabled={!file}
                 >
-                    Subir
+                    {t('Subir')}
                 </button>
                 {uploadStatus && (
                     <p className="status-message">{uploadStatus}</p>

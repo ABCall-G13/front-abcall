@@ -2,6 +2,7 @@ import React from 'react';
 import { Breadcrumbs, Link, Typography } from '@mui/material';
 import { useLocation, Link as RouterLink } from 'react-router-dom';
 import './BreadCrumb.css';
+import { useTranslation } from 'react-i18next'; // Importar hook para traducciones
 
 const routeNameMap: { [key: string]: string } = {
     'incident-list': 'Incidentes',
@@ -11,6 +12,7 @@ const routeNameMap: { [key: string]: string } = {
 };
 
 const CustomBreadcrumb = () => {
+    const { t } = useTranslation(); // Inicializar hook de traducciones
     const location = useLocation();
 
     const pathnames = location.pathname.split('/').filter((x) => x);
@@ -29,14 +31,14 @@ const CustomBreadcrumb = () => {
                     component={RouterLink}
                     to="/"
                 >
-                    Inicio
+                    {t('Inicio')}
                 </Link>
                 {pathnames.map((value, index) => {
                     const last = index === pathnames.length - 1;
                     const to = `/${pathnames.slice(0, index + 1).join('/')}`;
 
                     const displayName =
-                        routeNameMap[value] || capitalize(value);
+                        routeNameMap[value] ? t(routeNameMap[value]) : capitalize(value);
 
                     return last ? (
                         <Typography color="white" key={to}>

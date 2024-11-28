@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './CreateIncident.css';
 import axiosInstance from '../../utils/axiosInstance';
 import { Dialog, DialogContent } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 interface CreateIncidentProps {
     onClose: () => void;
@@ -14,6 +15,8 @@ const CreateIncident: React.FC<CreateIncidentProps> = ({
     onIncidentCreated,
     initialUserInfo,
 }) => {
+    const { t } = useTranslation();
+
     const [formData, setFormData] = useState({
         id: 0,
         descripcion: '',
@@ -22,7 +25,6 @@ const CreateIncident: React.FC<CreateIncidentProps> = ({
         canal: '',
         cliente: initialUserInfo ? initialUserInfo.cliente_id : '',
         estado: 'abierto',
-        fecha_creacion: new Date().toISOString().slice(0, 10),
         fecha_cierre: '',
         solucion: '',
         identificacion_usuario: ''
@@ -54,7 +56,7 @@ const CreateIncident: React.FC<CreateIncidentProps> = ({
         axiosInstance
             .get('/incidentes/fields')
             .then((response) => setEnums(response.data))
-            .catch((error) => console.error('Error al obtener los valores permitidos:', error));
+            .catch((error) => console.error(t('Error al obtener los valores permitidos:'), error));
 
         axiosInstance
             .get('/clientes')
@@ -62,7 +64,7 @@ const CreateIncident: React.FC<CreateIncidentProps> = ({
                 setClientes(response.data); // Establece los valores de los clientes
             })
             .catch((error) => {
-                console.error('Error al obtener los clientes:', error);
+                console.error(t('Error al obtener los clientes:'), error);
             });
     }, []);
 
@@ -86,7 +88,6 @@ const CreateIncident: React.FC<CreateIncidentProps> = ({
                 canal: formData.canal,
                 cliente_id: parseInt(formData.cliente),
                 estado: formData.estado,
-                fecha_creacion: formData.fecha_creacion,
                 fecha_cierre: formData.fecha_cierre || null,
                 solucion: formData.solucion || null,
                 identificacion_usuario: initialUserInfo ? initialUserInfo.identificacion_usuario : null,
@@ -99,7 +100,7 @@ const CreateIncident: React.FC<CreateIncidentProps> = ({
                 onIncidentCreated();
             }, 3000);
         } catch (error) {
-            setErrorMessage('Hubo un error al crear el incidente. Intenta de nuevo.');
+            setErrorMessage(t('Hubo un error al crear el incidente. Intenta de nuevo.'));
             setTimeout(() => setErrorMessage(null), 3000);
         }
     };
@@ -110,11 +111,11 @@ const CreateIncident: React.FC<CreateIncidentProps> = ({
             <button className="close-button" onClick={onClose}>
                 &times;
             </button>
-            <h2 className="modal-title">Registrar Incidente</h2>
+            <h2 className="modal-title">{t('Registrar Incidente')}</h2>
 
             {isSubmitted && (
                 <div className="alert-success">
-                    <span>&#10003;</span> Incidente creado satisfactoriamente
+                    <span>&#10003;</span> {t('Incidente creado satisfactoriamente')}
                 </div>
             )}
 
@@ -126,7 +127,7 @@ const CreateIncident: React.FC<CreateIncidentProps> = ({
 
             <form onSubmit={handleSubmit} className="incident-form">
                 <div className="form-group">
-                    <label htmlFor="descripcion">Descripción</label>
+                    <label htmlFor="descripcion">{t('Descripción')}</label>
                     <textarea
                         id="descripcion"
                         name="descripcion"
@@ -136,7 +137,7 @@ const CreateIncident: React.FC<CreateIncidentProps> = ({
                     />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="categoria">Categoría</label>
+                    <label htmlFor="categoria">{t('Categoría')}</label>
                     <select
                         id="categoria"
                         name="categoria"
@@ -144,16 +145,16 @@ const CreateIncident: React.FC<CreateIncidentProps> = ({
                         onChange={handleChange}
                         required
                     >
-                        <option value="">Selecciona una categoría</option>
+                        <option value="">{t('Selecciona una categoría')}</option>
                         {enums.categoria.map((option, index) => (
                             <option key={index} value={option}>
-                                {option}
+                                {t(option)}
                             </option>
                         ))}
                     </select>
                 </div>
                 <div className="form-group">
-                    <label htmlFor="prioridad">Prioridad</label>
+                    <label htmlFor="prioridad">{t('Prioridad')}</label>
                     <select
                         id="prioridad"
                         name="prioridad"
@@ -161,16 +162,16 @@ const CreateIncident: React.FC<CreateIncidentProps> = ({
                         onChange={handleChange}
                         required
                     >
-                        <option value="">Selecciona una prioridad</option>
+                        <option value="">{t('Selecciona una prioridad')}</option>
                         {enums.prioridad.map((option, index) => (
                             <option key={index} value={option}>
-                                {option}
+                                {t(option)}
                             </option>
                         ))}
                     </select>
                 </div>
                 <div className="form-group">
-                    <label htmlFor="canal">Canal</label>
+                    <label htmlFor="canal">{t('Canal')}</label>
                     <select
                         id="canal"
                         name="canal"
@@ -178,18 +179,19 @@ const CreateIncident: React.FC<CreateIncidentProps> = ({
                         onChange={handleChange}
                         required
                     >
-                        <option value="">Selecciona un canal</option>
+                        <option value="">{t('Selecciona un canal')}</option>
                         {enums.canal.map((option, index) => (
                             <option key={index} value={option}>
-                                {option}
+                                {t(option)}
                             </option>
                         ))}
                     </select>
                 </div>
                 <button type="submit" className="submit-btn">
-                    Registrar Incidente
+                    {t('Registrar Incidente')}
                 </button>
-            </form></DialogContent>
+            </form>
+            </DialogContent>
         </Dialog>
     );
 };

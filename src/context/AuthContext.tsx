@@ -1,40 +1,70 @@
-import React, { createContext, useState, useContext, useEffect, ReactNode } from 'react';
+import React, { createContext, useState, useContext, useEffect, ReactNode, useRef } from 'react';
 
 interface AuthContextProps {
     isAuthenticated: boolean;
     token: string | null;
-    login: (token: string) => void;
+    role: string | null;
+    login: (token: string, role: string) => void;
     logout: () => void;
 }
 
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-    const [token, setToken] = useState<string | null>(null);
+    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => !!localStorage.getItem('token'));
+    const [token, setToken] = useState<string | null>(() => localStorage.getItem('token'));
+    const [role, setRole] = useState<string | null>(() => localStorage.getItem('role'));
 
-    useEffect(() => {
-        const storedToken = localStorage.getItem('token');
-        if (storedToken) {
-            setIsAuthenticated(true);
-            setToken(storedToken);
-        }
-    }, []);
-
-    const login = (token: string) => {
-        setIsAuthenticated(true);
-        setToken(token);
-        localStorage.setItem('token', token);
-    };
+    const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
     const logout = () => {
         setIsAuthenticated(false);
         setToken(null);
+        setRole(null);
         localStorage.removeItem('token');
+        localStorage.removeItem('role');
     };
 
+    const login = (token: string, role: string) => {
+        setIsAuthenticated(true);
+        setToken(token);
+        setRole(role);
+        localStorage.setItem('token', token);
+        localStorage.setItem('role', role);
+        resetTimeout();
+    };
+
+    const resetTimeout = () => {
+        if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current);
+        }
+        timeoutRef.current = setTimeout(() => {
+            logout();
+        }, 900000); // 15 minutos de inactividad
+    };
+
+    useEffect(() => {
+        const events = ['mousemove', 'keydown', 'scroll', 'touchstart'];
+        const handleUserActivity = () => resetTimeout();
+
+        events.forEach((event) => {
+            window.addEventListener(event, handleUserActivity);
+        });
+
+        resetTimeout();
+
+        return () => {
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current);
+            }
+            events.forEach((event) => {
+                window.removeEventListener(event, handleUserActivity);
+            });
+        };
+    }, []);
+
     return (
-        <AuthContext.Provider value={{ isAuthenticated, token, login, logout }}>
+        <AuthContext.Provider value={{ isAuthenticated, token, role, login, logout }}>
             {children}
         </AuthContext.Provider>
     );

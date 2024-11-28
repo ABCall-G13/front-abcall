@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axiosInstance from '../../utils/axiosInstance';
 import BreadCrumb from '../../components/BreadCrumb/BreadCrumb';
 import './DirectoryList.css';
+import { useTranslation } from 'react-i18next'; // Importar useTranslation
 
 interface Cliente {
     id: number;
@@ -11,6 +12,7 @@ interface Cliente {
 }
 
 const ClienteList: React.FC = () => {
+    const { t } = useTranslation(); // Inicializar hook de traducciones
     const [clientes, setClientes] = useState<Cliente[]>([]);
 
     const fetchClientes = () => {
@@ -20,7 +22,7 @@ const ClienteList: React.FC = () => {
                 setClientes(response.data);
             })
             .catch((error) => {
-                console.error('Error al obtener clientes:', error);
+                console.error(t('Error al obtener clientes:'), error);
             });
     };
 
@@ -33,13 +35,13 @@ const ClienteList: React.FC = () => {
             <BreadCrumb />
             <div className="spacing-divider"></div>{' '}
             <div className="table-container">
-                <h3>Directorio líneas telefónicas</h3>
+                <h3>{t('Directorio líneas telefónicas')}</h3>
                 <table className="cliente-table">
                     <thead>
                         <tr>
-                            <th>LINEA TELEFÓNICA</th>
-                            <th>CLIENTE</th>
-                            <th>BIENVENIDA</th>
+                            <th>{t('LINEA TELEFÓNICA')}</th>
+                            <th>{t('CLIENTE')}</th>
+                            <th>{t('BIENVENIDA')}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -53,7 +55,7 @@ const ClienteList: React.FC = () => {
                             ))
                         ) : (
                             <tr>
-                                <td colSpan={3}>No se encontraron clientes</td>
+                                <td colSpan={3}>{t('No se encontraron clientes')}</td>
                             </tr>
                         )}
                     </tbody>
