@@ -159,16 +159,10 @@ const IncidentList: React.FC = () => {
                                             {t(incident.prioridad)}
                                         </div>
                                     </td>
-                                    <td>
-                                        {new Date(
-                                            incident.fecha_creacion
-                                        ).toLocaleDateString()}
-                                    </td>
+                                    <td>{incident.fecha_creacion}</td>
                                     <td>
                                         {incident.fecha_cierre
-                                            ? new Date(
-                                                  incident.fecha_cierre
-                                              ).toLocaleDateString()
+                                            ? incident.fecha_cierre
                                             : '-'}
                                     </td>
                                     <td>
