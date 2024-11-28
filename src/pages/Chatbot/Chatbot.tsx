@@ -403,33 +403,50 @@ const Chatbot: React.FC = () => {
         const response = await axiosInstance.post('/search-issues', { query: userResponse });
         const solutions = response.data || [];
         if (solutions.length > 0) {
-            setMessages([
+          // Extraer las soluciones en formato legible para enviarlas al endpoint de ChatGPT
+          const solutionsText = solutions
+            .map((sol: any, index: number) => `${index + 1}. ${sol.solucion}`)
+            .join('\n');
+          const chatGptResponse = await axiosInstance.post('/generate-response', {
+            query: `Explica estas soluciones de forma clara y útil para el cliente:\n${solutionsText}`,
+          });
+      
+          const improvedSolutions = chatGptResponse.data.response;
+          setMessages([
             ...newMessages,
             {
               sender: 'bot',
               text: (
-              <span>
-                Estas son algunas posibles soluciones:
-                <br />
-                {solutions.map((sol: any, index: number) => (
-                <span key={index}>
-                  <b>{index + 1}.</b> {sol.solucion}
+                <span>
+                  Estas son algunas posibles soluciones detalladas:
                   <br />
+                  {improvedSolutions.split('\n').map((line: string, index: number) => (
+                    <span key={index}>
+                      {line}
+                      <br />
+                    </span>
+                  ))}
                 </span>
-                ))}
-              </span>
               ),
               timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
             },
             {
               sender: 'bot',
-              text: (<span>¿Te ayudó alguna de estas soluciones? <br/>
-              Escribe<br/>
-              <b>1</b> para Sí<br/>
-              <b>2</b> para No.</span>),
+              text: (
+                <span>
+                  ¿Te ayudó alguna de estas soluciones?
+                  <br />
+                  Escribe
+                  <br />
+                  <b>1</b> para Sí
+                  <br />
+                  <b>2</b> para No.
+                </span>
+              ),
               timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
             },
-            ]);
+          ]);
+      
           setIsSolvedOrNot(true);
         } else {
           setMessages([
