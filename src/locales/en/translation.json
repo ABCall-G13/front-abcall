@@ -161,5 +161,49 @@
     "Documento:": "Document:",
     "Teléfono:": "Phone:",
     "Email:": "Email:",
-    "Información del usuario:": "User information:"
+    "Información del usuario:": "User information:",
+
+    "Directorio líneas telefónicas": "Phone Directory",
+    "LINEA TELEFÓNICA": "PHONE LINE",
+    "BIENVENIDA": "WELCOME MESSAGE",
+    "No se encontraron clientes": "No clients found",
+
+    "Detalle del Incidente": "Incident Detail",
+    "Descripción del soporte:": "Support Description:",
+    "Categoría:": "Category:",
+    "Cliente:": "Client:",
+    "Radicado:": "Reference:",
+    "Prioridad:": "Priority:",
+    "Fecha de apertura:": "Opening Date:",
+    "Fecha de cierre:": "Closing Date:",
+    "Buscar solución con IA": "Search solution with AI",
+    "Buscar problemas comunes": "Search common problems",
+    "Cargando...": "Loading...",
+    "Aún no se ha proporcionado una solución.": "No solution has been provided yet.",
+    "Escribe la solución aquí": "Write the solution here",
+    "Guardar Solución": "Save Solution",
+    "Error al solucionar incidente": "Error solving the incident",
+    "No se encontraron problemas comunes para este incidente.": "No common problems found for this incident.",
+    "Error fetching common problem data": "Error fetching common problem data",
+
+
+    "Loading...": "Loading...",
+    "Error:": "Error:",
+    "Failed to fetch client ID": "Failed to fetch client ID",
+    "Failed to load dashboard": "Failed to load dashboard",
+    "Tablero de control": "Dashboard",
+
+    "Incidentes Facturados": "Billed Incidents",
+    "Seleccionar Factura:": "Select Invoice:",
+    "ID:": "ID:",
+    "Periodo:": "Period:",
+    "Radicado Incidente": "Incident Reference",
+    "Costo": "Cost",
+    "Fecha Incidente": "Incident Date",
+    "Descargar Factura": "Download Invoice",
+    "Error al cargar facturas:": "Error loading invoices:",
+    "Error al cargar incidentes facturados:": "Error loading billed incidents:",
+    "Error al descargar la factura:": "Error downloading the invoice:",
+
+    "Inicio": "Home"
 }

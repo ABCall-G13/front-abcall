@@ -161,5 +161,49 @@
     "Documento:": "Documento:",
     "Teléfono:": "Teléfono:",
     "Email:": "Email:",
-    "Información del usuario:": "Información del usuario:"
+    "Información del usuario:": "Información del usuario:",
+
+    "Directorio líneas telefónicas": "Directorio líneas telefónicas",
+    "LINEA TELEFÓNICA": "LINEA TELEFÓNICA",
+    "BIENVENIDA": "BIENVENIDA",
+    "No se encontraron clientes": "No se encontraron clientes",
+
+
+    "Detalle del Incidente": "Detalle del Incidente",
+    "Descripción del soporte:": "Descripción del soporte:",
+    "Categoría:": "Categoría:",
+    "Cliente:": "Cliente:",
+    "Radicado:": "Radicado:",
+    "Prioridad:": "Prioridad:",
+    "Fecha de apertura:": "Fecha de apertura:",
+    "Fecha de cierre:": "Fecha de cierre:",
+    "Buscar solución con IA": "Buscar solución con IA",
+    "Buscar problemas comunes": "Buscar problemas comunes",
+    "Cargando...": "Cargando...",
+    "Aún no se ha proporcionado una solución.": "Aún no se ha proporcionado una solución.",
+    "Escribe la solución aquí": "Escribe la solución aquí",
+    "Guardar Solución": "Guardar Solución",
+    "Error al solucionar incidente": "Error al solucionar incidente",
+    "No se encontraron problemas comunes para este incidente.": "No se encontraron problemas comunes para este incidente.",
+    "Error fetching common problem data": "Error al obtener los datos de problemas comunes",
+
+    "Loading...": "Cargando...",
+    "Error:": "Error:",
+    "Failed to fetch client ID": "No se pudo obtener el ID del cliente",
+    "Failed to load dashboard": "No se pudo cargar el tablero de control",
+    "Tablero de control": "Tablero de control",
+
+    "Incidentes Facturados": "Incidentes Facturados",
+    "Seleccionar Factura:": "Seleccionar Factura:",
+    "ID:": "ID:",
+    "Periodo:": "Periodo:",
+    "Radicado Incidente": "Radicado Incidente",
+    "Costo": "Costo",
+    "Fecha Incidente": "Fecha Incidente",
+    "Descargar Factura": "Descargar Factura",
+    "Error al cargar facturas:": "Error al cargar facturas:",
+    "Error al cargar incidentes facturados:": "Error al cargar incidentes facturados:",
+    "Error al descargar la factura:": "Error al descargar la factura:",
+
+    "Inicio": "Inicio"
 }
