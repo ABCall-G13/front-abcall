@@ -39,3 +39,28 @@ describe('Chatbot component', () => {
         expect(screen.getByText('Chat en línea')).toBeInTheDocument();
     });
 });
+
+describe('Open chatbot', () => {
+    test('should open chatbot', async () => {
+        // Mockear respuesta de Axios
+        mockAxiosInstance.get.mockResolvedValueOnce({
+            data: {
+                solutions: [
+                    { solucion: 'Reinicia tu router.' },
+                    { solucion: 'Verifica los cables.' },
+                ],
+            },
+        });
+
+        render(<Chatbot />);
+
+        // Buscar y hacer clic en el botón para abrir el chatbot
+        const openChatbotButton = screen.getByText('Chat en línea');
+        fireEvent.click(openChatbotButton);
+
+        // Esperar a que el contenido del chatbot sea visible
+        await waitFor(() =>
+            expect(screen.getByText('Asistente Virtual')).toBeInTheDocument()
+        );
+    });
+});
