@@ -87,8 +87,8 @@ const IncidentesFacturados: React.FC = () => {
   };
 
   return (
-    <div className="incidentes-facturados">
-      <h1>{t("Incidentes Facturados")}</h1>
+    <div className="table-container">
+      <h2 style={{"color":"white"}}>{t("Incidentes Facturados")}</h2>
       <div className="selector">
         <label htmlFor="factura-select">{t("Seleccionar Factura:")}</label>
         <select id="factura-select" onChange={handleFacturaChange} value={selectedFacturaId || ""}>

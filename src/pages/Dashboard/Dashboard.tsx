@@ -45,7 +45,7 @@ const LookerDashboard = () => {
 
     return (
         <div style={{ width: '100%', height: '100%', paddingInline: '10px' }}>
-            <h2>{t('Tablero de control')}</h2>
+            <h2 style={{"color":"white"}}>{t('Tablero de control')}</h2>
             <div
                 style={{
                     width: '100%',
