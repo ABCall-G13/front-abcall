@@ -34,7 +34,7 @@ const LookerDashboard = () => {
 
     const refreshCache = `t=${new Date().getTime()}`;
     const clientParam = `params=${encodeURIComponent(
-        `{"ds27.cliente_parameter":${clientId}}`
+        `{"ds27.cliente_parameter":${clientId},"ds28.cliente_facturacion":${clientId}}`
     )}`;
 
     const urlParams = `?${clientParam}&${refreshCache}`;
