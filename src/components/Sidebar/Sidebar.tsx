@@ -11,6 +11,7 @@ import {
     FiUserCheck,
     FiLogOut,
     FiMenu,
+    FiFile 
 } from 'react-icons/fi';
 import Avatar from 'react-avatar';
 
@@ -62,7 +63,7 @@ const Sidebar: React.FC = () => {
                             >
                                 <Link to="/dashboard">
                                     <FiHome size={20} className="menu-icon" />
-                                    {!isCollapsed && t('Inicio')}
+                                    {!isCollapsed && t('Tableros')}
                                 </Link>
                             </li>
                             <li
@@ -77,7 +78,7 @@ const Sidebar: React.FC = () => {
                                         size={20}
                                         className="menu-icon"
                                     />
-                                    {!isCollapsed && t('Tableros')}
+                                    {!isCollapsed && t('Incidentes')}
                                 </Link>
                             </li>
                             <li
@@ -103,7 +104,7 @@ const Sidebar: React.FC = () => {
                                 }
                             >
                                 <Link to="/billing">
-                                    <FiUserCheck
+                                    <FiFile 
                                         size={20}
                                         className="menu-icon"
                                     />
