@@ -7,7 +7,7 @@ import { Dialog } from '@mui/material';
 import './IncidentList.css';
 import axiosInstance from '../../utils/axiosInstance';
 import { useTranslation } from 'react-i18next';
-import { useAuth } from 'context/AuthContext';
+import { useAuth } from '../../context/AuthContext';
 
 interface Incident {
     id: number;
