@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import BreadCrumb from '../../components/BreadCrumb/BreadCrumb';
 import { useAuth } from '../../context/AuthContext'; // Adjust the path to your AuthContext
 import axiosInstance from '../../utils/axiosInstance';
+import { useTranslation } from 'react-i18next'; // Importa useTranslation
 
 const LookerDashboard = () => {
+    const { t } = useTranslation(); // Hook para traducciones
     const [clientId, setClientId] = useState<number | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
@@ -14,8 +16,8 @@ const LookerDashboard = () => {
                 const response = await axiosInstance.get('/current-client');
                 setClientId(response.data);
             } catch (err) {
-                console.error('Error fetching current client ID:', err);
-                setError('Failed to fetch client ID');
+                console.error(t('Failed to fetch client ID'), err);
+                setError(t('Failed to fetch client ID'));
             } finally {
                 setLoading(false);
             }
@@ -25,11 +27,11 @@ const LookerDashboard = () => {
     }, []);
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <div>{t('Loading...')}</div>;
     }
 
     if (error || clientId === null) {
-        return <div>Error: {error || 'Failed to load dashboard'}</div>;
+        return <div>{`${t('Error:')} ${error || t('Failed to load dashboard')}`}</div>;
     }
 
     const refreshCache = `t=${new Date().getTime()}`;
@@ -39,11 +41,11 @@ const LookerDashboard = () => {
 
     const urlParams = `?${clientParam}&${refreshCache}`;
     const finalUrl = `https://lookerstudio.google.com/embed/reporting/639d9b14-f68b-443c-8698-3be0916f0906/page/2TRFE${urlParams}`;
-    console.log('Final Looker Studio URL:', finalUrl);
+    // console.log(t('Final Looker Studio URL:'), finalUrl);
 
     return (
         <div style={{ width: '100%', height: '100%', paddingInline: '10px' }}>
-            <h2>Tablero de control</h2>
+            <h2>{t('Tablero de control')}</h2>
             <div
                 style={{
                     width: '100%',
@@ -63,4 +65,5 @@ const LookerDashboard = () => {
         </div>
     );
 };
+
 export default LookerDashboard;

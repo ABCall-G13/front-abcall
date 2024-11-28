@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axiosInstance from '../../utils/axiosInstance';
 import "./Billing.css";
+import { useTranslation } from 'react-i18next';
 
 interface Factura {
   id: number;
@@ -16,31 +17,31 @@ interface IncidenteFacturado {
 }
 
 const IncidentesFacturados: React.FC = () => {
+  const { t } = useTranslation(); // Hook para traducciones
   const [facturas, setFacturas] = useState<Factura[]>([]);
   const [selectedFacturaId, setSelectedFacturaId] = useState<number | null>(null);
   const [incidentes, setIncidentes] = useState<IncidenteFacturado[]>([]);
   const [filteredIncidentes, setFilteredIncidentes] = useState<IncidenteFacturado[]>([]);
 
-
   useEffect(() => {
     // Cargar facturas del cliente
     axiosInstance
-      .get("/facturas-by-cliente") 
+      .get("/facturas-by-cliente")
       .then((response) => {
         setFacturas(response.data);
         if (response.data.length > 0) {
-          setSelectedFacturaId(response.data[0].id); 
+          setSelectedFacturaId(response.data[0].id);
         }
       })
       .catch((error) => {
-        console.error("Error al cargar facturas:", error);
+        console.error(t("Error al cargar facturas:"), error);
       });
   }, []);
 
   useEffect(() => {
     if (selectedFacturaId) {
-
-      const currency = "USD";
+      const currency = localStorage.getItem('currency') || 'USD';
+      const language = localStorage.getItem('language') || 'es';
 
       axiosInstance
         .get(`/facturas/${Number(selectedFacturaId)}/incidentes`, {
@@ -51,7 +52,7 @@ const IncidentesFacturados: React.FC = () => {
           setFilteredIncidentes(response.data);
         })
         .catch((error) => {
-          console.error("Error al cargar incidentes facturados:", error);
+          console.error(t("Error al cargar incidentes facturados:"), error);
         });
     }
   }, [selectedFacturaId]);
@@ -60,14 +61,11 @@ const IncidentesFacturados: React.FC = () => {
     setSelectedFacturaId(Number(e.target.value));
   };
 
-
-
   const handleDownloadFactura = () => {
     if (selectedFacturaId) {
+      const currency = localStorage.getItem('currency') || 'USD';
+      const language = localStorage.getItem('language') || 'es';
 
-      const currency = "USD"; 
-      const language = "en";
-  
       axiosInstance
         .get(`/facturas/${Number(selectedFacturaId)}/download`, {
           params: { currency, language },
@@ -83,20 +81,20 @@ const IncidentesFacturados: React.FC = () => {
           document.body.removeChild(link);
         })
         .catch((error) => {
-          console.error("Error al descargar la factura:", error);
+          console.error(t("Error al descargar la factura:"), error);
         });
     }
   };
 
   return (
     <div className="incidentes-facturados">
-      <h1>Incidentes Facturados</h1>
+      <h1>{t("Incidentes Facturados")}</h1>
       <div className="selector">
-        <label htmlFor="factura-select">Seleccionar Factura:</label>
+        <label htmlFor="factura-select">{t("Seleccionar Factura:")}</label>
         <select id="factura-select" onChange={handleFacturaChange} value={selectedFacturaId || ""}>
           {facturas.map((factura) => (
             <option key={factura.id} value={factura.id}>
-              {`ID: ${factura.id} | Periodo: ${factura.fecha_inicio} - ${factura.fecha_fin}`}
+              {`${t("ID:")} ${factura.id} | ${t("Periodo:")} ${factura.fecha_inicio} - ${factura.fecha_fin}`}
             </option>
           ))}
         </select>
@@ -104,9 +102,9 @@ const IncidentesFacturados: React.FC = () => {
       <table className="incident-table">
         <thead>
           <tr>
-            <th>Radicado Incidente</th>
-            <th>Costo</th>
-            <th>Fecha Incidente</th>
+            <th>{t("Radicado Incidente")}</th>
+            <th>{t("Costo")}</th>
+            <th>{t("Fecha Incidente")}</th>
           </tr>
         </thead>
         <tbody>
@@ -120,7 +118,7 @@ const IncidentesFacturados: React.FC = () => {
         </tbody>
       </table>
       <button className="download-button" onClick={handleDownloadFactura} disabled={!selectedFacturaId}>
-        Descargar Factura
+        {t("Descargar Factura")}
       </button>
     </div>
   );

@@ -10,9 +10,12 @@ import '@testing-library/jest-dom';
 import axiosInstance from '../../utils/axiosInstance';
 import IncidentList from './IncidentList';
 import { MemoryRouter } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 
 jest.mock('../../utils/axiosInstance');
+jest.mock('../../context/AuthContext'); 
 const mockAxiosInstance = axiosInstance as jest.Mocked<typeof axiosInstance>;
+const mockUseAuth = useAuth as jest.Mock;
 
 describe('IncidentList component', () => {
     const mockIncidents = [
@@ -46,6 +49,7 @@ describe('IncidentList component', () => {
 
     beforeEach(() => {
         mockAxiosInstance.get.mockResolvedValue({ data: mockIncidents });
+        mockUseAuth.mockReturnValue({ role: 'admin' }); 
     });
 
     afterEach(() => {

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './DetailIncidentModal.css';
 import axiosInstance from '../../utils/axiosInstance';
 import ProblemaComunModal from '../CommonIssue/CommonIssue';
+import { useTranslation } from 'react-i18next';
 
 interface DetailIncidentModalProps {
     isOpen: boolean;
@@ -28,6 +29,7 @@ const DetailIncidentModal: React.FC<DetailIncidentModalProps> = ({
     incidentDetail,
     onIncidentUpdated,
 }) => {
+    const { t } = useTranslation(); // Hook para traducciones
     const [solucion, setSolucion] = useState<string>('');
     const [isProblemaComunModalOpen, setIsProblemaComunModalOpen] =
         useState(false);
@@ -52,8 +54,8 @@ const DetailIncidentModal: React.FC<DetailIncidentModalProps> = ({
             onIncidentUpdated();
             onClose();
         } catch (error) {
-            setError('Error al solucionar incidente');
-            console.error('Error al solucionar incidente:', error);
+            setError(t('Error al solucionar incidente'));
+            console.error(t('Error al solucionar incidente:'), error);
         }
     };
 
@@ -72,7 +74,7 @@ const DetailIncidentModal: React.FC<DetailIncidentModalProps> = ({
             setIsProblemaComunModalOpen(true);
         } catch (error) {
             setError(
-                'No se encontraron problemas comunes para este incidente.'
+                t('No se encontraron problemas comunes para este incidente.')
             );
             console.error(error);
         } finally {
@@ -88,7 +90,7 @@ const DetailIncidentModal: React.FC<DetailIncidentModalProps> = ({
             setModalContext('comunes');
             setIsProblemaComunModalOpen(true);
         } catch (error) {
-            setError('Error fetching common problem data');
+            setError(t('Error fetching common problem data'));
             console.error(error);
         } finally {
             setIsLoading(false);
@@ -106,10 +108,10 @@ const DetailIncidentModal: React.FC<DetailIncidentModalProps> = ({
                 <button className="close-button" onClick={onClose}>
                     &times;
                 </button>
-                <h2 className="modal-title">Detalle del Incidente</h2>
+                <h2 className="modal-title">{t('Detalle del Incidente')}</h2>
 
                 <div className="incident-details">
-                    <h3 className="section-title">Descripción del soporte:</h3>
+                    <h3 className="section-title">{t('Descripción del soporte:')}</h3>
                     <div className="scroll-container">
                         <div>{incidentDetail.description}</div>
                     </div>
@@ -117,35 +119,35 @@ const DetailIncidentModal: React.FC<DetailIncidentModalProps> = ({
                     <div className="incident-info-grid">
                         <div className="column">
                             <p>
-                                <strong>Categoría:</strong>{' '}
+                                <strong>{t('Categoría:')}</strong>{' '}
                                 {incidentDetail.categoria}
                             </p>
                             <p>
-                                <strong>Cliente:</strong>{' '}
+                                <strong>{t('Cliente:')}</strong>{' '}
                                 {incidentDetail.cliente_id}
                             </p>
                             <p>
-                                <strong>Radicado:</strong>{' '}
+                                <strong>{t('Radicado:')}</strong>{' '}
                                 {incidentDetail.radicado}
                             </p>
                         </div>
                         <div className="column">
                             <p>
-                                <strong>Prioridad:</strong>{' '}
+                                <strong>{t('Prioridad:')}</strong>{' '}
                                 {incidentDetail.prioridad}
                             </p>
                             <p>
-                                <strong>Fecha de apertura:</strong>{' '}
+                                <strong>{t('Fecha de apertura:')}</strong>{' '}
                                 {incidentDetail.fecha_creacion}
                             </p>
                             <p>
-                                <strong>Fecha de cierre:</strong>{' '}
+                                <strong>{t('Fecha de cierre:')}</strong>{' '}
                                 {incidentDetail.fecha_cierre || '-'}
                             </p>
                         </div>
                     </div>
 
-                    <h3 className="section-title">Solución</h3>
+                    <h3 className="section-title">{t('Solución')}</h3>
                     <div className="solution-actions">
                         <button
                             onClick={fetchIAProblemas}
@@ -153,8 +155,8 @@ const DetailIncidentModal: React.FC<DetailIncidentModalProps> = ({
                             disabled={isLoading}
                         >
                             {isLoading && modalContext === 'ia'
-                                ? 'Cargando...'
-                                : 'Buscar solución con IA'}
+                                ? t('Cargando...')
+                                : t('Buscar solución con IA')}
                         </button>
                         <button
                             onClick={fetchProblemasComunes}
@@ -162,14 +164,14 @@ const DetailIncidentModal: React.FC<DetailIncidentModalProps> = ({
                             disabled={isLoading}
                         >
                             {isLoading && modalContext === 'comunes'
-                                ? 'Cargando...'
-                                : 'Buscar problemas comunes'}
+                                ? t('Cargando...')
+                                : t('Buscar problemas comunes')}
                         </button>
                     </div>
                     <div className="scroll-container">
                         <div>
                             {incidentDetail.solucion ||
-                                'Aún no se ha proporcionado una solución.'}
+                                t('Aún no se ha proporcionado una solución.')}
                         </div>
                     </div>
 
@@ -178,14 +180,14 @@ const DetailIncidentModal: React.FC<DetailIncidentModalProps> = ({
                             <textarea
                                 value={solucion}
                                 onChange={(e) => setSolucion(e.target.value)}
-                                placeholder="Escribe la solución aquí"
+                                placeholder={t('Escribe la solución aquí')}
                                 className="solucion-input"
                             />
                             <button
                                 onClick={handleSolucionar}
                                 className="btn-solucionar"
                             >
-                                Guardar Solución
+                                {t('Guardar Solución')}
                             </button>
                         </div>
                     )}

@@ -2,22 +2,22 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import AppContent from './AppContent';
+import i18n from './i18n'; // Adjust the import path as necessary
 import { AuthProvider } from './context/AuthContext';
 
 describe('AppContent Component', () => {
-    test('renders Navbar when not authenticated', () => {
-        render(
-            <AuthProvider>
-                <BrowserRouter>
-                    <AppContent />
-                </BrowserRouter>
-            </AuthProvider>
-        );
+    i18n.changeLanguage('en'); // Set the language before rendering
+    render(
+        <AuthProvider>
+            <BrowserRouter>
+                <AppContent />
+            </BrowserRouter>
+        </AuthProvider>
+    );
 
-        expect(screen.getByRole('navigation')).toBeInTheDocument();
-    });
+    expect(screen.getByRole('navigation')).toBeInTheDocument();
 
-    test('renders Sidebar and cliente routes when authenticated as cliente', () => {
+test('renders Sidebar and cliente routes when authenticated as cliente', () => {
         localStorage.setItem('token', 'test-token');
         localStorage.setItem('role', 'cliente');
 

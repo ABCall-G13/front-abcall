@@ -6,6 +6,14 @@ import LoginClient from './LoginClient';
 import { BrowserRouter } from 'react-router-dom';
 
 jest.mock('../../utils/axiosInstance');
+jest.mock('react-i18next', () => ({
+    useTranslation: () => ({
+        t: (key: string) => key,
+        i18n: {
+            changeLanguage: jest.fn(),
+        },
+    }),
+}));
 jest.mock('react-router-dom', () => ({
     ...jest.requireActual('react-router-dom'),
     useNavigate: jest.fn(),
