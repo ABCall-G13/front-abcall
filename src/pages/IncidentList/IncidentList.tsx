@@ -7,6 +7,7 @@ import { Dialog } from '@mui/material';
 import './IncidentList.css';
 import axiosInstance from '../../utils/axiosInstance';
 import { useTranslation } from 'react-i18next';
+import { useAuth } from 'context/AuthContext';
 
 interface Incident {
     id: number;
@@ -24,6 +25,7 @@ interface Incident {
 
 const IncidentList: React.FC = () => {
     const { t } = useTranslation();
+    const { role } = useAuth();
 
     const [incidents, setIncidents] = useState<Incident[]>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -84,12 +86,14 @@ const IncidentList: React.FC = () => {
         <div className="incident-list-container">
             <BreadCrumb />
             <div className="button-container">
-                <button
-                    onClick={openValidationModal}
-                    className="btn-create-incident"
-                >
-                    {t('AGREGAR INCIDENTE')}
-                </button>
+                {role !== 'cliente' && ( // Condiciona la renderización del botón
+                    <button
+                        onClick={openValidationModal}
+                        className="btn-create-incident"
+                    >
+                        {t('AGREGAR INCIDENTE')}
+                    </button>
+                )}
             </div>
 
             <ValidateUserModal
