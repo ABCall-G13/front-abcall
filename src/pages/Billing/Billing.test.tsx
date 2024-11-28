@@ -12,6 +12,15 @@ import IncidentesFacturados from './Billing';
 jest.mock('../../utils/axiosInstance');
 const mockAxiosInstance = axiosInstance as jest.Mocked<typeof axiosInstance>;
 
+beforeEach(() => {
+    // Simular valores en localStorage
+    Storage.prototype.getItem = jest.fn((key) => {
+        if (key === 'currency') return 'USD';
+        if (key === 'language') return 'en';
+        return null;
+    });
+});
+
 beforeAll(() => {
     global.URL.createObjectURL = jest.fn(() => 'mock-url');
 });

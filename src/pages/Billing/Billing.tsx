@@ -40,7 +40,9 @@ const IncidentesFacturados: React.FC = () => {
   useEffect(() => {
     if (selectedFacturaId) {
 
-      const currency = "USD";
+      const currency = localStorage.getItem('currency') || 'USD';
+      const language = localStorage.getItem('language') || 'es';
+
 
       axiosInstance
         .get(`/facturas/${Number(selectedFacturaId)}/incidentes`, {
@@ -65,8 +67,8 @@ const IncidentesFacturados: React.FC = () => {
   const handleDownloadFactura = () => {
     if (selectedFacturaId) {
 
-      const currency = "USD"; 
-      const language = "en";
+      const currency = localStorage.getItem('currency') || 'USD';
+      const language = localStorage.getItem('language') || 'es';
   
       axiosInstance
         .get(`/facturas/${Number(selectedFacturaId)}/download`, {

@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 const LanguageSelector: React.FC = () => {
     const { i18n } = useTranslation();
 
+    useEffect(() => {
+        const savedLanguage = localStorage.getItem('language') || 'es';
+        i18n.changeLanguage(savedLanguage);
+    }, [i18n]);
+
     const changeLanguage = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        i18n.changeLanguage(e.target.value);
+        const newLanguage = e.target.value;
+        i18n.changeLanguage(newLanguage);
+        localStorage.setItem('language', newLanguage);
     };
 
     return (
