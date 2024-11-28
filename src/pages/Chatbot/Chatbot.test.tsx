@@ -102,3 +102,46 @@ describe('Send message', () => {
         );
     });
 });
+
+describe('Receive message', () => {
+    test('should receive a message', async () => {
+        // Mockear respuesta de Axios
+        mockAxiosInstance.get.mockResolvedValueOnce({
+            data: {
+                solutions: [
+                    { solucion: 'Reinicia tu router.' },
+                    { solucion: 'Verifica los cables.' },
+                ],
+            },
+        });
+
+        render(<Chatbot />);
+
+        // Buscar y hacer clic en el botón para abrir el chatbot
+        const openChatbotButton = screen.getByText('Chat en línea');
+        fireEvent.click(openChatbotButton);
+
+        // Esperar a que el contenido del chatbot sea visible
+        await waitFor(() =>
+            expect(screen.getByText('Asistente Virtual')).toBeInTheDocument()
+        );
+
+        // Buscar el campo de texto y escribir un mensaje
+        const messageInput = screen.getByPlaceholderText('Escribe un mensaje...');
+        fireEvent.change(messageInput, { target: { value: 'CC' } });
+
+        // Buscar y hacer clic en el botón para enviar el mensaje
+        const sendMessageButton = screen.getByRole('button', { name: /send icon/i });
+        fireEvent.click(sendMessageButton);
+
+        // Esperar a que el mensaje sea enviado
+        await waitFor(() =>
+            expect(screen.getByText('CC')).toBeInTheDocument()
+        );
+
+        // Esperar a que el mensaje de respuesta sea recibido
+        await waitFor(() =>
+            expect(screen.getByText('Por favor, ingresa tu número de identificación.')).toBeInTheDocument()
+        );
+    });
+});
