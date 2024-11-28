@@ -25,7 +25,6 @@ const CreateIncident: React.FC<CreateIncidentProps> = ({
         canal: '',
         cliente: initialUserInfo ? initialUserInfo.cliente_id : '',
         estado: 'abierto',
-        fecha_creacion: new Date().toISOString().slice(0, 10),
         fecha_cierre: '',
         solucion: '',
         identificacion_usuario: ''
@@ -89,7 +88,6 @@ const CreateIncident: React.FC<CreateIncidentProps> = ({
                 canal: formData.canal,
                 cliente_id: parseInt(formData.cliente),
                 estado: formData.estado,
-                fecha_creacion: formData.fecha_creacion,
                 fecha_cierre: formData.fecha_cierre || null,
                 solucion: formData.solucion || null,
                 identificacion_usuario: initialUserInfo ? initialUserInfo.identificacion_usuario : null,
