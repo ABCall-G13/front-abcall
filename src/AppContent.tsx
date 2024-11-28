@@ -3,6 +3,8 @@ import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
 import Sidebar from './components/Sidebar/Sidebar';
 import { useAuth } from './context/AuthContext';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
+import Chatbot from './pages/Chatbot/Chatbot';
 
 const LookerDashboard = lazy(() => import('./pages/Dashboard/Dashboard'));
 const Register = lazy(() => import('./pages/Register/Register'));
@@ -28,6 +30,7 @@ const AppContent: React.FC = () => {
     // Determina si mostrar el sidebar y el navbar
     const showSidebar = isAuthenticated && role !== null;
     const showNavbar = !isAuthenticated || role === null;
+    const showChat = !isAuthenticated || role === null;
 
     return (
         <div className="app-container">
@@ -57,7 +60,6 @@ const AppContent: React.FC = () => {
                                 element={<IncidentSearch />}
                             />
 
-
                             {/* Rutas para clientes */}
                             {isAuthenticated && role === 'cliente' && (
                                 <>
@@ -85,13 +87,12 @@ const AppContent: React.FC = () => {
                                     />
                                 </>
                             )}
-
-                            {/* Redireccionar a la página de inicio si la ruta no está permitida */}
                             <Route
                                 path="*"
                                 element={<Navigate to="/" replace />}
                             />
                         </Routes>
+                        {showChat && <Chatbot />}
                     </Suspense>
                 </div>
             </div>
